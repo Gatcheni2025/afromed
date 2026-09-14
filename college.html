@@ -1,447 +1,945 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Afromed College | Emergency Medical Training</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --primary-blue: #0A2540;     
-            --accent-red: #D90429;       
-            --bg-light: #F8FAFC;          
-            --text-main: #1E293B;
-            --text-muted: #64748B;
-            --border: #E2E8F0;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore Afromed Emergency College programmes, learning structure, student benefits, admissions journey and graduation pathway in KwaZulu-Natal, South Africa.">
+  <title>Afromed Emergency College | Practical Training for Careers That Matter</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { color: var(--text-main); background-color: white; overflow-x: hidden; line-height: 1.6; }
-        .hidden { display: none !important; }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        /* =========================================
-           NAVIGATION
-           ========================================= */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1rem 5%; background: rgba(255, 255, 255, 0.98); 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            position: sticky; top: 0; z-index: 100;
-            backdrop-filter: blur(10px);
-        }
-        .logo img { height: 45px; transition: var(--transition); } 
-        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--primary-blue); font-weight: 500; transition: var(--transition); font-size: 0.95rem; }
-        .nav-links a:hover { color: var(--accent-red); }
-        .btn-portal { background: var(--accent-red); color: white !important; padding: 0.6rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; box-shadow: 0 4px 12px rgba(217, 4, 41, 0.2); transition: var(--transition); }
-        .btn-portal:hover { background: #b00320; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(217, 4, 41, 0.3); }
+  <style>
+    :root{
+      --navy:#071b2f;
+      --navy-2:#0b2947;
+      --red:#d7192d;
+      --red-dark:#b61124;
+      --ink:#172033;
+      --muted:#64748b;
+      --line:#e5eaf0;
+      --surface:#f7f9fc;
+      --white:#fff;
+      --sky:#eaf4fb;
+      --shadow:0 22px 60px rgba(7,27,47,.10);
+      --radius:26px;
+    }
 
-        /* Mobile Nav Toggle */
-        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary-blue); cursor: pointer; }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      color:var(--ink);
+      background:#fff;
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    img{display:block;max-width:100%}
+    a{color:inherit}
+    button,input,select,textarea{font:inherit}
+    .container{width:min(1180px,calc(100% - 32px));margin-inline:auto}
+    .section{padding:88px 0}
+    .section.soft{background:var(--surface)}
+    .section-head{max-width:760px;margin-bottom:34px}
+    .section-head.center{text-align:center;margin-inline:auto}
+    .section-head h2{
+      margin:14px 0 12px;
+      font-size:clamp(2rem,4vw,3.1rem);
+      line-height:1.08;
+      letter-spacing:-.04em;
+      color:var(--navy)
+    }
+    .section-head p{margin:0;color:var(--muted);font-size:1.04rem}
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      padding:8px 13px;
+      border-radius:999px;
+      background:rgba(215,25,45,.08);
+      color:var(--red);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase
+    }
+    .eyebrow:before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor}
 
-        /* =========================================
-           HERO SECTION
-           ========================================= */
-        .hero {
-            /* UPDATED BACKGROUND IMAGE HERE */
-            background: linear-gradient(rgba(10, 37, 64, 0.75), rgba(10, 37, 64, 0.9)), url('https://www.afromed.life/images/college/1M4A8441.jpg') center/cover;
-            color: white; padding: 8rem 5% 6rem; text-align: center;
-        }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 1.2rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
-        .hero p { font-size: 1.15rem; margin-bottom: 2.5rem; color: #E2E8F0; max-width: 700px; margin-left: auto; margin-right: auto; font-weight: 300; }
-        .hwseta-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); padding: 0.5rem 1.2rem; border-radius: 30px; margin-bottom: 2rem; font-weight: 500; font-size: 0.9rem; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); }
-        
-        .stats { display: flex; justify-content: center; gap: 5rem; padding: 3.5rem 5%; background: var(--primary-blue); color: white; flex-wrap: wrap; }
-        .stat-item { text-align: center; }
-        .stat-item h3 { font-size: 3rem; color: var(--accent-red); margin-bottom: 0.2rem; font-weight: 700; }
-        .stat-item p { font-size: 0.95rem; color: #CBD5E1; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+    /* TOP + NAV */
+    .topbar{background:var(--navy);color:#cbd5e1;font-size:12px}
+    .topbar .container{
+      min-height:38px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px
+    }
+    .topbar strong{color:#fff}
+    .site-nav{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(255,255,255,.96);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(226,232,240,.9)
+    }
+    .nav-inner{
+      min-height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px
+    }
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .brand img{height:44px;width:auto}
+    .brand-copy{display:flex;flex-direction:column;line-height:1.08}
+    .brand-copy strong{color:var(--navy);font-size:14px}
+    .brand-copy span{color:var(--muted);font-size:11px;margin-top:4px}
+    .nav-links{display:flex;align-items:center;gap:24px}
+    .nav-links a{text-decoration:none;color:#425066;font-size:14px;font-weight:700}
+    .nav-links a:hover{color:var(--red)}
+    .nav-actions{display:flex;align-items:center;gap:10px}
+    .btn{
+      border:0;
+      border-radius:12px;
+      padding:12px 17px;
+      font-weight:800;
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      transition:.2s ease
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--red);color:#fff;box-shadow:0 10px 24px rgba(215,25,45,.22)}
+    .btn-primary:hover{background:var(--red-dark)}
+    .btn-dark{background:var(--navy);color:#fff}
+    .btn-light{background:#fff;color:var(--navy);border:1px solid var(--line)}
+    .menu-btn{
+      display:none;
+      width:44px;
+      height:44px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--navy);
+      border-radius:12px;
+      font-size:22px;
+      cursor:pointer
+    }
 
-        /* =========================================
-           SECTIONS & CARDS
-           ========================================= */
-        .section { padding: 6rem 5%; max-width: 1300px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 1rem; font-weight: 700; letter-spacing: -0.02em; }
-        .section-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 4rem; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    /* HERO */
+    .hero{
+      position:relative;
+      min-height:670px;
+      display:grid;
+      align-items:center;
+      overflow:hidden;
+      background:var(--navy);
+      color:#fff
+    }
+    .hero-media,.hero-media:after{position:absolute;inset:0}
+    .hero-media img{width:100%;height:100%;object-fit:cover;opacity:.55}
+    .hero-media:after{
+      content:'';
+      background:
+        linear-gradient(90deg,rgba(7,27,47,.98) 0%,rgba(7,27,47,.88) 46%,rgba(7,27,47,.28) 78%,rgba(7,27,47,.58) 100%),
+        linear-gradient(0deg,rgba(7,27,47,.78),transparent 45%)
+    }
+    .hero .container{position:relative;z-index:2;padding-block:84px}
+    .hero-content{max-width:770px}
+    .hero .eyebrow{color:#fff;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18)}
+    .hero h1{
+      font-size:clamp(2.75rem,6vw,5rem);
+      line-height:.99;
+      letter-spacing:-.055em;
+      margin:20px 0
+    }
+    .hero p{color:#d8e2ec;font-size:clamp(1rem,2vw,1.2rem);max-width:680px;margin:0 0 28px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+    .hero .btn-light{background:rgba(255,255,255,.10);color:#fff;border-color:rgba(255,255,255,.25);backdrop-filter:blur(10px)}
+    .hero-trust{margin-top:44px;display:flex;flex-wrap:wrap;gap:12px}
+    .trust-chip{
+      padding:9px 12px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:12px;
+      background:rgba(255,255,255,.08);
+      color:#e5eef7;
+      font-size:13px;
+      font-weight:700;
+      backdrop-filter:blur(8px)
+    }
 
-        /* About Grid */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-        .about-image { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); object-fit: cover; height: 500px; }
-        .about-features { display: grid; gap: 2rem; margin-top: 2rem; }
-        .feature-item { display: flex; gap: 1.5rem; align-items: flex-start; }
-        .feature-icon { background: rgba(217, 4, 41, 0.1); color: var(--accent-red); padding: 1rem; border-radius: 12px; font-size: 1.5rem; }
-        .feature-text h4 { color: var(--primary-blue); margin-bottom: 0.5rem; font-size: 1.2rem; }
-        .feature-text p { color: var(--text-muted); font-size: 0.95rem; }
+    /* FACTS */
+    .facts-wrap{margin-top:-46px;position:relative;z-index:5}
+    .facts{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      background:#fff;
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      border:1px solid rgba(226,232,240,.8)
+    }
+    .fact{padding:28px 26px;position:relative}
+    .fact:not(:last-child):after{content:'';position:absolute;right:0;top:22px;bottom:22px;width:1px;background:var(--line)}
+    .fact strong{display:block;font-size:1.8rem;line-height:1;color:var(--navy);letter-spacing:-.04em}
+    .fact span{display:block;margin-top:8px;color:var(--muted);font-size:13px;font-weight:700}
 
-        /* Course Cards Grid */
-        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
-        .card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid var(--border); transition: var(--transition); display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1); border-color: rgba(217,4,41,0.2); }
-        .card-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid var(--border); }
-        .card-content { padding: 2rem; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-content h4 { color: var(--primary-blue); margin-bottom: 1rem; font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
-        .card-content p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; }
-        .read-more { color: var(--accent-red); font-weight: 600; text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px; }
-        .read-more:hover { color: #b00320; }
+    /* ABOUT */
+    .intro-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+    .feature-list{display:grid;gap:14px;margin-top:26px}
+    .feature-row{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start}
+    .feature-icon{width:42px;height:42px;border-radius:13px;background:var(--sky);color:var(--navy-2);display:grid;place-items:center;font-weight:800}
+    .feature-row h3{margin:2px 0 4px;color:var(--navy);font-size:1rem}
+    .feature-row p{margin:0;color:var(--muted);font-size:.92rem}
+    .image-card{position:relative}
+    .image-card img{width:100%;height:530px;object-fit:cover;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .image-note{
+      position:absolute;
+      left:22px;
+      right:22px;
+      bottom:22px;
+      background:rgba(7,27,47,.91);
+      color:#fff;
+      border-radius:18px;
+      padding:18px;
+      backdrop-filter:blur(12px)
+    }
+    .image-note strong{display:block}
+    .image-note span{display:block;margin-top:4px;color:#d4deea;font-size:13px}
 
-        /* Contact Form */
-        .contact-container { background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 700px; margin: 0 auto; border: 1px solid var(--border); }
-        .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
-        .contact-form input, .contact-form select, .contact-form textarea { padding: 1.2rem; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; background: var(--bg-light); transition: var(--transition); }
-        .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { outline: none; border-color: var(--primary-blue); background: white; }
-        .contact-form button { padding: 1.2rem; background: var(--primary-blue); color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: var(--transition); }
-        .contact-form button:hover { background: #071a2d; transform: translateY(-2px); }
+    /* COURSES */
+    .course-tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+    .course-tab{
+      border:1px solid var(--line);
+      background:#fff;
+      color:#536174;
+      padding:10px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:13px
+    }
+    .course-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .course-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:25px;
+      display:flex;
+      flex-direction:column;
+      min-height:360px;
+      transition:.25s ease
+    }
+    .course-card:hover{transform:translateY(-5px);border-color:#d2dae4;box-shadow:0 18px 40px rgba(7,27,47,.09)}
+    .course-card.hidden-card{display:none}
+    .course-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+    .course-icon{width:48px;height:48px;border-radius:15px;background:#f1f5f9;color:var(--navy);display:grid;place-items:center;font-size:14px;font-weight:900}
+    .course-tag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--red);background:rgba(215,25,45,.08);border-radius:999px;padding:7px 9px}
+    .course-card h3{margin:22px 0 10px;color:var(--navy);font-size:1.22rem;line-height:1.28}
+    .course-card p{margin:0;color:var(--muted);font-size:.92rem}
+    .course-meta{margin:18px 0;display:grid;gap:8px;color:#48566a;font-size:13px}
+    .course-meta span:before{content:'•';color:var(--red);margin-right:8px}
+    .course-footer{
+      margin-top:auto;
+      padding-top:18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      border-top:1px solid var(--line)
+    }
+    .course-footer small{color:var(--muted)}
+    .course-footer a{color:var(--red);text-decoration:none;font-weight:800;font-size:13px}
 
-        footer { background: #051424; color: white; padding: 4rem 5% 2rem; text-align: center; }
-        .footer-logo { height: 60px; margin-bottom: 1.5rem; filter: brightness(0) invert(1); }
+    /* JOURNEY */
+    .journey-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:36px}
+    .journey-step{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px}
+    .step-no{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--navy);color:#fff;font-weight:800;font-size:13px}
+    .journey-step h3{font-size:1rem;color:var(--navy);margin:18px 0 8px}
+    .journey-step p{margin:0;color:var(--muted);font-size:.88rem}
 
-        /* =========================================
-           LOGIN MODAL
-           ========================================= */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(10, 37, 64, 0.8); display: flex; justify-content: center; align-items: center;
-            z-index: 1000; backdrop-filter: blur(8px); opacity: 1; transition: opacity 0.3s ease;
-        }
-        .modal-overlay.hidden { opacity: 0; pointer-events: none; }
-        
-        .login-box {
-            background: white; padding: 3rem; border-radius: 20px; width: 100%; max-width: 420px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); position: relative; transform: translateY(0); transition: transform 0.3s ease;
-        }
-        .modal-overlay.hidden .login-box { transform: translateY(20px); }
-        
-        .close-modal { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.05); border: none; font-size: 1.2rem; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; color: var(--text-main); transition: var(--transition); }
-        .close-modal:hover { background: rgba(0,0,0,0.1); color: var(--accent-red); }
-        
-        .login-box h2 { color: var(--primary-blue); margin-bottom: 0.5rem; text-align: center; font-weight: 700; }
-        .login-box p { text-align: center; color: var(--text-muted); margin-bottom: 2rem; font-size: 0.95rem; }
-        
-        .auth-input { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; background: var(--bg-light); }
-        .auth-input:focus { outline: none; border-color: var(--primary-blue); background: white; }
-        
-        .btn-auth { width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; transition: var(--transition); font-size: 1rem; }
-        .btn-email { background: var(--primary-blue); color: white; box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2); }
-        .btn-email:hover { background: #071a2d; transform: translateY(-1px); }
-        .btn-google { background: white; color: #444; border: 1px solid var(--border); }
-        .btn-google:hover { background: #f1f5f9; }
-        .btn-ms { background: #2F2F2F; color: white; }
-        .btn-ms:hover { background: #1a1a1a; }
-        
-        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
-        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
-        .divider:not(:empty)::before { margin-right: .5em; }
-        .divider:not(:empty)::after { margin-left: .5em; }
+    /* GRADUATION */
+    .graduate-wrap{background:var(--navy);border-radius:30px;padding:48px;color:#fff;overflow:hidden;position:relative}
+    .graduate-wrap:after{content:'';position:absolute;width:330px;height:330px;border-radius:50%;right:-130px;top:-140px;background:rgba(215,25,45,.22)}
+    .graduate-grid{position:relative;z-index:2;display:grid;grid-template-columns:.9fr 1.1fr;gap:46px;align-items:start}
+    .graduate-wrap h2{margin:12px 0;font-size:clamp(2rem,4vw,3rem);line-height:1.08;letter-spacing:-.04em}
+    .graduate-wrap p{color:#c9d5e2;margin:0}
+    .check-list{display:grid;gap:13px}
+    .check-item{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start}
+    .check{width:30px;height:30px;border-radius:10px;background:rgba(255,255,255,.11);display:grid;place-items:center;font-weight:900}
+    .check-item strong{display:block;font-size:.95rem}
+    .check-item span{display:block;color:#c9d5e2;font-size:.85rem;margin-top:2px}
+    .notice{margin-top:18px;font-size:12px;color:#aebed0}
 
-        #auth-error { color: var(--accent-red); font-size: 0.9rem; text-align: center; margin-bottom: 15px; display: none; background: rgba(217, 4, 41, 0.1); padding: 10px; border-radius: 8px; }
+    /* BENEFITS */
+    .benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .benefit-card{padding:25px;background:#fff;border:1px solid var(--line);border-radius:20px}
+    .mini{width:38px;height:38px;border-radius:12px;background:var(--sky);color:var(--navy);display:grid;place-items:center;font-weight:900}
+    .benefit-card h3{margin:16px 0 7px;font-size:1.02rem;color:var(--navy)}
+    .benefit-card p{margin:0;color:var(--muted);font-size:.9rem}
 
-        /* =========================================
-           RESPONSIVE DESIGN
-           ========================================= */
-        @media (max-width: 992px) {
-            .about-grid { grid-template-columns: 1fr; }
-            .about-image { height: 400px; }
-            .hero h1 { font-size: 2.8rem; }
-        }
-        @media (max-width: 768px) {
-            .nav-links {
-                position: absolute; top: 100%; left: 0; right: 0; background: white;
-                flex-direction: column; padding: 2rem 5%; gap: 1.5rem;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-top: 1px solid var(--border);
-                display: none; /* toggled via JS */
-            }
-            .nav-links.active { display: flex; }
-            .mobile-menu-btn { display: block; }
-            .stats { gap: 2rem; }
-            .stat-item { width: 40%; }
-        }
-    </style>
+    /* CAMPUS */
+    .campus-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .campus-card{min-height:390px;border-radius:26px;overflow:hidden;position:relative;background:var(--navy)}
+    .campus-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.65}
+    .campus-card:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,27,47,.96),rgba(7,27,47,.05) 75%)}
+    .campus-copy{position:absolute;z-index:2;left:26px;right:26px;bottom:24px;color:#fff}
+    .campus-copy h3{margin:0 0 5px;font-size:1.45rem}
+    .campus-copy p{margin:0;color:#d5e0ea;font-size:.9rem}
+
+    /* FAQ */
+    .faq{display:grid;gap:12px;max-width:900px;margin:0 auto}
+    .faq-item{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+    .faq-btn{width:100%;border:0;background:#fff;padding:19px 21px;display:flex;align-items:center;justify-content:space-between;gap:18px;cursor:pointer;color:var(--navy);font-weight:800;text-align:left}
+    .faq-btn span:last-child{font-size:20px;color:var(--red)}
+    .faq-panel{display:none;padding:0 21px 20px;color:var(--muted);font-size:.92rem}
+    .faq-item.open .faq-panel{display:block}
+
+    /* CONTACT */
+    .contact-box{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;background:#fff;border:1px solid var(--line);border-radius:28px;padding:30px;box-shadow:var(--shadow)}
+    .contact-side{background:var(--navy);color:#fff;border-radius:22px;padding:30px}
+    .contact-side h3{font-size:1.8rem;margin:14px 0 10px;line-height:1.12}
+    .contact-side p{color:#cbd5e1;font-size:.92rem}
+    .contact-points{display:grid;gap:12px;margin-top:28px;font-size:13px;color:#dce6ef}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .field{display:grid;gap:7px}
+    .field.full{grid-column:1/-1}
+    .field label{color:#445064;font-size:12px;font-weight:800}
+    .field input,.field select,.field textarea{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fbfcfe;
+      padding:13px 14px;
+      color:var(--ink);
+      outline:none
+    }
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:#9fb5c8;background:#fff;box-shadow:0 0 0 4px rgba(11,41,71,.06)}
+    .field textarea{min-height:116px;resize:vertical}
+    .form-note{margin-top:12px;color:var(--muted);font-size:12px}
+
+    /* FOOTER */
+    footer{background:#041322;color:#fff;padding:58px 0 28px}
+    .footer-grid{display:grid;grid-template-columns:1.1fr .9fr .9fr;gap:38px}
+    .footer-logo{height:48px;width:auto;filter:brightness(0) invert(1)}
+    .footer-copy{color:#9fb0c1;font-size:13px;max-width:420px;margin-top:16px}
+    .footer-col h4{margin:0 0 12px;font-size:13px}
+    .footer-col a,.footer-col span{display:block;color:#9fb0c1;text-decoration:none;font-size:13px;margin:8px 0}
+    .footer-col a:hover{color:#fff}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:34px;padding-top:20px;color:#7f93a6;font-size:12px}
+
+    /* LOGIN */
+    .modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(4,19,34,.78);display:grid;place-items:center;padding:20px;backdrop-filter:blur(8px)}
+    .modal-overlay.hidden{display:none}
+    .login-box{width:min(430px,100%);background:#fff;border-radius:24px;padding:30px;position:relative;box-shadow:0 32px 90px rgba(0,0,0,.35)}
+    .login-box>img{height:46px;width:auto;margin:0 auto 18px}
+    .login-box h2{text-align:center;color:var(--navy);margin:0 0 7px}
+    .login-box>p{text-align:center;color:var(--muted);font-size:13px;margin:0 0 20px}
+    .close-modal{position:absolute;right:16px;top:16px;width:36px;height:36px;border:1px solid var(--line);background:#fff;border-radius:50%;cursor:pointer;font-size:19px}
+    .auth-input{width:100%;padding:13px 14px;margin-bottom:11px;border:1px solid var(--line);border-radius:12px;outline:none}
+    .btn-auth{width:100%;border:0;border-radius:12px;padding:13px;margin:6px 0;cursor:pointer;font-weight:800}
+    .btn-email{background:var(--navy);color:#fff}
+    .btn-google{background:#fff;color:#243145;border:1px solid var(--line)}
+    .btn-ms{background:#252525;color:#fff}
+    .divider{display:flex;align-items:center;gap:10px;color:#8a98a9;font-size:11px;margin:13px 0}
+    .divider:before,.divider:after{content:'';flex:1;height:1px;background:var(--line)}
+    #auth-error{display:none;margin-bottom:12px;background:#fff0f2;color:#a91526;border-radius:10px;padding:10px;font-size:12px}
+
+    @media(max-width:1024px){
+      .nav-links{
+        display:none;
+        position:absolute;
+        top:76px;
+        left:16px;
+        right:16px;
+        background:#fff;
+        border:1px solid var(--line);
+        border-radius:18px;
+        padding:18px;
+        box-shadow:var(--shadow);
+        flex-direction:column;
+        align-items:flex-start
+      }
+      .nav-links.active{display:flex}
+      .menu-btn{display:grid;place-items:center}
+      .nav-actions .btn-light{display:none}
+      .facts{grid-template-columns:repeat(2,1fr)}
+      .fact:nth-child(2):after{display:none}
+      .intro-grid,.graduate-grid,.contact-box{grid-template-columns:1fr}
+      .course-grid{grid-template-columns:repeat(2,1fr)}
+      .journey-grid{grid-template-columns:repeat(2,1fr)}
+      .benefit-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media(max-width:720px){
+      .topbar .container{justify-content:center;text-align:center}
+      .topbar .container span:last-child{display:none}
+      .brand-copy{display:none}
+      .site-nav .btn-primary{padding:11px 13px;font-size:12px}
+      .hero{min-height:610px}
+      .hero-media:after{background:linear-gradient(90deg,rgba(7,27,47,.96),rgba(7,27,47,.77))}
+      .hero .container{padding-block:66px}
+      .facts-wrap{margin-top:-28px}
+      .facts{grid-template-columns:1fr 1fr}
+      .fact{padding:20px 18px}
+      .fact strong{font-size:1.45rem}
+      .section{padding:68px 0}
+      .intro-grid{gap:32px}
+      .image-card img{height:360px}
+      .course-grid,.benefit-grid,.campus-grid,.form-grid{grid-template-columns:1fr}
+      .field.full{grid-column:auto}
+      .journey-grid{grid-template-columns:1fr}
+      .graduate-wrap{padding:30px 22px}
+      .contact-box{padding:16px}
+      .footer-grid{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
 
-    <!-- NAVIGATION -->
-    <nav>
-        <div class="logo">
-            <img src="https://www.afromed.life/logo/logo.png" alt="Afromed Logo">
-        </div>
-        <button class="mobile-menu-btn" onclick="document.getElementById('nav-links').classList.toggle('active')">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-        <div class="nav-links" id="nav-links">
-            <a href="#about" onclick="document.getElementById('nav-links').classList.remove('active')">About</a>
-            <a href="#courses" onclick="document.getElementById('nav-links').classList.remove('active')">Courses</a>
-            <a href="#contact" onclick="document.getElementById('nav-links').classList.remove('active')">Contact</a>
-            <button id="nav-portal-btn" class="btn-portal" onclick="openLoginModal()">Student Portal <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="hwseta-tag"><i class="fa-solid fa-certificate" style="color: #FFD700;"></i> HWSETA Accredited Institution</div>
-        <h1>Empowering Lifesavers of Tomorrow</h1>
-        <p>Premium hands-on learning with experienced emergency medical trainers. Real-world skills for life-saving careers at our Durban and Manguzi campuses.</p>
-        <button class="btn-portal" style="font-size: 1.1rem; padding: 1rem 2.5rem;" onclick="document.getElementById('courses').scrollIntoView({behavior: 'smooth'})">Explore Our Courses</button>
-    </section>
-
-    <!-- STATS BAR -->
-    <section class="stats">
-        <div class="stat-item"><h3>1,280+</h3><p>Students Trained</p></div>
-        <div class="stat-item"><h3>7</h3><p>Premium Courses</p></div>
-        <div class="stat-item"><h3>12</h3><p>Years of Excellence</p></div>
-        <div class="stat-item"><h3>2</h3><p>Modern Campuses</p></div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section id="about" class="section">
-        <div class="about-grid">
-            <div>
-                <h2 class="section-title" style="text-align: left;">About Afromed College</h2>
-                <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Afromed College is a premier emergency medical training institution based in South Africa. We combine rigorous theory with intensive hands-on practical training to prepare you for rewarding careers in emergency medical services, forestry safety, and early childhood development.</p>
-                
-                <div class="about-features">
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fa-solid fa-certificate"></i></div>
-                        <div class="feature-text">
-                            <h4>HWSETA Accredited</h4>
-                            <p>All our major courses are rigorously quality assured and recognized nationally.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fa-solid fa-user-doctor"></i></div>
-                        <div class="feature-text">
-                            <h4>Expert Trainers</h4>
-                            <p>Learn directly from seasoned professionals with real-world EMS and safety backgrounds.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon"><i class="fa-solid fa-building"></i></div>
-                        <div class="feature-text">
-                            <h4>Two Premium Campuses</h4>
-                            <p>Conveniently located facilities equipped for modern training in Durban (Avoca Hills) & Manguzi.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <!-- UPDATED ABOUT IMAGE -->
-                <img src="https://www.afromed.life/images/college/1M4A8442.jpg" alt="Medical Training" class="about-image">
-            </div>
-        </div>
-    </section>
-
-    <!-- COURSES SECTION -->
-    <section id="courses" class="section" style="background: var(--bg-light); max-width: 100%;">
-        <div style="max-width: 1300px; margin: 0 auto;">
-            <h2 class="section-title">Our Premium Courses</h2>
-            <p class="section-subtitle">Industry-aligned programmes curated for top-tier emergency & safety careers</p>
-            
-            <div class="grid-cards">
-                <!-- Course 1 -->
-                <div class="card">
-                    <img src="https://www.afromed.life/images/college/1M4A8443.jpg" class="card-img" alt="Advanced First Aid">
-                    <div class="card-content">
-                        <h4>Advanced Emergency First Aid Responder</h4>
-                        <p>Comprehensive training covering advanced life support, trauma management, and emergency clinical care.</p>
-                        <a href="#contact" class="read-more">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <!-- Course 2 -->
-                <div class="card">
-                    <img src="https://www.afromed.life/images/college/1M4A8444.jpg" class="card-img" alt="Basic First Aid">
-                    <div class="card-content">
-                        <h4>Basic Emergency First Aid Responder</h4>
-                        <p>Learn the foundational, critical first aid and CPR skills required to stabilize patients in emergency scenarios.</p>
-                        <a href="#contact" class="read-more">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <!-- Course 3 -->
-                <div class="card">
-                    <img src="https://www.afromed.life/images/college/1M4A8453.jpg" class="card-img" alt="Forestry">
-                    <div class="card-content">
-                        <h4>Forestry SHE Representative</h4>
-                        <p>Master safety, health, and environmental compliance specific to the demands of the forestry sector.</p>
-                        <a href="#contact" class="read-more">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <!-- Course 4 -->
-                <div class="card">
-                    <img src="https://www.afromed.life/images/college/1M4A8456.jpg" class="card-img" alt="Risk Assessment">
-                    <div class="card-content">
-                        <h4>Forestry Hazard and Risk Assessor</h4>
-                        <p>Develop the analytical skills to proactively identify, evaluate, and mitigate complex forestry risks.</p>
-                        <a href="#contact" class="read-more">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <!-- Course 5 -->
-                <div class="card">
-                    <img src="https://www.afromed.life/images/college/1M4A8465.jpg" class="card-img" alt="Incident Investigation">
-                    <div class="card-content">
-                        <h4>Incident Investigator</h4>
-                        <p>Learn the precise methodologies for investigating workplace incidents, accidents, and ensuring compliance.</p>
-                        <a href="#contact" class="read-more">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                <!-- Course 6 -->
-                <div class="card">
-                    <img src="https://www.afromed.life/images/college/1M4A8590.jpg" class="card-img" alt="Early Childhood">
-                    <div class="card-content">
-                        <h4>Early Childhood Practitioner</h4>
-                        <p>Professional training designed to equip you with the skills to safely nurture and educate young minds.</p>
-                        <a href="#contact" class="read-more">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="section">
-        <h2 class="section-title">Get in Touch</h2>
-        <p class="section-subtitle">Fill in our online enquiry form and an admissions officer will respond within 24 hours.</p>
-        
-        <div class="contact-container">
-            <form class="contact-form" onsubmit="event.preventDefault(); alert('Enquiry sent successfully!');">
-                <input type="text" placeholder="Full Name" required>
-                <input type="email" placeholder="Email Address" required>
-                <input type="tel" placeholder="Phone Number" required>
-                <select required>
-                    <option value="" disabled selected>Select a course of interest</option>
-                    <option>Advanced Emergency First Aid Responder</option>
-                    <option>Basic Emergency First Aid Responder</option>
-                    <option>Forestry SHE Representative</option>
-                    <option>Forestry Hazard and Risk Assessor</option>
-                    <option>Incident Investigator</option>
-                    <option>Early Childhood Practitioner</option>
-                    <option>New Venture Creation</option>
-                    <option>General Enquiry</option>
-                </select>
-                <textarea rows="5" placeholder="How can we help you?" required></textarea>
-                <button type="submit">Send Enquiry</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <img src="https://www.afromed.life/logo/logo.png" alt="Afromed Logo" class="footer-logo">
-        <p>&copy; 2026 Afromed College. All rights reserved.</p>
-        <p style="margin-top: 15px; font-size: 0.95rem; color: #94A3B8;">
-            Avoca Hills, Durban | Manguzi Campus | +27 (0)31 123 4567 | info@afromed.co.za
-        </p>
-    </footer>
-
-    <!-- LOGIN MODAL -->
-    <div id="login-modal" class="modal-overlay hidden">
-        <div class="login-box">
-            <button class="close-modal" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
-            <img src="https://www.afromed.life/logo/logo.png" alt="Afromed Logo" style="height: 45px; display: block; margin: 0 auto 20px;">
-            <h2>Student Portal Login</h2>
-            <p>Access your personalized dashboard and grades</p>
-
-            <div id="auth-error"></div>
-
-            <input type="email" id="email-input" class="auth-input" placeholder="Student Email">
-            <input type="password" id="password-input" class="auth-input" placeholder="Password">
-            <button id="btn-login-email" class="btn-auth btn-email">Sign in to Portal</button>
-
-            <div class="divider">OR</div>
-
-            <button id="btn-login-google" class="btn-auth btn-google">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width: 20px;"> Sign in with Google
-            </button>
-            <button id="btn-login-ms" class="btn-auth btn-ms">
-                <svg width="20" height="20" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="M10 0H0v10h10V0zM21 0H11v10h10V0zM10 11H0v10h10V11zM21 11H11v10h10V11z" fill="#fff"/></svg> Sign in with Microsoft
-            </button>
-        </div>
+  <div class="topbar">
+    <div class="container">
+      <span><strong>Afromed Emergency College</strong> · Professional health, safety &amp; emergency training</span>
+      <span>Durban (Avoca Hills) · Manguzi</span>
     </div>
+  </div>
 
-    <!-- UI & FIREBASE SCRIPT -->
-    <script>
-        function openLoginModal() { 
-            const modal = document.getElementById('login-modal');
-            modal.classList.remove('hidden'); 
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html" aria-label="Afromed home">
+        <img src="https://www.afromed.life/logo/logo.png" alt="Afromed logo">
+        <span class="brand-copy">
+          <strong>Afromed College</strong>
+          <span>Learn. Practise. Qualify.</span>
+        </span>
+      </a>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#about" onclick="closeMenu()">Why Afromed</a>
+        <a href="#courses" onclick="closeMenu()">Courses</a>
+        <a href="#journey" onclick="closeMenu()">How Learning Works</a>
+        <a href="#graduation" onclick="closeMenu()">Graduation</a>
+        <a href="#campuses" onclick="closeMenu()">Campuses</a>
+        <a href="#contact" onclick="closeMenu()">Admissions</a>
+      </div>
+
+      <div class="nav-actions">
+        <a class="btn btn-light" href="index.html">Afromed Group</a>
+        <button id="nav-portal-btn" class="btn btn-primary" onclick="openLoginModal()">Student Portal</button>
+        <button class="menu-btn" aria-label="Open menu" onclick="document.getElementById('nav-links').classList.toggle('active')">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-media">
+      <img src="images/slide21.jpg" alt="Afromed Emergency College practical training" fetchpriority="high" decoding="async">
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <span class="eyebrow">HWSETA-accredited training institution</span>
+        <h1>Build skills for careers that make a difference.</h1>
+        <p>Afromed Emergency College combines structured learning, practical simulation and workplace-focused skills to prepare students for emergency care, health and safety, community services and entrepreneurship.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#courses">Explore Courses</a>
+          <a class="btn btn-light" href="#contact">Speak to Admissions</a>
+        </div>
+        <div class="hero-trust">
+          <span class="trust-chip">Hands-on practical learning</span>
+          <span class="trust-chip">Industry-focused programmes</span>
+          <span class="trust-chip">Durban &amp; Manguzi campuses</span>
+          <span class="trust-chip">Student portal access</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container facts-wrap">
+    <div class="facts">
+      <div class="fact"><strong>1,280+</strong><span>Students trained</span></div>
+      <div class="fact"><strong>7</strong><span>Programme pathways</span></div>
+      <div class="fact"><strong>2</strong><span>Training campuses</span></div>
+      <div class="fact"><strong>2012</strong><span>Afromed established</span></div>
+    </div>
+  </div>
+
+  <section class="section" id="about">
+    <div class="container intro-grid">
+      <div>
+        <div class="section-head">
+          <span class="eyebrow">Why Afromed College</span>
+          <h2>Training built around competence, confidence and real-world readiness.</h2>
+          <p>Our learning model is designed to move students beyond theory. Programmes combine classroom learning with demonstrations, simulations, practical exercises and assessment so learners understand what to do and can demonstrate how to do it.</p>
+        </div>
+
+        <div class="feature-list">
+          <div class="feature-row">
+            <div class="feature-icon">01</div>
+            <div><h3>Practical-first learning</h3><p>Skills labs, scenarios and applied exercises help learners connect theory to real situations.</p></div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-icon">02</div>
+            <div><h3>Experienced facilitators</h3><p>Training is supported by professionals with backgrounds in emergency care, safety and community services.</p></div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-icon">03</div>
+            <div><h3>Structured student journey</h3><p>From admissions and orientation through assessment and completion, students know what comes next.</p></div>
+          </div>
+          <div class="feature-row">
+            <div class="feature-icon">04</div>
+            <div><h3>Career-focused outcomes</h3><p>Programmes focus on useful workplace skills, professional conduct and evidence of competence.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card">
+        <img src="images/slide16.jpg" alt="Afromed students in practical simulation training" loading="lazy" decoding="async">
+        <div class="image-note">
+          <strong>Learn by doing</strong>
+          <span>Practical exercises, demonstrations and simulations form an important part of the learning experience.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" id="courses">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Programme catalogue</span>
+        <h2>Explore our learning pathways.</h2>
+        <p>Choose a programme aligned with your goals. Duration, intake dates, entry requirements, fees and exact certification requirements can differ by programme and intake; Admissions will confirm these before registration.</p>
+      </div>
+
+      <div class="course-tabs" aria-label="Course filters">
+        <button class="course-tab active" data-filter="all">All programmes</button>
+        <button class="course-tab" data-filter="emergency">Emergency care</button>
+        <button class="course-tab" data-filter="safety">Safety &amp; forestry</button>
+        <button class="course-tab" data-filter="community">Community &amp; business</button>
+      </div>
+
+      <div class="course-grid">
+        <article class="course-card" data-category="emergency">
+          <div class="course-top"><div class="course-icon">ER+</div><span class="course-tag">Emergency care</span></div>
+          <h3>Advanced Emergency First Aid Responder</h3>
+          <p>Advanced emergency-response learning focused on patient assessment, trauma management, resuscitation principles and coordinated response in higher-risk incidents.</p>
+          <div class="course-meta"><span>Advanced response skills</span><span>Scenario-based practical learning</span><span>Assessment of applied competence</span></div>
+          <div class="course-footer"><small>Ask Admissions for intake details</small><a href="#contact" onclick="selectCourse('Advanced Emergency First Aid Responder')">Enquire →</a></div>
+        </article>
+
+        <article class="course-card" data-category="emergency">
+          <div class="course-top"><div class="course-icon">FA</div><span class="course-tag">Emergency care</span></div>
+          <h3>Basic Emergency First Aid Responder</h3>
+          <p>A foundation in emergency response, first aid and CPR designed to help learners recognise emergencies, provide immediate care and support patient stabilisation.</p>
+          <div class="course-meta"><span>First-response fundamentals</span><span>CPR and basic emergency care</span><span>Practical skills demonstration</span></div>
+          <div class="course-footer"><small>Ask Admissions for intake details</small><a href="#contact" onclick="selectCourse('Basic Emergency First Aid Responder')">Enquire →</a></div>
+        </article>
+
+        <article class="course-card" data-category="safety">
+          <div class="course-top"><div class="course-icon">SHE</div><span class="course-tag">Safety &amp; forestry</span></div>
+          <h3>Forestry SHE Representative</h3>
+          <p>Training in safety, health and environmental responsibilities for forestry environments, with emphasis on workplace awareness, reporting and compliance practice.</p>
+          <div class="course-meta"><span>Safety, health &amp; environment</span><span>Workplace representation</span><span>Forestry-focused application</span></div>
+          <div class="course-footer"><small>Ask Admissions for intake details</small><a href="#contact" onclick="selectCourse('Forestry SHE Representative')">Enquire →</a></div>
+        </article>
+
+        <article class="course-card" data-category="safety">
+          <div class="course-top"><div class="course-icon">RA</div><span class="course-tag">Safety &amp; forestry</span></div>
+          <h3>Forestry Hazard and Risk Assessor</h3>
+          <p>Develops the ability to identify hazards, analyse risk, recommend controls and contribute to safer forestry operations using structured assessment methods.</p>
+          <div class="course-meta"><span>Hazard identification</span><span>Risk evaluation</span><span>Control recommendations</span></div>
+          <div class="course-footer"><small>Ask Admissions for intake details</small><a href="#contact" onclick="selectCourse('Forestry Hazard and Risk Assessor')">Enquire →</a></div>
+        </article>
+
+        <article class="course-card" data-category="safety">
+          <div class="course-top"><div class="course-icon">II</div><span class="course-tag">Safety</span></div>
+          <h3>Incident Investigator</h3>
+          <p>Builds skills for gathering facts, analysing contributing factors, documenting findings and supporting corrective actions after workplace incidents.</p>
+          <div class="course-meta"><span>Evidence gathering</span><span>Incident analysis</span><span>Reporting &amp; corrective action</span></div>
+          <div class="course-footer"><small>Ask Admissions for intake details</small><a href="#contact" onclick="selectCourse('Incident Investigator')">Enquire →</a></div>
+        </article>
+
+        <article class="course-card" data-category="community">
+          <div class="course-top"><div class="course-icon">ECD</div><span class="course-tag">Community</span></div>
+          <h3>Early Childhood Practitioner</h3>
+          <p>Professional development for learners working with young children, with emphasis on safe learning environments, child development and responsible care.</p>
+          <div class="course-meta"><span>Child development</span><span>Safe learning environments</span><span>Professional practice</span></div>
+          <div class="course-footer"><small>Ask Admissions for intake details</small><a href="#contact" onclick="selectCourse('Early Childhood Practitioner')">Enquire →</a></div>
+        </article>
+
+        <article class="course-card" data-category="community">
+          <div class="course-top"><div class="course-icon">NVC</div><span class="course-tag">Business</span></div>
+          <h3>New Venture Creation</h3>
+          <p>An entrepreneurship pathway designed to help learners understand business fundamentals, opportunity development, planning and the practical steps required to build a sustainable venture.</p>
+          <div class="course-meta"><span>Entrepreneurial thinking</span><span>Business planning</span><span>Practical venture development</span></div>
+          <div class="course-footer"><small>Ask Admissions for intake details</small><a href="#contact" onclick="selectCourse('New Venture Creation')">Enquire →</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="journey">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">How learning works</span>
+        <h2>A clear journey from application to completion.</h2>
+        <p>The exact structure varies by programme, but students can expect a guided process that combines orientation, learning, practical work and formal assessment.</p>
+      </div>
+
+      <div class="journey-grid">
+        <div class="journey-step"><div class="step-no">1</div><h3>Apply &amp; confirm eligibility</h3><p>Choose a course, submit your details and supporting documents, and receive confirmation of programme-specific entry requirements.</p></div>
+        <div class="journey-step"><div class="step-no">2</div><h3>Orientation &amp; study plan</h3><p>Understand the timetable, learning outcomes, assessment requirements, student support and how to use the student portal.</p></div>
+        <div class="journey-step"><div class="step-no">3</div><h3>Theory &amp; guided learning</h3><p>Build core knowledge through facilitated lessons, learning material, discussion and structured activities.</p></div>
+        <div class="journey-step"><div class="step-no">4</div><h3>Practical &amp; evidence</h3><p>Demonstrate skills through practical exercises, simulations and, where required, workplace or portfolio evidence.</p></div>
+        <div class="journey-step"><div class="step-no">5</div><h3>Assessment &amp; completion</h3><p>Complete the required assessments and administrative steps before final results and programme completion are confirmed.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="graduation">
+    <div class="container">
+      <div class="graduate-wrap">
+        <div class="graduate-grid">
+          <div>
+            <span class="eyebrow" style="color:#fff;background:rgba(255,255,255,.1)">Graduation pathway</span>
+            <h2>What do I need to complete before I graduate?</h2>
+            <p>Graduation and certification are based on the requirements of the programme you register for. Your facilitator and Admissions team will confirm the exact requirements for your intake.</p>
+          </div>
+
+          <div>
+            <div class="check-list">
+              <div class="check-item"><div class="check">✓</div><div><strong>Complete required learning activities</strong><span>Finish the modules, classwork and learning activities assigned to your programme.</span></div></div>
+              <div class="check-item"><div class="check">✓</div><div><strong>Demonstrate practical competence</strong><span>Complete the required skills demonstrations, simulations or practical evidence.</span></div></div>
+              <div class="check-item"><div class="check">✓</div><div><strong>Meet assessment requirements</strong><span>Achieve competence in the assessments, projects or portfolio components required by the programme.</span></div></div>
+              <div class="check-item"><div class="check">✓</div><div><strong>Meet attendance and administration requirements</strong><span>Maintain the required participation and ensure programme documentation and administrative requirements are complete.</span></div></div>
+              <div class="check-item"><div class="check">✓</div><div><strong>Receive final completion confirmation</strong><span>Once all programme requirements are satisfied, results and eligibility for the relevant completion or certification process are confirmed.</span></div></div>
+            </div>
+            <div class="notice">Programme rules differ. Afromed Admissions will provide the official requirements, duration, assessment model and certification information for the specific course and intake you select.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" id="benefits">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Student benefits</span>
+        <h2>More than a classroom experience.</h2>
+        <p>Afromed College is designed to help students build competence, confidence and professional habits that transfer into real working environments.</p>
+      </div>
+
+      <div class="benefit-grid">
+        <div class="benefit-card"><div class="mini">01</div><h3>Practical exposure</h3><p>Apply learning through demonstrations, skills practice and realistic scenarios.</p></div>
+        <div class="benefit-card"><div class="mini">02</div><h3>Career-relevant learning</h3><p>Programmes are designed around skills that matter in emergency, safety, community and business settings.</p></div>
+        <div class="benefit-card"><div class="mini">03</div><h3>Guided assessment</h3><p>Clear learning outcomes and assessment expectations help students understand what competence looks like.</p></div>
+        <div class="benefit-card"><div class="mini">04</div><h3>Student portal</h3><p>Registered learners can access a dedicated portal experience for programme and academic information.</p></div>
+        <div class="benefit-card"><div class="mini">05</div><h3>Professional environment</h3><p>Learn within an organisation that operates across emergency healthcare, training and community development.</p></div>
+        <div class="benefit-card"><div class="mini">06</div><h3>Two campus options</h3><p>Training access is available through Afromed's Durban (Avoca Hills) and Manguzi campus locations.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="campuses">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Campus experience</span>
+        <h2>Learn in environments designed for participation.</h2>
+        <p>Students can enquire about the campus and intake that best matches their selected programme.</p>
+      </div>
+
+      <div class="campus-grid">
+        <div class="campus-card">
+          <img src="images/slide17.jpg" alt="Afromed College students" loading="lazy" decoding="async">
+          <div class="campus-copy"><h3>Durban · Avoca Hills</h3><p>Afromed's Durban training base supporting classroom, practical and student learning activities.</p></div>
+        </div>
+        <div class="campus-card">
+          <img src="images/slide18.jpg" alt="Afromed training team" loading="lazy" decoding="async">
+          <div class="campus-copy"><h3>Manguzi Campus</h3><p>Accessible training for learners in northern KwaZulu-Natal, subject to programme availability and intake schedules.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft" id="faq">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Frequently asked questions</span>
+        <h2>Know what to expect before you apply.</h2>
+      </div>
+
+      <div class="faq">
+        <div class="faq-item">
+          <button class="faq-btn"><span>How do I know which course is right for me?</span><span>+</span></button>
+          <div class="faq-panel">Start with your career goal. Admissions can explain the programme focus, entry requirements, intake availability and intended learning outcomes before you register.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn"><span>How long does each programme take?</span><span>+</span></button>
+          <div class="faq-panel">Duration differs by programme and delivery format. Contact Admissions for the official duration and timetable for the next available intake.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn"><span>Are there practical assessments?</span><span>+</span></button>
+          <div class="faq-panel">Many Afromed programmes include practical or applied assessment components. The exact assessment model depends on the programme and will be explained during orientation.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn"><span>What documents do I need to apply?</span><span>+</span></button>
+          <div class="faq-panel">Document requirements differ by programme. Submit an enquiry and Admissions will provide the current checklist for your chosen intake.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-btn"><span>When can I use the Student Portal?</span><span>+</span></button>
+          <div class="faq-panel">The Student Portal is intended for registered students. Once your registration and access are confirmed, you can sign in using the credentials or sign-in method linked to your student profile.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="contact-box">
+        <div class="contact-side">
+          <span class="eyebrow" style="color:#fff;background:rgba(255,255,255,.1)">Admissions</span>
+          <h3>Ready to choose your next programme?</h3>
+          <p>Tell us what you want to study. Your enquiry can include questions about entry requirements, campus availability, fees, duration and the next intake.</p>
+
+          <div class="contact-points">
+            <span>Durban · Avoca Hills</span>
+            <span>Manguzi Campus · Northern KZN</span>
+            <span>info@afromed.co.za</span>
+          </div>
+        </div>
+
+        <form id="enquiry-form">
+          <div class="form-grid">
+            <div class="field">
+              <label for="full-name">Full name</label>
+              <input id="full-name" name="name" required placeholder="Your full name">
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input id="phone" name="phone" required placeholder="Your contact number">
+            </div>
+            <div class="field full">
+              <label for="email">Email address</label>
+              <input id="email" type="email" name="email" required placeholder="you@example.com">
+            </div>
+            <div class="field full">
+              <label for="course-select">Course of interest</label>
+              <select id="course-select" required>
+                <option value="">Select a programme</option>
+                <option>Advanced Emergency First Aid Responder</option>
+                <option>Basic Emergency First Aid Responder</option>
+                <option>Forestry SHE Representative</option>
+                <option>Forestry Hazard and Risk Assessor</option>
+                <option>Incident Investigator</option>
+                <option>Early Childhood Practitioner</option>
+                <option>New Venture Creation</option>
+                <option>General Admissions Enquiry</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="message">What would you like to know?</label>
+              <textarea id="message" placeholder="Ask about entry requirements, fees, duration, campus or intake dates..."></textarea>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" type="submit" style="margin-top:16px;width:100%">Send Admissions Enquiry</button>
+          <div class="form-note">This form opens your email application with the enquiry details filled in so you can send them to Afromed Admissions.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src="https://www.afromed.life/logo/logo.png" alt="Afromed logo">
+          <div class="footer-copy">Afromed Emergency College provides professional health, safety, emergency and community-focused training as part of the wider Afromed group.</div>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="#courses">Courses</a>
+          <a href="#journey">Learning journey</a>
+          <a href="#graduation">Graduation pathway</a>
+          <a href="#benefits">Student benefits</a>
+        </div>
+        <div class="footer-col">
+          <h4>Access</h4>
+          <a href="index.html">Afromed Group</a>
+          <a href="#contact">Admissions</a>
+          <a href="portal.html">Student Portal</a>
+          <span>Durban · Manguzi</span>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Afromed Emergency College. Programme availability, duration, entry requirements and certification conditions may vary by intake.</div>
+    </div>
+  </footer>
+
+  <div id="login-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="login-title">
+    <div class="login-box">
+      <button class="close-modal" onclick="closeLoginModal()" aria-label="Close login">×</button>
+      <img src="https://www.afromed.life/logo/logo.png" alt="Afromed logo">
+      <h2 id="login-title">Student Portal</h2>
+      <p>Sign in to access your student dashboard.</p>
+
+      <div id="auth-error"></div>
+      <input type="email" id="email-input" class="auth-input" placeholder="Student email">
+      <input type="password" id="password-input" class="auth-input" placeholder="Password">
+      <button id="btn-login-email" class="btn-auth btn-email">Sign in to Portal</button>
+
+      <div class="divider">OR</div>
+      <button id="btn-login-google" class="btn-auth btn-google">Continue with Google</button>
+      <button id="btn-login-ms" class="btn-auth btn-ms">Continue with Microsoft</button>
+    </div>
+  </div>
+
+  <script>
+    function closeMenu(){
+      document.getElementById('nav-links').classList.remove('active');
+    }
+
+    function openLoginModal(){
+      document.getElementById('login-modal').classList.remove('hidden');
+      document.body.style.overflow='hidden';
+    }
+
+    function closeLoginModal(){
+      document.getElementById('login-modal').classList.add('hidden');
+      document.body.style.overflow='';
+      const error=document.getElementById('auth-error');
+      error.style.display='none';
+      error.textContent='';
+    }
+
+    document.getElementById('login-modal').addEventListener('click',(event)=>{
+      if(event.target.id==='login-modal') closeLoginModal();
+    });
+
+    document.addEventListener('keydown',(event)=>{
+      if(event.key==='Escape') closeLoginModal();
+    });
+
+    document.querySelectorAll('.course-tab').forEach((tab)=>{
+      tab.addEventListener('click',()=>{
+        document.querySelectorAll('.course-tab').forEach((item)=>item.classList.remove('active'));
+        tab.classList.add('active');
+
+        const filter=tab.dataset.filter;
+        document.querySelectorAll('.course-card').forEach((card)=>{
+          card.classList.toggle('hidden-card',filter!=='all' && card.dataset.category!==filter);
+        });
+      });
+    });
+
+    document.querySelectorAll('.faq-btn').forEach((button)=>{
+      button.addEventListener('click',()=>{
+        const item=button.closest('.faq-item');
+        const icon=button.querySelector('span:last-child');
+        item.classList.toggle('open');
+        icon.textContent=item.classList.contains('open')?'−':'+';
+      });
+    });
+
+    function selectCourse(courseName){
+      document.getElementById('course-select').value=courseName;
+    }
+
+    document.getElementById('enquiry-form').addEventListener('submit',(event)=>{
+      event.preventDefault();
+
+      const name=document.getElementById('full-name').value.trim();
+      const phone=document.getElementById('phone').value.trim();
+      const email=document.getElementById('email').value.trim();
+      const course=document.getElementById('course-select').value;
+      const message=document.getElementById('message').value.trim();
+
+      const subject=encodeURIComponent(`Afromed College enquiry: ${course}`);
+      const body=encodeURIComponent(
+        `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nCourse: ${course}\n\nEnquiry:\n${message || 'Please send me more information about this programme.'}`
+      );
+
+      window.location.href=`mailto:info@afromed.co.za?subject=${subject}&body=${body}`;
+    });
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      signInWithPopup,
+      GoogleAuthProvider,
+      OAuthProvider,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBBkouWWkEWAlPtLSmp3eHZVVBcQtYu-xo",
+      authDomain: "afromed-fda57.firebaseapp.com",
+      projectId: "afromed-fda57",
+      storageBucket: "afromed-fda57.firebasestorage.app",
+      messagingSenderId: "633274573777",
+      appId: "1:633274573777:web:6b244c95612bc92ff976f0",
+      measurementId: "G-3ZSVQDNVFX"
+    };
+
+    const app=initializeApp(firebaseConfig);
+    const auth=getAuth(app);
+    const errorDiv=document.getElementById('auth-error');
+
+    function showError(message){
+      errorDiv.style.display='block';
+      errorDiv.textContent=message;
+    }
+
+    onAuthStateChanged(auth,(user)=>{
+      const portalBtn=document.getElementById('nav-portal-btn');
+      const modal=document.getElementById('login-modal');
+
+      if(user){
+        portalBtn.textContent='Go to Portal';
+        portalBtn.onclick=()=>window.location.href='portal.html';
+
+        if(!modal.classList.contains('hidden')){
+          window.location.href='portal.html';
         }
-        function closeLoginModal() { 
-            document.getElementById('login-modal').classList.add('hidden'); 
-            document.getElementById('auth-error').style.display = 'none';
-        }
-    </script>
+      }else{
+        portalBtn.textContent='Student Portal';
+        portalBtn.onclick=openLoginModal;
+      }
+    });
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-        import { 
-            getAuth, signInWithEmailAndPassword, signInWithPopup, 
-            GoogleAuthProvider, OAuthProvider, onAuthStateChanged
-        } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+    document.getElementById('btn-login-email').addEventListener('click',()=>{
+      const email=document.getElementById('email-input').value.trim();
+      const password=document.getElementById('password-input').value;
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBBkouWWkEWAlPtLSmp3eHZVVBcQtYu-xo",
-            authDomain: "afromed-fda57.firebaseapp.com",
-            projectId: "afromed-fda57",
-            storageBucket: "afromed-fda57.firebasestorage.app",
-            messagingSenderId: "633274573777",
-            appId: "1:633274573777:web:6b244c95612bc92ff976f0",
-            measurementId: "G-3ZSVQDNVFX"
-        };
+      if(!email || !password){
+        showError('Please enter your email and password.');
+        return;
+      }
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const errorDiv = document.getElementById('auth-error');
+      signInWithEmailAndPassword(auth,email,password)
+        .then(()=>window.location.href='portal.html')
+        .catch((error)=>showError('Login failed: '+error.message));
+    });
 
-        function showError(msg) {
-            errorDiv.style.display = 'block';
-            errorDiv.innerText = msg;
-        }
+    document.getElementById('btn-login-google').addEventListener('click',()=>{
+      signInWithPopup(auth,new GoogleAuthProvider())
+        .then(()=>window.location.href='portal.html')
+        .catch((error)=>showError('Google login failed: '+error.message));
+    });
 
-        // Listen to Auth State
-        onAuthStateChanged(auth, (user) => {
-            const portalBtn = document.getElementById('nav-portal-btn');
-            const modal = document.getElementById('login-modal');
+    document.getElementById('btn-login-ms').addEventListener('click',()=>{
+      signInWithPopup(auth,new OAuthProvider('microsoft.com'))
+        .then(()=>window.location.href='portal.html')
+        .catch((error)=>showError('Microsoft login failed: '+error.message));
+    });
+  </script>
 
-            if (user) {
-                // If logged in, change the Navbar button to immediately navigate to the portal
-                portalBtn.innerHTML = 'Go to Portal <i class="fa-solid fa-arrow-right"></i>';
-                portalBtn.onclick = () => window.location.href = 'portal.html';
-                
-                // If they just logged in via the modal, immediately redirect them
-                if (!modal.classList.contains('hidden')) {
-                    window.location.href = 'portal.html';
-                }
-            } else {
-                // Not logged in, clicking the button opens the modal
-                portalBtn.innerHTML = 'Student Portal <i class="fa-solid fa-arrow-right-to-bracket"></i>';
-                portalBtn.onclick = openLoginModal;
-            }
-        });
-
-        // Email Login
-        document.getElementById('btn-login-email').addEventListener('click', () => {
-            const email = document.getElementById('email-input').value;
-            const password = document.getElementById('password-input').value;
-            if(!email || !password) return showError("Please enter email and password.");
-            
-            signInWithEmailAndPassword(auth, email, password)
-                .then(() => window.location.href = 'portal.html')
-                .catch((error) => showError("Login failed: " + error.message));
-        });
-
-        // Google Login
-        document.getElementById('btn-login-google').addEventListener('click', () => {
-            signInWithPopup(auth, new GoogleAuthProvider())
-                .then(() => window.location.href = 'portal.html')
-                .catch((error) => showError("Google login failed: " + error.message));
-        });
-
-        // Microsoft Login
-        document.getElementById('btn-login-ms').addEventListener('click', () => {
-            signInWithPopup(auth, new OAuthProvider('microsoft.com'))
-                .then(() => window.location.href = 'portal.html')
-                .catch((error) => showError("Microsoft login failed: " + error.message));
-        });
-    </script>
 </body>
 </html>
