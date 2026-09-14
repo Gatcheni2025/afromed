@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#071b2f">
+  <meta name="description" content="Afromed emergency medical response app">
+  <title>Afromed Emergency</title>
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css" rel="stylesheet">
+
+  <script src="config.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+
+  <style>
+    :root{
+      --navy:#071b2f;
+      --navy2:#0d3152;
+      --red:#d7192d;
+      --red2:#b31525;
+      --blue:#1674c9;
+      --green:#16835a;
+      --amber:#b9790a;
+      --ink:#172033;
+      --muted:#6b788a;
+      --surface:#f4f7fb;
+      --white:#fff;
+      --line:#e2e8f0;
+      --shadow:0 18px 50px rgba(7,27,47,.14);
+      --safe-top:max(env(safe-area-inset-top),12px);
+      --safe-bottom:max(env(safe-area-inset-bottom),12px);
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--surface);color:var(--ink);font-family:'Inter',system-ui,sans-serif}
+    button,input,select,textarea{font:inherit}button{cursor:pointer}a{text-decoration:none;color:inherit}.hidden{display:none!important}
+
+    #splash{position:fixed;inset:0;z-index:9999;background:linear-gradient(155deg,#061523,#0d3152);color:#fff;display:grid;place-items:center;transition:.35s}
+    .splash-box{text-align:center;padding:30px}.splash-logo{width:90px;height:90px;background:#fff;border-radius:27px;margin:0 auto 18px;display:grid;place-items:center;box-shadow:0 25px 70px rgba(0,0,0,.25)}
+    .splash-mark{font-family:'Manrope',sans-serif;color:var(--red);font-size:42px;font-weight:900}.splash-box h1{font-family:'Manrope',sans-serif;margin:0;font-size:28px}.splash-box p{margin:8px 0 0;color:#b5c7d7;font-size:12px}
+    .splash-line{width:220px;height:3px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin:20px auto 0}.splash-line:after{content:'';display:block;height:100%;width:45%;background:var(--red);animation:load 1.1s linear infinite}
+    @keyframes load{from{transform:translateX(-120%)}to{transform:translateX(290%)}}
+
+    #offline-banner{position:fixed;top:0;left:0;right:0;z-index:1100;background:#8a2b12;color:#fff;text-align:center;padding:6px;font-size:10px;font-weight:800;display:none}
+    #offline-banner.show{display:block}
+
+    #map{position:absolute;inset:0;z-index:1;background:#dfe7ef}
+    .map-fallback{position:absolute;inset:0;z-index:2;background:linear-gradient(135deg,#dce7f0,#eef3f8);display:grid;place-items:center;padding:28px;text-align:center;color:var(--navy)}
+    .map-fallback i{font-size:34px;margin-bottom:10px}.map-fallback strong{display:block;font-family:'Manrope',sans-serif;font-size:17px}.map-fallback span{display:block;color:var(--muted);font-size:10px;line-height:1.5;margin-top:5px}
+
+    .app-header{position:absolute;top:calc(var(--safe-top) + 8px);left:12px;right:12px;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:10px;pointer-events:none}
+    .brand-chip,.header-actions{pointer-events:auto}
+    .brand-chip{height:50px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.95);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.8);border-radius:17px;padding:5px 12px 5px 5px;box-shadow:0 10px 30px rgba(7,27,47,.12)}
+    .brand-icon{width:40px;height:40px;border-radius:13px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:17px}.brand-chip strong{display:block;color:var(--navy);font-family:'Manrope',sans-serif;font-size:11px}.brand-chip span{display:block;color:var(--muted);font-size:7.5px;margin-top:2px}
+    .header-actions{display:flex;gap:7px}.round-btn{width:45px;height:45px;border:1px solid rgba(255,255,255,.8);background:rgba(255,255,255,.95);backdrop-filter:blur(18px);border-radius:15px;box-shadow:0 10px 30px rgba(7,27,47,.12);color:var(--navy);position:relative}
+    .badge-dot{position:absolute;right:6px;top:6px;min-width:16px;height:16px;border-radius:99px;background:var(--red);color:#fff;border:2px solid #fff;font-size:7px;font-weight:900;display:grid;place-items:center;padding:0 3px}
+
+    .location-pill{position:absolute;top:calc(var(--safe-top) + 68px);left:50%;transform:translateX(-50%);z-index:45;width:calc(100% - 24px);max-width:460px;background:rgba(255,255,255,.95);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.9);border-radius:17px;padding:11px 13px;display:flex;align-items:center;gap:10px;box-shadow:0 10px 30px rgba(7,27,47,.12)}
+    .location-icon{width:34px;height:34px;border-radius:11px;background:#eef5fb;color:var(--blue);display:grid;place-items:center;flex:none}.location-copy{min-width:0;flex:1}.location-copy span{display:block;color:var(--muted);font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}.location-copy strong{display:block;color:var(--navy);font-size:9.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+    .locate-btn{width:34px;height:34px;border:0;background:#f3f6f9;border-radius:10px;color:var(--navy)}
+
+    .unit-availability{position:absolute;right:14px;top:calc(var(--safe-top) + 126px);z-index:35;background:rgba(7,27,47,.92);color:#fff;border-radius:13px;padding:9px 11px;box-shadow:0 10px 30px rgba(7,27,47,.16);font-size:8px;font-weight:700}
+    .unit-availability i{color:#5ee0a4;margin-right:5px}
+
+    .incident-card{position:absolute;left:12px;right:12px;top:calc(var(--safe-top) + 126px);z-index:60;max-width:500px;margin:auto;background:#fff;border-radius:22px;box-shadow:0 22px 55px rgba(7,27,47,.22);overflow:hidden;border:1px solid var(--line);display:none}
+    .incident-card.active{display:block;animation:drop .3s ease}@keyframes drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+    .incident-head{padding:15px 16px;background:linear-gradient(135deg,#edf6ff,#fff);border-bottom:1px solid #dceaf5}.incident-head-row{display:flex;justify-content:space-between;align-items:center;gap:10px}.incident-status{font-family:'Manrope',sans-serif;color:var(--navy);font-size:13px;font-weight:800}.incident-status i{color:var(--red);margin-right:7px}.eta-pill{background:var(--navy);color:#fff;border-radius:99px;padding:7px 10px;font-size:9px;font-weight:800}
+    .progress{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:12px}.progress-step{height:4px;background:#d9e2ea;border-radius:99px}.progress-step.active{background:var(--blue)}.progress-step.done{background:var(--green)}
+    .incident-body{padding:14px 16px}.crew-row{display:flex;align-items:center;gap:12px}.crew-avatar{width:48px;height:48px;border-radius:15px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:17px;overflow:hidden;flex:none}.crew-avatar img{width:100%;height:100%;object-fit:cover}.crew-info{min-width:0;flex:1}.crew-info strong{display:block;color:var(--navy);font-size:10.5px}.crew-info span{display:block;color:var(--muted);font-size:8px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.crew-actions{display:flex;gap:6px}.crew-actions button{width:38px;height:38px;border:1px solid var(--line);background:#f7fafc;border-radius:12px;color:var(--navy)}
+    .incident-actions{display:grid;grid-template-columns:1fr 1fr 45px;gap:7px;margin-top:12px}.incident-actions button{border:0;border-radius:12px;padding:11px;font-size:8.5px;font-weight:800}.chat-action{background:var(--blue);color:#fff}.office-action{background:#eef3f7;color:var(--navy)}.cancel-action{background:#fff0f2;color:var(--red);border:1px solid #f3d0d6!important}
+    .incident-detail{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:11px;border-top:1px solid var(--line);padding-top:10px;font-size:7.5px;color:var(--muted)}.incident-detail strong{color:var(--navy)}
+
+    .sos-wrap{position:absolute;left:50%;bottom:calc(var(--safe-bottom) + 58px);transform:translateX(-50%);z-index:75}.sos-btn{width:84px;height:84px;border-radius:50%;border:7px solid rgba(255,255,255,.95);background:linear-gradient(135deg,#e1263b,#b90f25);color:#fff;font-family:'Manrope',sans-serif;font-size:17px;font-weight:900;box-shadow:0 18px 40px rgba(215,25,45,.4);position:relative}.sos-btn:after,.sos-btn:before{content:'';position:absolute;inset:-9px;border:2px solid rgba(215,25,45,.6);border-radius:50%;animation:pulse 2.2s infinite;z-index:-1}.sos-btn:after{animation-delay:1.1s}@keyframes pulse{from{transform:scale(.9);opacity:.7}to{transform:scale(1.5);opacity:0}}
+
+    .bottom-nav{position:absolute;left:12px;right:12px;bottom:var(--safe-bottom);height:66px;z-index:70;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.9);border-radius:23px;box-shadow:0 14px 40px rgba(7,27,47,.15);display:grid;grid-template-columns:1fr 1fr 92px 1fr 1fr;padding:5px 7px}
+    .nav-btn{border:0;background:transparent;color:#8895a6;border-radius:17px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:17px}.nav-btn span{font-size:6.5px;font-weight:800}.nav-btn.active{color:var(--blue);background:#eef7ff}.nav-spacer{pointer-events:none}
+
+    .sheet{position:fixed;inset:0;z-index:500;background:rgba(4,19,33,.56);backdrop-filter:blur(5px);display:none;align-items:flex-end}.sheet.active{display:flex}.sheet-card{width:100%;max-height:92vh;overflow:auto;background:#fff;border-radius:28px 28px 0 0;padding:10px 18px calc(var(--safe-bottom) + 20px);animation:up .25s ease}@keyframes up{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}.grabber{width:45px;height:5px;border-radius:99px;background:#dde3ea;margin:3px auto 15px}.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.sheet-head h2{margin:0;color:var(--navy);font-family:'Manrope',sans-serif;font-size:20px}.sheet-head p{margin:4px 0 0;color:var(--muted);font-size:8.5px}.sheet-close{width:38px;height:38px;border:1px solid var(--line);background:#fff;border-radius:50%;color:var(--navy)}
+    .section-label{font-size:7.5px;color:var(--muted);font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin:15px 0 8px}
+    .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.choice{border:1px solid var(--line);background:#fbfcfe;border-radius:15px;padding:13px 8px;text-align:center;color:#435166;min-height:82px}.choice i{display:block;font-size:20px;color:var(--blue);margin-bottom:7px}.choice span{display:block;font-size:8px;font-weight:800}.choice.selected{background:#fff1f3;border-color:#e58b98;color:#a51225}.choice.selected i{color:var(--red)}
+    .who-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.who-btn{border:1px solid var(--line);background:#fbfcfe;border-radius:15px;padding:15px;color:var(--navy);font-size:9px;font-weight:800}.who-btn.selected{background:#eef7ff;border-color:#79b7ea;color:#0d5d9e}
+    .vitals-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.vital-card{border:1px solid var(--line);border-radius:15px;padding:12px}.vital-card strong{display:block;color:var(--navy);font-size:8.5px;margin-bottom:8px}.vital-options{display:grid;grid-template-columns:1fr 1fr;gap:6px}.vital-options button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px;font-size:7px;font-weight:800}.vital-options button.selected{background:var(--navy);color:#fff;border-color:var(--navy)}
+    .emergency-note{background:#fff7e8;border:1px solid #f3dfb8;border-radius:13px;padding:11px;color:#805a0b;font-size:8px;line-height:1.5;margin-top:12px}.dispatch-btn{width:100%;border:0;background:linear-gradient(135deg,#e1263b,#b90f25);color:#fff;border-radius:15px;padding:15px;font-size:10px;font-weight:900;margin-top:13px}.dispatch-btn:disabled{opacity:.55}
+
+    .list{display:grid;gap:8px}.list-card{border:1px solid var(--line);border-radius:15px;padding:12px;background:#fff}.list-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.list-card strong{font-size:9.5px;color:#2f3d50}.list-card span{display:block;font-size:7.5px;color:var(--muted);margin-top:3px}.status{display:inline-flex;border-radius:99px;padding:5px 7px;font-size:6.5px;font-weight:900;text-transform:uppercase}.status.pending{background:#fff6e5;color:#946109}.status.dispatched,.status.arriving,.status.active{background:#eaf4fd;color:#21659b}.status.completed{background:#e9f8f1;color:#14724a}.status.cancelled{background:#fff0f2;color:#aa1729}
+
+    .chat-messages{display:flex;flex-direction:column;gap:8px;min-height:280px;max-height:50vh;overflow:auto;padding:6px 1px}.chat-msg{max-width:82%;border-radius:17px;padding:10px 12px;font-size:9px;line-height:1.45}.chat-msg.me{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:5px}.chat-msg.other{align-self:flex-start;background:#f2f5f8;color:#29374a;border:1px solid var(--line);border-bottom-left-radius:5px}.chat-msg small{display:block;font-size:6.5px;opacity:.65;margin-bottom:3px;font-weight:800}.chat-compose{display:grid;grid-template-columns:1fr 45px;gap:7px;margin-top:9px}.chat-compose textarea{resize:none;border:1px solid var(--line);border-radius:14px;padding:11px;font-size:9px;min-height:45px;max-height:100px;outline:none}.send-btn{border:0;background:var(--navy);color:#fff;border-radius:14px;font-size:14px}
+
+    .profile-hero{border-radius:20px;padding:18px;background:linear-gradient(135deg,var(--navy),#10436d);color:#fff;display:flex;gap:13px;align-items:center}.profile-avatar{width:62px;height:62px;border-radius:18px;background:#fff;color:var(--navy);display:grid;place-items:center;font-size:21px;font-weight:900;flex:none;overflow:hidden}.profile-avatar img{width:100%;height:100%;object-fit:cover}.profile-hero strong{display:block;font-family:'Manrope',sans-serif;font-size:15px}.profile-hero span{display:block;color:#bed0df;font-size:8px;margin-top:4px}
+    .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.info-card{border:1px solid var(--line);border-radius:14px;padding:11px;background:#fbfcfe}.info-card span{display:block;color:var(--muted);font-size:6.5px;text-transform:uppercase;font-weight:800;letter-spacing:.06em}.info-card strong{display:block;color:#344256;font-size:8.5px;margin-top:4px;word-break:break-word}
+    .field{display:grid;gap:5px;margin-bottom:9px}.field label{font-size:7px;font-weight:800;color:#596678}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#fbfcfe;border-radius:11px;padding:11px;font-size:9px;outline:none}.field textarea{min-height:90px}.save-btn{width:100%;border:0;background:var(--navy);color:#fff;border-radius:13px;padding:12px;font-size:9px;font-weight:800}
+    .medical-card{border:1px solid #f2d5da;background:#fff8f9;border-radius:16px;padding:13px}.medical-card h3{margin:0;color:#9f1728;font-size:10px}.medical-card p{margin:5px 0 0;color:#7a5360;font-size:8px;line-height:1.5}
+
+    .notification-item{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}.notification-item.unread{border-left:3px solid var(--red);background:#fffdfd}.notification-item strong{display:block;color:#324155;font-size:9px}.notification-item span{display:block;color:var(--muted);font-size:7.5px;margin-top:4px;line-height:1.45}
+    .danger-call{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:1px solid #efccd2;background:#fff0f2;color:#a71426;border-radius:14px;padding:13px;font-size:9px;font-weight:900;margin-top:12px}
+
+    .token-warning{background:#fff6e5;border:1px solid #f1deb7;border-radius:13px;padding:10px;color:#7b5509;font-size:7.5px;line-height:1.5;margin:10px 0}
+    .setup-mask{position:fixed;inset:0;z-index:800;background:rgba(4,19,33,.72);backdrop-filter:blur(7px);display:none;place-items:center;padding:18px}.setup-mask.active{display:grid}.setup-card{width:min(430px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:22px;padding:20px}.setup-card h2{margin:0;color:var(--navy);font-family:'Manrope',sans-serif;font-size:20px}.setup-card p{font-size:8.5px;color:var(--muted);line-height:1.6}
+
+    @media(min-width:700px){.sheet{align-items:center;justify-content:center}.sheet-card{max-width:520px;border-radius:28px;padding-bottom:24px}.sos-wrap{bottom:85px}.bottom-nav{max-width:520px;left:50%;right:auto;transform:translateX(-50%);width:520px}.incident-card{top:140px}}
+  </style>
+</head>
+<body>
+
+<div id="splash">
+  <div class="splash-box">
+    <div class="splash-logo"><div class="splash-mark">A+</div></div>
+    <h1>Afromed</h1>
+    <p>Emergency medical response</p>
+    <div class="splash-line"></div>
+  </div>
+</div>
+
+<div id="offline-banner">You are offline. Emergency dispatch requires a data connection. If life-threatening, call Afromed directly.</div>
+
+<div id="map"></div>
+<div id="map-fallback" class="map-fallback hidden">
+  <div><i class="fa-solid fa-map-location-dot"></i><strong>Live map is unavailable</strong><span>Emergency dispatch and communication can still work. Add a valid Mapbox public token to enable live ambulance mapping.</span></div>
+</div>
+
+<header class="app-header">
+  <div class="brand-chip">
+    <div class="brand-icon"><i class="fa-solid fa-star-of-life"></i></div>
+    <div><strong>Afromed Emergency</strong><span>24/7 Medical Response</span></div>
+  </div>
+  <div class="header-actions">
+    <button class="round-btn" onclick="openSheet('notifications-sheet')" aria-label="Notifications"><i class="fa-regular fa-bell"></i><span id="notification-badge" class="badge-dot hidden">0</span></button>
+    <button class="round-btn" onclick="openSheet('profile-sheet')" aria-label="Profile"><i class="fa-regular fa-user"></i></button>
+  </div>
+</header>
+
+<div class="location-pill" onclick="openLocationSheet()">
+  <div class="location-icon"><i class="fa-solid fa-location-crosshairs"></i></div>
+  <div class="location-copy"><span>Your emergency location</span><strong id="current-address">Locating you…</strong></div>
+  <button class="locate-btn" onclick="event.stopPropagation();requestLocation(true)"><i class="fa-solid fa-crosshairs"></i></button>
+</div>
+
+<div class="unit-availability"><i class="fa-solid fa-circle"></i><span id="available-unit-text">Checking units…</span></div>
+
+<section id="incident-card" class="incident-card">
+  <div class="incident-head">
+    <div class="incident-head-row">
+      <div id="incident-status" class="incident-status"><i class="fa-solid fa-circle-notch fa-spin"></i> Request received</div>
+      <div id="incident-eta" class="eta-pill">Locating…</div>
+    </div>
+    <div class="progress">
+      <div id="progress-1" class="progress-step active"></div><div id="progress-2" class="progress-step"></div><div id="progress-3" class="progress-step"></div><div id="progress-4" class="progress-step"></div>
+    </div>
+  </div>
+  <div class="incident-body">
+    <div class="crew-row">
+      <div id="driver-avatar" class="crew-avatar"><i class="fa-solid fa-user-doctor"></i></div>
+      <div class="crew-info"><strong id="driver-name">Dispatch is finding your ambulance</strong><span id="driver-unit">Stand by · Your request is with the control room</span></div>
+      <div class="crew-actions">
+        <button id="driver-call-btn" class="hidden" onclick="callDriver()" aria-label="Call driver"><i class="fa-solid fa-phone"></i></button>
+        <button onclick="openIncidentChat()" aria-label="Chat"><i class="fa-solid fa-message"></i></button>
+      </div>
+    </div>
+    <div class="incident-actions">
+      <button class="chat-action" onclick="openIncidentChat()"><i class="fa-solid fa-comments"></i> Driver / Control Chat</button>
+      <button class="office-action" onclick="openSupportChat()"><i class="fa-solid fa-headset"></i> Message Office</button>
+      <button class="cancel-action" onclick="cancelEmergencyRequest()" aria-label="Cancel request"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="incident-detail"><span>Case <strong id="incident-case">—</strong></span><span>Emergency <strong id="incident-type">—</strong></span></div>
+  </div>
+</section>
+
+<div class="sos-wrap"><button class="sos-btn" onclick="openEmergencySheet()">SOS</button></div>
+
+<nav class="bottom-nav">
+  <button id="nav-map" class="nav-btn active" onclick="navTo('map')"><i class="fa-solid fa-map"></i><span>Map</span></button>
+  <button id="nav-history" class="nav-btn" onclick="navTo('history')"><i class="fa-solid fa-clock-rotate-left"></i><span>History</span></button>
+  <div class="nav-spacer"></div>
+  <button id="nav-support" class="nav-btn" onclick="navTo('support')"><i class="fa-solid fa-headset"></i><span>Support</span></button>
+  <button id="nav-medical" class="nav-btn" onclick="navTo('medical')"><i class="fa-solid fa-id-card"></i><span>Medical ID</span></button>
+</nav>
+
+<!-- EMERGENCY SHEET -->
+<div id="emergency-sheet" class="sheet">
+  <div class="sheet-card">
+    <div class="grabber"></div>
+    <div class="sheet-head"><div><h2>Request an ambulance</h2><p>Tell the control room what is happening.</p></div><button class="sheet-close" onclick="closeSheet('emergency-sheet')"><i class="fa-solid fa-xmark"></i></button></div>
+
+    <div class="section-label">Who needs help?</div>
+    <div class="who-grid">
+      <button class="who-btn selected" data-who="Self" onclick="selectWho(this,'Self')"><i class="fa-solid fa-user"></i> I need help</button>
+      <button class="who-btn" data-who="Someone else" onclick="selectWho(this,'Someone else')"><i class="fa-solid fa-people-arrows-left-right"></i> Someone else</button>
+    </div>
+
+    <div class="section-label">Emergency type</div>
+    <div class="choice-grid">
+      <button class="choice" onclick="selectEmergency(this,'Medical emergency')"><i class="fa-solid fa-star-of-life"></i><span>Medical</span></button>
+      <button class="choice" onclick="selectEmergency(this,'Road accident')"><i class="fa-solid fa-car-burst"></i><span>Accident</span></button>
+      <button class="choice" onclick="selectEmergency(this,'Chest pain')"><i class="fa-solid fa-heart-pulse"></i><span>Chest Pain</span></button>
+      <button class="choice" onclick="selectEmergency(this,'Breathing difficulty')"><i class="fa-solid fa-lungs"></i><span>Breathing</span></button>
+      <button class="choice" onclick="selectEmergency(this,'Pregnancy emergency')"><i class="fa-solid fa-person-pregnant"></i><span>Pregnancy</span></button>
+      <button class="choice" onclick="selectEmergency(this,'Injury or trauma')"><i class="fa-solid fa-bandage"></i><span>Trauma</span></button>
+      <button class="choice" onclick="selectEmergency(this,'Seizure or unconscious')"><i class="fa-solid fa-brain"></i><span>Seizure</span></button>
+      <button class="choice" onclick="selectEmergency(this,'Child emergency')"><i class="fa-solid fa-child-reaching"></i><span>Child</span></button>
+      <button class="choice" onclick="selectEmergency(this,'Other emergency')"><i class="fa-solid fa-circle-exclamation"></i><span>Other</span></button>
+    </div>
+
+    <div class="section-label">Patient condition</div>
+    <div class="vitals-grid">
+      <div class="vital-card"><strong>Conscious?</strong><div class="vital-options"><button onclick="selectVital(this,'conscious','yes')">Yes</button><button onclick="selectVital(this,'conscious','no')">No</button></div></div>
+      <div class="vital-card"><strong>Breathing?</strong><div class="vital-options"><button onclick="selectVital(this,'breathing','yes')">Yes</button><button onclick="selectVital(this,'breathing','no')">No</button></div></div>
+    </div>
+
+    <div class="field" style="margin-top:12px"><label>OPTIONAL NOTE FOR THE PARAMEDIC</label><textarea id="emergency-note" placeholder="e.g. severe bleeding, gate is locked, patient is upstairs"></textarea></div>
+
+    <div class="emergency-note"><strong>Important:</strong> If the app cannot send your request or the situation is immediately life-threatening, call Afromed directly on <strong>073 333 6656</strong>.</div>
+    <button id="dispatch-btn" class="dispatch-btn" onclick="submitEmergencyRequest()"><i class="fa-solid fa-truck-medical"></i> REQUEST AMBULANCE NOW</button>
+  </div>
+</div>
+
+<!-- INCIDENT CHAT -->
+<div id="incident-chat-sheet" class="sheet">
+  <div class="sheet-card">
+    <div class="grabber"></div>
+    <div class="sheet-head"><div><h2>Emergency chat</h2><p>Chat with the driver or control room for this case.</p></div><button class="sheet-close" onclick="closeIncidentChat()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div id="incident-chat-messages" class="chat-messages"></div>
+    <div class="chat-compose"><textarea id="incident-chat-input" placeholder="Type a message…"></textarea><button class="send-btn" onclick="sendIncidentMessage()"><i class="fa-solid fa-paper-plane"></i></button></div>
+  </div>
+</div>
+
+<!-- SUPPORT CHAT -->
+<div id="support-sheet" class="sheet">
+  <div class="sheet-card">
+    <div class="grabber"></div>
+    <div class="sheet-head"><div><h2>Afromed office</h2><p>Live support for accounts, medical aid and service questions.</p></div><button class="sheet-close" onclick="closeSheet('support-sheet')"><i class="fa-solid fa-xmark"></i></button></div>
+    <div id="support-chat-messages" class="chat-messages"></div>
+    <div class="chat-compose"><textarea id="support-chat-input" placeholder="Message the Afromed office…"></textarea><button class="send-btn" onclick="sendSupportMessage()"><i class="fa-solid fa-paper-plane"></i></button></div>
+    <a class="danger-call" href="tel:+27733336656"><i class="fa-solid fa-phone"></i> Call Afromed Emergency: 073 333 6656</a>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div id="history-sheet" class="sheet">
+  <div class="sheet-card">
+    <div class="grabber"></div>
+    <div class="sheet-head"><div><h2>Emergency history</h2><p>Your previous Afromed requests.</p></div><button class="sheet-close" onclick="closeSheet('history-sheet')"><i class="fa-solid fa-xmark"></i></button></div>
+    <div id="history-list" class="list"></div>
+  </div>
+</div>
+
+<!-- PROFILE / MEDICAL -->
+<div id="profile-sheet" class="sheet">
+  <div class="sheet-card">
+    <div class="grabber"></div>
+    <div class="sheet-head"><div><h2>Your profile</h2><p>Contact and emergency information.</p></div><button class="sheet-close" onclick="closeSheet('profile-sheet')"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="profile-hero">
+      <div id="profile-avatar" class="profile-avatar">A</div>
+      <div><strong id="profile-name">Afromed Patient</strong><span id="profile-phone">Add your phone number</span></div>
+    </div>
+    <div class="info-grid">
+      <div class="info-card"><span>Blood type</span><strong id="profile-blood">Unknown</strong></div>
+      <div class="info-card"><span>Medical Aid</span><strong id="profile-medaid">Not added</strong></div>
+      <div class="info-card"><span>Member / Policy No.</span><strong id="profile-mednum">—</strong></div>
+      <div class="info-card"><span>Allergies</span><strong id="profile-allergies">None listed</strong></div>
+    </div>
+
+    <div class="section-label">Personal information</div>
+    <div class="field"><label>FIRST NAME</label><input id="inp-name"></div>
+    <div class="field"><label>SURNAME</label><input id="inp-surname"></div>
+    <div class="field"><label>MOBILE NUMBER</label><input id="inp-phone" inputmode="tel" placeholder="+27…"></div>
+    <div class="field"><label>EMERGENCY CONTACT</label><input id="inp-emergency" inputmode="tel"></div>
+
+    <div class="section-label">Medical ID</div>
+    <div class="medical-card"><h3><i class="fa-solid fa-shield-heart"></i> Emergency medical information</h3><p>This information is copied into an emergency request so the dispatch team can see important details while responding.</p></div>
+    <div class="field" style="margin-top:10px"><label>BLOOD TYPE</label><select id="inp-blood"><option value="Unknown">Unknown</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div>
+    <div class="field"><label>KNOWN ALLERGIES</label><input id="inp-allergies"></div>
+    <div class="field"><label>MEDICAL AID PROVIDER</label><input id="inp-medaid"></div>
+    <div class="field"><label>MEMBERSHIP / POLICY NUMBER</label><input id="inp-mednumber"></div>
+    <div class="field"><label>MEDICAL NOTES</label><textarea id="inp-medical-notes" placeholder="Chronic medication, medical conditions or other information responders should know"></textarea></div>
+    <button class="save-btn" onclick="saveProfile()"><i class="fa-solid fa-floppy-disk"></i> Save profile</button>
+    <div class="medical-card" style="margin-top:10px;background:#f8fafc;border-color:var(--line)">
+      <h3 style="color:var(--navy)"><i class="fa-solid fa-lock"></i> Privacy & emergency use</h3>
+      <p>Your precise location and the medical details you choose to save are used to coordinate Afromed emergency response and communicate with the attending team.</p>
+      <a href="../privacy_policy.html" target="_blank" style="display:inline-block;margin-top:7px;color:var(--blue);font-size:8px;font-weight:800">View Privacy Policy</a>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div id="notifications-sheet" class="sheet">
+  <div class="sheet-card">
+    <div class="grabber"></div>
+    <div class="sheet-head"><div><h2>Notifications</h2><p>Dispatch, driver and office updates.</p></div><button class="sheet-close" onclick="closeSheet('notifications-sheet')"><i class="fa-solid fa-xmark"></i></button></div>
+    <div id="notifications-list" class="list"></div>
+  </div>
+</div>
+
+<!-- LOCATION SEARCH -->
+<div id="location-sheet" class="sheet">
+  <div class="sheet-card">
+    <div class="grabber"></div>
+    <div class="sheet-head"><div><h2>Emergency location</h2><p>Use GPS or search for another pickup point.</p></div><button class="sheet-close" onclick="closeSheet('location-sheet')"><i class="fa-solid fa-xmark"></i></button></div>
+    <button class="save-btn" onclick="requestLocation(true)"><i class="fa-solid fa-location-crosshairs"></i> Use my current GPS location</button>
+    <div class="section-label">Or search an address</div>
+    <div class="field"><input id="address-search" placeholder="Search address or landmark" oninput="searchAddress(this.value)"></div>
+    <div id="address-results" class="list"></div>
+  </div>
+</div>
+
+<!-- FIRST RUN -->
+<div id="setup-mask" class="setup-mask">
+  <div class="setup-card">
+    <h2>Complete your emergency profile</h2>
+    <p>Afromed needs your name and mobile number so the control room and ambulance crew can contact you during an emergency. Medical information is optional but can help responders.</p>
+    <div class="field"><label>FIRST NAME</label><input id="setup-name"></div>
+    <div class="field"><label>SURNAME</label><input id="setup-surname"></div>
+    <div class="field"><label>MOBILE NUMBER</label><input id="setup-phone" inputmode="tel" placeholder="+27…"></div>
+    <button class="save-btn" onclick="saveFirstRunProfile()">Continue to Afromed</button>
+  </div>
+</div>
+
+<script>
+const firebaseConfig={
+  apiKey:"AIzaSyBBkouWWkEWAlPtLSmp3eHZVVBcQtYu-xo",
+  authDomain:"afromed-fda57.firebaseapp.com",
+  databaseURL:"https://afromed-fda57-default-rtdb.firebaseio.com",
+  projectId:"afromed-fda57",
+  storageBucket:"afromed-fda57.firebasestorage.app",
+  messagingSenderId:"633274573777",
+  appId:"1:633274573777:web:6b244c95612bc92ff976f0",
+  measurementId:"G-3ZSVQDNVFX"
+};
+if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth(),db=firebase.firestore();
+
+const cfg=window.AFROMED_CONFIG||{};
+const ACTIVE_STATUSES=['pending','accepted','assigned','dispatched','arriving','active'];
+
+let currentUser=null,userProfile={},userLocation=null,map=null,mapReady=false,userMarker=null,ambulanceMarker=null;
+let activeRequestId=null,activeRequestData=null,activeRequestUnsub=null,vehicleUnsub=null,incidentChatUnsub=null,supportChatUnsub=null;
+let requestHistory=[],notifications=[];
+let selectedWho='Self',selectedEmergency='',vitals={conscious:'unknown',breathing:'unknown'};
+let driverPhone='',lastRouteAt=0,lastAmbulanceLocation=null,addressSearchTimer=null;
+
+function esc(v=''){return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
+function formatDate(v){try{const d=v?.toDate?v.toDate():new Date(v);if(!d||Number.isNaN(d.getTime()))return'—';return new Intl.DateTimeFormat('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(d)}catch{return'—'}}
+function finishSplash(){const s=document.getElementById('splash');if(!s)return;s.style.opacity='0';s.style.pointerEvents='none';setTimeout(()=>s.remove(),350)}
+function openSheet(id){document.getElementById(id)?.classList.add('active')}
+function closeSheet(id){document.getElementById(id)?.classList.remove('active')}
+function navTo(tab){document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById('nav-'+tab)?.classList.add('active');if(tab==='history')openSheet('history-sheet');if(tab==='support')openSupportChat();if(tab==='medical')openSheet('profile-sheet')}
+function showNativeNotification(title,body){
+  try{if(window.AfromedNative?.showNotification)window.AfromedNative.showNotification(title,body)}catch{}
+}
+function getMapboxToken(){
+  let token=cfg.mapboxPublicToken||localStorage.getItem('afromed_mapbox_public_token')||'';
+  try{const native=window.AfromedNative?.getMapboxToken?.();if(native&&String(native).startsWith('pk.'))token=native}catch{}
+  return token;
+}
+function setOfflineState(){document.getElementById('offline-banner').classList.toggle('show',!navigator.onLine)}
+window.addEventListener('online',setOfflineState);window.addEventListener('offline',setOfflineState);setOfflineState();
+
+function initMap(){
+  const token=getMapboxToken();
+  if(!token||!token.startsWith('pk.')){
+    document.getElementById('map-fallback').classList.remove('hidden');
+    requestLocation(false);
+    return;
+  }
+  mapboxgl.accessToken=token;
+  try{
+    map=new mapboxgl.Map({container:'map',style:'mapbox://styles/mapbox/streets-v12',center:[31.0218,-29.8587],zoom:13.5,attributionControl:false});
+    map.addControl(new mapboxgl.NavigationControl({showCompass:false}),'bottom-right');
+    map.on('load',()=>{
+      mapReady=true;
+      map.addSource('ambulance-route',{type:'geojson',data:{type:'FeatureCollection',features:[]}});
+      map.addLayer({id:'ambulance-route-line',type:'line',source:'ambulance-route',layout:{'line-cap':'round','line-join':'round'},paint:{'line-color':'#1674c9','line-width':5,'line-opacity':.85}});
+      requestLocation(false);
+    });
+  }catch(e){
+    console.error('Mapbox',e);document.getElementById('map-fallback').classList.remove('hidden');requestLocation(false);
+  }
+}
+
+function requestLocation(recenter=false){
+  if(!navigator.geolocation){document.getElementById('current-address').textContent='Location not supported';return}
+  navigator.geolocation.getCurrentPosition(pos=>{
+    updateUserLocation(pos.coords.latitude,pos.coords.longitude,recenter||!userLocation);
+    closeSheet('location-sheet');
+  },err=>{
+    console.warn(err);document.getElementById('current-address').textContent='Allow location to request an ambulance';
+    try{window.AfromedNative?.requestLocationPermission?.()}catch{}
+  },{enableHighAccuracy:true,timeout:12000,maximumAge:5000});
+
+  navigator.geolocation.watchPosition(pos=>updateUserLocation(pos.coords.latitude,pos.coords.longitude,false),()=>{},{
+    enableHighAccuracy:true,maximumAge:4000,timeout:15000
+  });
+}
+async function updateUserLocation(lat,lng,recenter=false){
+  userLocation={lat,lng};
+  if(mapReady){
+    if(!userMarker){
+      const el=document.createElement('div');el.innerHTML='<div style="width:25px;height:25px;border-radius:50%;background:#1674c9;border:5px solid white;box-shadow:0 0 0 7px rgba(22,116,201,.18),0 6px 18px rgba(0,0,0,.2)"></div>';
+      userMarker=new mapboxgl.Marker({element:el}).setLngLat([lng,lat]).addTo(map);
+    }else userMarker.setLngLat([lng,lat]);
+    if(recenter)map.easeTo({center:[lng,lat],zoom:14.5});
+  }
+  reverseGeocode(lat,lng);
+  if(activeRequestId){
+    db.collection('requests').doc(activeRequestId).set({
+      patientLocation:new firebase.firestore.GeoPoint(lat,lng),
+      patientLocationUpdatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true}).catch(()=>{});
+  }
+}
+async function reverseGeocode(lat,lng){
+  const token=getMapboxToken();if(!token)return document.getElementById('current-address').textContent=`${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  try{
+    const r=await fetch(`https://api.mapbox.com/search/geocode/v6/reverse?longitude=${lng}&latitude=${lat}&access_token=${encodeURIComponent(token)}`);
+    const j=await r.json();const f=j.features?.[0];
+    document.getElementById('current-address').textContent=f?.properties?.full_address||f?.properties?.name||`${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  }catch{document.getElementById('current-address').textContent=`${lat.toFixed(5)}, ${lng.toFixed(5)}`}
+}
+function openLocationSheet(){openSheet('location-sheet')}
+function searchAddress(q){
+  clearTimeout(addressSearchTimer);const box=document.getElementById('address-results');if(q.trim().length<3){box.innerHTML='';return}
+  addressSearchTimer=setTimeout(async()=>{
+    const token=getMapboxToken();if(!token)return;
+    try{
+      const r=await fetch(`https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(q)}&country=ZA&limit=6&access_token=${encodeURIComponent(token)}`);
+      const j=await r.json();
+      box.innerHTML=(j.features||[]).map(f=>{
+        const c=f.geometry.coordinates,label=f.properties?.full_address||f.properties?.name||q;
+        return `<button class="list-card" style="text-align:left;width:100%" onclick="chooseAddress(${c[1]},${c[0]},'${esc(label).replace(/'/g,'&#39;')}')"><strong><i class="fa-solid fa-location-dot"></i> ${esc(label)}</strong></button>`;
+      }).join('');
+    }catch{box.innerHTML='<div class="list-card"><span>Address search unavailable.</span></div>'}
+  },350);
+}
+function chooseAddress(lat,lng,label){updateUserLocation(lat,lng,true);document.getElementById('current-address').textContent=label;closeSheet('location-sheet')}
+
+function listenAvailableVehicles(){
+  // Patient privacy design: do not expose the full live fleet.
+  // The assigned ambulance is tracked through request.driverLocation after dispatch.
+  document.getElementById('available-unit-text').textContent='Afromed dispatch connected';
+}
+
+function openEmergencySheet(){
+  if(activeRequestId){document.getElementById('incident-card').classList.add('active');return}
+  selectedWho='Self';selectedEmergency='';vitals={conscious:'unknown',breathing:'unknown'};
+  document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));document.querySelectorAll('.who-btn').forEach(x=>x.classList.toggle('selected',x.dataset.who==='Self'));document.querySelectorAll('.vital-options button').forEach(x=>x.classList.remove('selected'));
+  document.getElementById('emergency-note').value='';openSheet('emergency-sheet');
+}
+function selectWho(el,who){selectedWho=who;document.querySelectorAll('.who-btn').forEach(x=>x.classList.remove('selected'));el.classList.add('selected')}
+function selectEmergency(el,type){selectedEmergency=type;document.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));el.classList.add('selected')}
+function selectVital(el,key,value){vitals[key]=value;el.parentElement.querySelectorAll('button').forEach(x=>x.classList.remove('selected'));el.classList.add('selected')}
+function normalizedPhone(p){let x=String(p||'').replace(/[^\d+]/g,'');if(x.startsWith('0'))x='+27'+x.slice(1);if(x.startsWith('27'))x='+'+x;return x}
+async function submitEmergencyRequest(){
+  if(!selectedEmergency)return alert('Please choose the emergency type.');
+  if(!userLocation)return alert('Afromed needs your location before an ambulance can be dispatched.');
+  if(!userProfile.phone)return openFirstRunSetup();
+
+  const btn=document.getElementById('dispatch-btn');btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> CONTACTING CONTROL ROOM…';
+  try{
+    const medicalSnapshot={
+      bloodType:userProfile.bloodType||'Unknown',
+      allergies:userProfile.allergies||'',
+      medicalAid:userProfile.medicalAid||'',
+      medicalNumber:userProfile.medicalNumber||'',
+      medicalNotes:userProfile.medicalNotes||''
+    };
+    const data={
+      userId:currentUser.uid,
+      userName:`${userProfile.name||''} ${userProfile.surname||''}`.trim()||'Afromed Patient',
+      userPhone:normalizedPhone(userProfile.phone),
+      helpFor:selectedWho,
+      emergencyType:selectedEmergency,
+      vitals,
+      emergencyNote:document.getElementById('emergency-note').value.trim(),
+      medicalSnapshot,
+      location:new firebase.firestore.GeoPoint(userLocation.lat,userLocation.lng),
+      patientLocation:new firebase.firestore.GeoPoint(userLocation.lat,userLocation.lng),
+      status:'pending',
+      source:'Afromed Android App',
+      timestamp:firebase.firestore.FieldValue.serverTimestamp(),
+      updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+    };
+    const ref=await db.collection('requests').add(data);
+    activeRequestId=ref.id;closeSheet('emergency-sheet');
+    showNativeNotification('Afromed request received','The control room has received your emergency request.');
+    await db.collection('users').doc(currentUser.uid).collection('notifications').add({
+      title:'Emergency request received',body:'Afromed control room is locating the nearest suitable ambulance.',type:'emergency',requestId:ref.id,read:false,createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(()=>{});
+  }catch(e){
+    console.error(e);alert('Your request could not be sent. Please call Afromed directly on 073 333 6656.');
+  }finally{btn.disabled=false;btn.innerHTML='<i class="fa-solid fa-truck-medical"></i> REQUEST AMBULANCE NOW'}
+}
+
+function listenRequestHistory(){
+  db.collection('requests').where('userId','==',currentUser.uid).onSnapshot(snap=>{
+    requestHistory=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.timestamp?.seconds||0)-(a.timestamp?.seconds||0));
+    renderHistory();
+    const active=requestHistory.find(r=>ACTIVE_STATUSES.includes(String(r.status||'').toLowerCase()));
+    if(active){attachActiveRequest(active.id)}else clearActiveRequest();
+  });
+}
+function attachActiveRequest(id){
+  if(activeRequestId===id&&activeRequestUnsub)return;
+  if(activeRequestUnsub)activeRequestUnsub();
+  activeRequestId=id;
+  activeRequestUnsub=db.collection('requests').doc(id).onSnapshot(doc=>{
+    if(!doc.exists)return clearActiveRequest();
+    const d={id:doc.id,...doc.data()},status=String(d.status||'').toLowerCase();
+    if(!ACTIVE_STATUSES.includes(status))return clearActiveRequest();
+    activeRequestData=d;renderActiveRequest(d);
+  });
+}
+function clearActiveRequest(){
+  activeRequestId=null;activeRequestData=null;if(activeRequestUnsub){activeRequestUnsub();activeRequestUnsub=null}if(vehicleUnsub){vehicleUnsub();vehicleUnsub=null}
+  document.getElementById('incident-card').classList.remove('active');driverPhone='';lastAmbulanceLocation=null;
+  if(ambulanceMarker){ambulanceMarker.remove();ambulanceMarker=null}
+  if(mapReady&&map.getSource('ambulance-route'))map.getSource('ambulance-route').setData({type:'FeatureCollection',features:[]});
+}
+function renderActiveRequest(d){
+  document.getElementById('incident-card').classList.add('active');
+  document.getElementById('incident-case').textContent='#'+d.id.slice(0,7).toUpperCase();
+  document.getElementById('incident-type').textContent=d.emergencyType||'Emergency';
+  const status=String(d.status||'pending').toLowerCase();
+  const labels={pending:'Request received',accepted:'Unit accepted',assigned:'Ambulance assigned',dispatched:'Ambulance dispatched',arriving:'Ambulance arriving',active:'Emergency in progress'};
+  document.getElementById('incident-status').innerHTML=`<i class="fa-solid ${status==='pending'?'fa-circle-notch fa-spin':'fa-truck-medical'}"></i> ${labels[status]||'Emergency active'}`;
+  document.getElementById('incident-eta').textContent=d.eta||((status==='pending')?'Locating…':'En route');
+  document.getElementById('driver-name').textContent=d.driverName||d.assignedDriver||((status==='pending')?'Dispatch is finding your ambulance':'Afromed Response Team');
+  document.getElementById('driver-unit').textContent=d.assignedVehicle?`Unit ${d.assignedVehicle}`:(d.vehicleId?`Unit ${d.vehicleId}`:'Control room connected');
+
+  const stage=status==='pending'?1:['accepted','assigned','dispatched'].includes(status)?2:status==='arriving'?3:4;
+  for(let i=1;i<=4;i++){const el=document.getElementById('progress-'+i);el.classList.toggle('active',i===stage);el.classList.toggle('done',i<stage)}
+
+  const loc=d.driverLocation||d.ambulanceLocation;
+  if(loc?.latitude!==undefined)updateAmbulanceLocation(loc.latitude,loc.longitude,d.eta);
+  loadDriverFromRequest(d);
+}
+function loadDriverFromRequest(d){
+  driverPhone=normalizedPhone(d.driverPhone||'');
+  document.getElementById('driver-call-btn').classList.toggle('hidden',!driverPhone);
+  if(d.driverPhoto||d.driverPhotoUrl){
+    document.getElementById('driver-avatar').innerHTML=`<img src="${esc(d.driverPhoto||d.driverPhotoUrl)}" alt="Driver">`;
+  }else{
+    document.getElementById('driver-avatar').innerHTML='<i class="fa-solid fa-user-doctor"></i>';
+  }
+}
+function callDriver(){if(driverPhone)location.href='tel:'+driverPhone}
+async function updateAmbulanceLocation(lat,lng,serverEta=''){
+  lastAmbulanceLocation={lat,lng};
+  if(mapReady){
+    if(!ambulanceMarker){
+      const el=document.createElement('div');el.innerHTML='<div style="width:39px;height:39px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 10px 25px rgba(0,0,0,.26);border:3px solid #1674c9;color:#d7192d;font-size:17px"><i class="fa-solid fa-truck-medical"></i></div>';
+      ambulanceMarker=new mapboxgl.Marker({element:el}).setLngLat([lng,lat]).addTo(map);
+    }else ambulanceMarker.setLngLat([lng,lat]);
+    if(userLocation){
+      const b=new mapboxgl.LngLatBounds();b.extend([userLocation.lng,userLocation.lat]).extend([lng,lat]);map.fitBounds(b,{padding:{top:245,bottom:130,left:60,right:60},maxZoom:15,duration:700});
+    }
+  }
+  if(!serverEta && Date.now()-lastRouteAt>12000)await updateRouteAndEta(lat,lng);
+}
+async function updateRouteAndEta(lat,lng){
+  if(!userLocation)return;lastRouteAt=Date.now();const token=getMapboxToken();if(!token)return;
+  try{
+    const url=`https://api.mapbox.com/directions/v5/mapbox/driving/${lng},${lat};${userLocation.lng},${userLocation.lat}?geometries=geojson&overview=full&access_token=${encodeURIComponent(token)}`;
+    const r=await fetch(url),j=await r.json(),route=j.routes?.[0];if(!route)return;
+    const mins=Math.max(1,Math.round(route.duration/60));document.getElementById('incident-eta').textContent=`${mins} min`;
+    if(mapReady&&map.getSource('ambulance-route'))map.getSource('ambulance-route').setData({type:'Feature',properties:{},geometry:route.geometry});
+  }catch{}
+}
+async function cancelEmergencyRequest(){
+  if(!activeRequestId||!confirm('Cancel this ambulance request?'))return;
+  try{await db.collection('requests').doc(activeRequestId).update({status:'cancelled',cancelledBy:'patient',cancelledAt:firebase.firestore.FieldValue.serverTimestamp(),updatedAt:firebase.firestore.FieldValue.serverTimestamp()})}catch(e){alert('Unable to cancel. Please contact the control room.')}
+}
+function renderHistory(){
+  const box=document.getElementById('history-list');
+  box.innerHTML=requestHistory.length?requestHistory.map(r=>`<div class="list-card"><div class="list-card-top"><div><strong>${esc(r.emergencyType||'Emergency')}</strong><span>${formatDate(r.timestamp)} · ${esc(r.assignedVehicle?`Unit ${r.assignedVehicle}`:'Afromed')}</span></div><div class="status ${esc(String(r.status||'pending').toLowerCase())}">${esc(r.status||'pending')}</div></div></div>`).join(''):'<div class="list-card"><strong>No emergency history</strong><span>Your Afromed requests will appear here.</span></div>';
+}
+
+function openIncidentChat(){
+  if(!activeRequestId)return alert('There is no active emergency chat.');
+  openSheet('incident-chat-sheet');
+  if(incidentChatUnsub)incidentChatUnsub();
+  incidentChatUnsub=db.collection('requests').doc(activeRequestId).collection('messages').orderBy('timestamp','asc').onSnapshot(snap=>{
+    const box=document.getElementById('incident-chat-messages');
+    box.innerHTML=snap.empty?'<div class="list-card"><span>Control room is standing by. Send a message if you need to add information.</span></div>':snap.docs.map(doc=>{
+      const m=doc.data(),me=m.sender===currentUser.uid||m.senderUid===currentUser.uid;
+      return `<div class="chat-msg ${me?'me':'other'}"><small>${esc(m.senderName||m.senderRole||'Afromed')}</small>${esc(m.text||m.message||'')}</div>`;
+    }).join('');
+    box.scrollTop=box.scrollHeight;
+  });
+}
+function closeIncidentChat(){closeSheet('incident-chat-sheet');if(incidentChatUnsub){incidentChatUnsub();incidentChatUnsub=null}}
+async function sendIncidentMessage(){
+  const input=document.getElementById('incident-chat-input'),text=input.value.trim();if(!text||!activeRequestId)return;input.value='';
+  await db.collection('requests').doc(activeRequestId).collection('messages').add({
+    sender:currentUser.uid,senderUid:currentUser.uid,senderName:userProfile.name||'Patient',senderRole:'patient',text,
+    timestamp:firebase.firestore.FieldValue.serverTimestamp()
+  }).catch(()=>alert('Message could not be sent.'));
+}
+
+function openSupportChat(){
+  openSheet('support-sheet');
+  if(supportChatUnsub)supportChatUnsub();
+  supportChatUnsub=db.collection('support_threads').doc(currentUser.uid).collection('messages').orderBy('timestamp','asc').onSnapshot(snap=>{
+    const box=document.getElementById('support-chat-messages');
+    box.innerHTML=snap.empty?'<div class="list-card"><strong>Afromed Office</strong><span>How can we help you? Send us a message below.</span></div>':snap.docs.map(doc=>{
+      const m=doc.data(),me=m.senderUid===currentUser.uid;
+      return `<div class="chat-msg ${me?'me':'other'}"><small>${esc(m.senderName||m.senderRole||'Afromed Office')}</small>${esc(m.text||'')}</div>`;
+    }).join('');
+    box.scrollTop=box.scrollHeight;
+  });
+}
+async function sendSupportMessage(){
+  const input=document.getElementById('support-chat-input'),text=input.value.trim();if(!text)return;input.value='';
+  const thread=db.collection('support_threads').doc(currentUser.uid);
+  await thread.set({
+    userId:currentUser.uid,userName:`${userProfile.name||''} ${userProfile.surname||''}`.trim()||'Afromed Patient',
+    userPhone:userProfile.phone||'',status:'open',lastMessage:text,lastMessageAt:firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+  },{merge:true});
+  await thread.collection('messages').add({
+    senderUid:currentUser.uid,senderName:userProfile.name||'Patient',senderRole:'patient',text,timestamp:firebase.firestore.FieldValue.serverTimestamp()
+  });
+}
+
+function loadProfile(){
+  return db.collection('users').doc(currentUser.uid).onSnapshot(doc=>{
+    userProfile=doc.exists?doc.data():{};
+    const name=`${userProfile.name||''} ${userProfile.surname||''}`.trim();
+    document.getElementById('profile-name').textContent=name||'Complete your profile';
+    document.getElementById('profile-phone').textContent=userProfile.phone||'Add your phone number';
+    document.getElementById('profile-blood').textContent=userProfile.bloodType||'Unknown';
+    document.getElementById('profile-medaid').textContent=userProfile.medicalAid||'Not added';
+    document.getElementById('profile-mednum').textContent=userProfile.medicalNumber||'—';
+    document.getElementById('profile-allergies').textContent=userProfile.allergies||'None listed';
+    const initials=((userProfile.name||'A').charAt(0)+(userProfile.surname||'').charAt(0)).toUpperCase();
+    document.getElementById('profile-avatar').textContent=initials||'A';
+    ['name','surname','phone','emergency'].forEach(k=>{const e=document.getElementById('inp-'+k);if(e)e.value=k==='emergency'?(userProfile.emergencyContact||''):(userProfile[k]||'')});
+    document.getElementById('inp-blood').value=userProfile.bloodType||'Unknown';document.getElementById('inp-allergies').value=userProfile.allergies||'';document.getElementById('inp-medaid').value=userProfile.medicalAid||'';document.getElementById('inp-mednumber').value=userProfile.medicalNumber||'';document.getElementById('inp-medical-notes').value=userProfile.medicalNotes||'';
+    if(!userProfile.phone||!userProfile.name)openFirstRunSetup();
+  });
+}
+async function saveProfile(){
+  const data={
+    name:document.getElementById('inp-name').value.trim(),surname:document.getElementById('inp-surname').value.trim(),
+    phone:normalizedPhone(document.getElementById('inp-phone').value),emergencyContact:normalizedPhone(document.getElementById('inp-emergency').value),
+    bloodType:document.getElementById('inp-blood').value,allergies:document.getElementById('inp-allergies').value.trim(),
+    medicalAid:document.getElementById('inp-medaid').value.trim(),medicalNumber:document.getElementById('inp-mednumber').value.trim(),
+    medicalNotes:document.getElementById('inp-medical-notes').value.trim(),updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+  };
+  await db.collection('users').doc(currentUser.uid).set(data,{merge:true});closeSheet('profile-sheet');
+}
+function openFirstRunSetup(){document.getElementById('setup-mask').classList.add('active');document.getElementById('setup-name').value=userProfile.name||'';document.getElementById('setup-surname').value=userProfile.surname||'';document.getElementById('setup-phone').value=userProfile.phone||''}
+async function saveFirstRunProfile(){
+  const name=document.getElementById('setup-name').value.trim(),phone=normalizedPhone(document.getElementById('setup-phone').value);
+  if(!name||!phone)return alert('Please enter your name and mobile number.');
+  await db.collection('users').doc(currentUser.uid).set({name,surname:document.getElementById('setup-surname').value.trim(),phone,updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
+  document.getElementById('setup-mask').classList.remove('active');
+}
+
+function listenNotifications(){
+  db.collection('users').doc(currentUser.uid).collection('notifications').onSnapshot(snap=>{
+    notifications=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+    const unread=notifications.filter(n=>!n.read).length,b=document.getElementById('notification-badge');b.textContent=unread;b.classList.toggle('hidden',unread===0);
+    document.getElementById('notifications-list').innerHTML=notifications.length?notifications.map(n=>`<div class="notification-item ${n.read?'':'unread'}" onclick="markNotificationRead('${n.id}')"><strong>${esc(n.title||'Afromed')}</strong><span>${esc(n.body||'')}<br>${formatDate(n.createdAt)}</span></div>`).join(''):'<div class="list-card"><span>No notifications yet.</span></div>';
+  });
+}
+async function markNotificationRead(id){await db.collection('users').doc(currentUser.uid).collection('notifications').doc(id).set({read:true},{merge:true})}
+
+window.onNativeFcmToken=async function(token){
+  if(!token)return;localStorage.setItem('afromed_fcm_token',token);
+  if(currentUser)await db.collection('users').doc(currentUser.uid).set({fcmToken:token,fcmUpdatedAt:firebase.firestore.FieldValue.serverTimestamp(),appPlatform:'android'},{merge:true}).catch(()=>{});
+};
+function syncNativeToken(){
+  let token=localStorage.getItem('afromed_fcm_token')||'';
+  try{token=window.AfromedNative?.getFcmToken?.()||token}catch{}
+  if(token)window.onNativeFcmToken(token);
+}
+
+auth.onAuthStateChanged(async user=>{
+  if(!user){window.location.replace('login.html');return}
+  currentUser=user;
+  initMap();loadProfile();listenRequestHistory();listenAvailableVehicles();listenNotifications();syncNativeToken();
+  finishSplash();
+});
+</script>
+</body>
+</html>
