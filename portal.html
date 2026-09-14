@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal | Afromed College</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #0A2540;     
+            --accent-red: #D90429;       
+            --bg-light: #F8FAFC;          
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+            --transition: 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { color: var(--text-main); background-color: var(--bg-light); display: none; } /* Hidden until Auth verified */
+        
+        .hidden { display: none !important; }
+
+        #portal-view { display: flex; height: 100vh; overflow: hidden; }
+        
+        /* SIDEBAR */
+        .sidebar { width: 280px; background: var(--primary-blue); color: white; display: flex; flex-direction: column; transition: var(--transition); z-index: 50; }
+        .sidebar-header { padding: 1.5rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 15px; }
+        .sidebar-header img { height: 35px; filter: brightness(0) invert(1); cursor: pointer; }
+        
+        .nav-menu { list-style: none; padding: 2rem 0; flex-grow: 1; overflow-y: auto; }
+        .nav-menu li a { display: flex; align-items: center; padding: 1rem 2rem; color: #CBD5E1; text-decoration: none; gap: 15px; cursor: pointer; transition: 0.2s; font-weight: 500; }
+        .nav-menu li a:hover, .nav-menu li a.active { background: rgba(255,255,255,0.08); color: white; border-left: 4px solid var(--accent-red); padding-left: calc(2rem - 4px); }
+        .nav-menu li a i { width: 20px; text-align: center; font-size: 1.1rem; }
+
+        /* MAIN CONTENT */
+        .main-content { flex-grow: 1; display: flex; flex-direction: column; overflow-y: auto; }
+        .topbar { background: white; padding: 1.2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        .mobile-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary-blue); cursor: pointer; }
+        
+        .user-info { display: flex; gap: 20px; align-items: center; }
+        .user-name-display { font-size: 0.95rem; font-weight: 600; color: var(--primary-blue); display: flex; align-items: center; gap: 10px; }
+        .user-avatar { width: 35px; height: 35px; background: var(--primary-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        
+        .btn-logout { background: white; border: 1px solid var(--border); padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: 600; color: var(--accent-red); transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .btn-logout:hover { background: #fef2f2; border-color: var(--accent-red); }
+        
+        /* DASHBOARD CONTENT & VIEWS */
+        .content-wrapper { padding: 3rem 2.5rem; max-width: 1200px; width: 100%; margin: 0 auto; }
+        .view-section { animation: fadeIn 0.4s ease; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-title { color: var(--primary-blue); margin-bottom: 0.5rem; font-size: 2rem; font-weight: 700; }
+        .page-subtitle { color: var(--text-muted); margin-bottom: 2.5rem; font-size: 1rem; }
+
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        
+        .panel { background: white; border-radius: 12px; padding: 2rem; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 2rem; }
+        .panel-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; font-size: 1.2rem; font-weight: 600; color: var(--primary-blue); }
+        
+        .announcement { border-left: 4px solid var(--accent-red); padding-left: 1rem; margin-bottom: 1rem; }
+        .announcement h4 { color: var(--primary-blue); margin-bottom: 5px; }
+        .announcement p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+
+        /* Tables & Forms */
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table th, .data-table td { padding: 1.2rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        .data-table th { background: #F8FAFC; color: var(--text-muted); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .data-table tr:hover td { background: #f1f5f9; }
+        
+        .status-badge { padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .status-pass { background: #dcfce7; color: #166534; }
+        .status-pending { background: #fef08a; color: #854d0e; }
+        .status-active { background: #dbeafe; color: #1e40af; }
+
+        .form-group { margin-bottom: 1.5rem; max-width: 500px; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--primary-blue); font-size: 0.95rem; }
+        .form-group input { width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; background: var(--bg-light); transition: var(--transition); }
+        .form-group input:focus { outline: none; border-color: var(--primary-blue); background: white; }
+        .btn-save { background: var(--primary-blue); color: white; padding: 0.8rem 2rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: var(--transition); }
+        .btn-save:hover { background: #071a2d; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .sidebar { position: fixed; left: -280px; height: 100vh; }
+            .sidebar.active { left: 0; box-shadow: 5px 0 15px rgba(0,0,0,0.1); }
+            .mobile-toggle { display: block; }
+            .topbar { padding: 1rem; }
+            .content-wrapper { padding: 1.5rem 1rem; }
+            .data-table { display: block; overflow-x: auto; white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="portal-view">
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="college.html"><img src="https://www.afromed.life/logo/logo.png" alt="Logo"></a>
+                <span style="font-weight: 600; font-size: 1.1rem;">Portal</span>
+            </div>
+            
+            <!-- Navigation Links calling the switchView function -->
+            <ul class="nav-menu">
+                <li><a id="nav-dashboard" class="active" onclick="switchView('dashboard')"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                <li><a id="nav-courses" onclick="switchView('courses')"><i class="fa-solid fa-book-medical"></i> My Courses</a></li>
+                <li><a id="nav-schedule" onclick="switchView('schedule')"><i class="fa-solid fa-calendar-days"></i> Schedule</a></li>
+                <li><a id="nav-transcripts" onclick="switchView('transcripts')"><i class="fa-solid fa-file-invoice"></i> Transcripts</a></li>
+                <li><a id="nav-settings" onclick="switchView('settings')"><i class="fa-solid fa-gear"></i> Settings</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN VIEW -->
+        <main class="main-content">
+            <header class="topbar">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <button class="mobile-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div style="font-weight: 600; color: var(--text-muted);">Student Workspace</div>
+                </div>
+                
+                <div class="user-info">
+                    <div class="user-name-display">
+                        <div class="user-avatar" id="user-avatar">S</div>
+                        <span id="user-display-name">Loading...</span>
+                    </div>
+                    <button id="btn-logout" class="btn-logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                
+                <!-- ==========================================
+                     VIEW: DASHBOARD
+                     ========================================== -->
+                <div id="view-dashboard" class="view-section">
+                    <h1 class="page-title">Welcome back, <span id="welcome-name">Student</span>!</h1>
+                    <p class="page-subtitle">Here is a quick overview of your progress and announcements.</p>
+                    
+                    <div class="dashboard-grid">
+                        <div class="panel">
+                            <div class="panel-header"><i class="fa-solid fa-bullhorn" style="color: var(--accent-red);"></i> College Announcements</div>
+                            <div class="announcement">
+                                <h4>Practical Assessment Schedule</h4>
+                                <p>Ensure you check your timetable for the upcoming Avoca Hills practicals. Wear full PPE.</p>
+                            </div>
+                            <div class="announcement" style="border-left-color: var(--primary-blue);">
+                                <h4>System Maintenance</h4>
+                                <p>The grading portal will be offline this Sunday between 02:00 AM and 04:00 AM.</p>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-header"><i class="fa-solid fa-book-open" style="color: var(--primary-blue);"></i> Quick Actions</div>
+                            <button onclick="switchView('courses')" style="width: 100%; padding: 1rem; margin-bottom: 10px; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; text-align: left; font-weight: 600; color: var(--primary-blue); cursor: pointer;"><i class="fa-solid fa-arrow-right" style="color: var(--accent-red); margin-right: 10px;"></i> Continue Learning</button>
+                            <button onclick="switchView('transcripts')" style="width: 100%; padding: 1rem; background: var(--bg-light); border: 1px solid var(--border); border-radius: 8px; text-align: left; font-weight: 600; color: var(--primary-blue); cursor: pointer;"><i class="fa-solid fa-arrow-right" style="color: var(--accent-red); margin-right: 10px;"></i> View Latest Grades</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     VIEW: MY COURSES
+                     ========================================== -->
+                <div id="view-courses" class="view-section hidden">
+                    <h1 class="page-title">My Courses</h1>
+                    <p class="page-subtitle">Manage and access your current learning modules.</p>
+                    
+                    <div class="panel" style="padding: 0; overflow: hidden;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Course Name</th>
+                                    <th>Instructor</th>
+                                    <th>Progress</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight: 600; color: var(--primary-blue);">Advanced Emergency First Aid Responder</td>
+                                    <td>Dr. S. Mokoena</td>
+                                    <td>
+                                        <div style="width: 100%; background: #e2e8f0; border-radius: 10px; height: 8px; overflow: hidden;">
+                                            <div style="width: 65%; background: var(--primary-blue); height: 100%;"></div>
+                                        </div>
+                                        <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px; display: block;">65% Completed</span>
+                                    </td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td><button style="padding: 5px 15px; border: 1px solid var(--border); background: white; border-radius: 5px; cursor: pointer; font-weight: 600;">Access</button></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600; color: var(--primary-blue);">Basic Anatomy & Physiology</td>
+                                    <td>Mr. J. Naidoo</td>
+                                    <td>
+                                        <div style="width: 100%; background: #e2e8f0; border-radius: 10px; height: 8px; overflow: hidden;">
+                                            <div style="width: 100%; background: #166534; height: 100%;"></div>
+                                        </div>
+                                        <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px; display: block;">100% Completed</span>
+                                    </td>
+                                    <td><span class="status-badge status-pass">Completed</span></td>
+                                    <td><button style="padding: 5px 15px; border: 1px solid var(--border); background: white; border-radius: 5px; cursor: pointer; font-weight: 600;">Review</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     VIEW: SCHEDULE
+                     ========================================== -->
+                <div id="view-schedule" class="view-section hidden">
+                    <h1 class="page-title">Class Schedule</h1>
+                    <p class="page-subtitle">Your upcoming practicals and theory classes.</p>
+
+                    <div class="panel" style="padding: 0; overflow: hidden;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date & Time</th>
+                                    <th>Type</th>
+                                    <th>Module</th>
+                                    <th>Location/Campus</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Aug 24, 2026</strong><br><span style="color: var(--text-muted); font-size: 0.85rem;">09:00 AM - 13:00 PM</span></td>
+                                    <td><span class="status-badge status-pending" style="background: #fce7f3; color: #be185d;">Practical</span></td>
+                                    <td style="font-weight: 500;">Trauma Management (Sim)</td>
+                                    <td>Avoca Hills Campus - Lab 2</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Aug 26, 2026</strong><br><span style="color: var(--text-muted); font-size: 0.85rem;">10:00 AM - 12:00 PM</span></td>
+                                    <td><span class="status-badge status-active">Theory</span></td>
+                                    <td style="font-weight: 500;">Pharmacology Basics</td>
+                                    <td>Online via Zoom</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     VIEW: TRANSCRIPTS
+                     ========================================== -->
+                <div id="view-transcripts" class="view-section hidden">
+                    <h1 class="page-title">Grades & Transcripts</h1>
+                    <p class="page-subtitle">View your officially recorded assessments.</p>
+
+                    <div class="panel" style="padding: 0; overflow: hidden;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Assessment / Module</th>
+                                    <th>Date Graded</th>
+                                    <th>Score</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight: 500;">First Aid CPR Practical Test</td>
+                                    <td>Aug 10, 2026</td>
+                                    <td style="font-weight: bold; color: var(--primary-blue);">88%</td>
+                                    <td><span class="status-badge status-pass">Pass</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">Basic Anatomy Mid-Term</td>
+                                    <td>Jul 22, 2026</td>
+                                    <td style="font-weight: bold; color: var(--primary-blue);">75%</td>
+                                    <td><span class="status-badge status-pass">Pass</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">Trauma Management Final</td>
+                                    <td>Pending</td>
+                                    <td style="font-weight: bold; color: var(--text-muted);">--</td>
+                                    <td><span class="status-badge status-pending">Pending Marking</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ==========================================
+                     VIEW: SETTINGS
+                     ========================================== -->
+                <div id="view-settings" class="view-section hidden">
+                    <h1 class="page-title">Account Settings</h1>
+                    <p class="page-subtitle">Update your personal portal information.</p>
+
+                    <div class="panel">
+                        <form onsubmit="event.preventDefault(); alert('Settings saved successfully!');">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="setting-name" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" id="setting-email" value="" readonly style="background: #e2e8f0; cursor: not-allowed;">
+                                <small style="color: var(--text-muted);">Email address cannot be changed via the portal.</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Student ID Number</label>
+                                <input type="text" value="AFR-2026-0042" readonly style="background: #e2e8f0; cursor: not-allowed;">
+                            </div>
+                            <button type="submit" class="btn-save">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- UI NAVIGATION SCRIPT -->
+    <script>
+        // Function to switch between views
+        function switchView(viewId) {
+            // 1. Hide all views
+            const views = document.querySelectorAll('.view-section');
+            views.forEach(view => view.classList.add('hidden'));
+
+            // 2. Remove active class from all menu items
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            // 3. Show target view and set active nav item
+            document.getElementById('view-' + viewId).classList.remove('hidden');
+            document.getElementById('nav-' + viewId).classList.add('active');
+
+            // 4. On Mobile: close the sidebar automatically after clicking a link
+            if (window.innerWidth <= 768) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        }
+    </script>
+
+    <!-- FIREBASE SCRIPT -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBBkouWWkEWAlPtLSmp3eHZVVBcQtYu-xo",
+            authDomain: "afromed-fda57.firebaseapp.com",
+            projectId: "afromed-fda57",
+            storageBucket: "afromed-fda57.firebasestorage.app",
+            messagingSenderId: "633274573777",
+            appId: "1:633274573777:web:6b244c95612bc92ff976f0",
+            measurementId: "G-3ZSVQDNVFX"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Security Check: Ensure user is logged in
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Show body once authenticated
+                document.body.style.display = "block";
+                
+                // Set User Details
+                let displayName = user.displayName;
+                if (!displayName && user.email) {
+                    displayName = user.email.split('@')[0];
+                } else if (!displayName) {
+                    displayName = "Student";
+                }
+                
+                document.getElementById('user-display-name').innerText = displayName;
+                document.getElementById('welcome-name').innerText = displayName.split(' ')[0];
+                document.getElementById('user-avatar').innerText = displayName.charAt(0).toUpperCase();
+
+                // Populate settings form with user data
+                document.getElementById('setting-name').value = displayName;
+                document.getElementById('setting-email').value = user.email;
+
+            } else {
+                // Redirect back to login/college if not authenticated
+                window.location.href = 'college.html';
+            }
+        });
+
+        // Logout logic
+        document.getElementById('btn-logout').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.href = 'college.html';
+            }).catch((error) => console.error("Logout Error", error));
+        });
+    </script>
+</body>
+</html>

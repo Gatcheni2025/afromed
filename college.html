@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afromed College | Emergency Medical Training</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #0A2540;     
+            --accent-red: #D90429;       
+            --bg-light: #F8FAFC;          
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { color: var(--text-main); background-color: white; overflow-x: hidden; line-height: 1.6; }
+        .hidden { display: none !important; }
+
+        /* =========================================
+           NAVIGATION
+           ========================================= */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; background: rgba(255, 255, 255, 0.98); 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        .logo img { height: 45px; transition: var(--transition); } 
+        .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--primary-blue); font-weight: 500; transition: var(--transition); font-size: 0.95rem; }
+        .nav-links a:hover { color: var(--accent-red); }
+        .btn-portal { background: var(--accent-red); color: white !important; padding: 0.6rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; box-shadow: 0 4px 12px rgba(217, 4, 41, 0.2); transition: var(--transition); }
+        .btn-portal:hover { background: #b00320; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(217, 4, 41, 0.3); }
+
+        /* Mobile Nav Toggle */
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; color: var(--primary-blue); cursor: pointer; }
+
+        /* =========================================
+           HERO SECTION
+           ========================================= */
+        .hero {
+            /* UPDATED BACKGROUND IMAGE HERE */
+            background: linear-gradient(rgba(10, 37, 64, 0.75), rgba(10, 37, 64, 0.9)), url('https://www.afromed.life/images/college/1M4A8441.jpg') center/cover;
+            color: white; padding: 8rem 5% 6rem; text-align: center;
+        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 1.2rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+        .hero p { font-size: 1.15rem; margin-bottom: 2.5rem; color: #E2E8F0; max-width: 700px; margin-left: auto; margin-right: auto; font-weight: 300; }
+        .hwseta-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); padding: 0.5rem 1.2rem; border-radius: 30px; margin-bottom: 2rem; font-weight: 500; font-size: 0.9rem; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); }
+        
+        .stats { display: flex; justify-content: center; gap: 5rem; padding: 3.5rem 5%; background: var(--primary-blue); color: white; flex-wrap: wrap; }
+        .stat-item { text-align: center; }
+        .stat-item h3 { font-size: 3rem; color: var(--accent-red); margin-bottom: 0.2rem; font-weight: 700; }
+        .stat-item p { font-size: 0.95rem; color: #CBD5E1; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+
+        /* =========================================
+           SECTIONS & CARDS
+           ========================================= */
+        .section { padding: 6rem 5%; max-width: 1300px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 1rem; font-weight: 700; letter-spacing: -0.02em; }
+        .section-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 4rem; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        /* About Grid */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-image { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); object-fit: cover; height: 500px; }
+        .about-features { display: grid; gap: 2rem; margin-top: 2rem; }
+        .feature-item { display: flex; gap: 1.5rem; align-items: flex-start; }
+        .feature-icon { background: rgba(217, 4, 41, 0.1); color: var(--accent-red); padding: 1rem; border-radius: 12px; font-size: 1.5rem; }
+        .feature-text h4 { color: var(--primary-blue); margin-bottom: 0.5rem; font-size: 1.2rem; }
+        .feature-text p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Course Cards Grid */
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        .card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid var(--border); transition: var(--transition); display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1); border-color: rgba(217,4,41,0.2); }
+        .card-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid var(--border); }
+        .card-content { padding: 2rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-content h4 { color: var(--primary-blue); margin-bottom: 1rem; font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
+        .card-content p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; flex-grow: 1; }
+        .read-more { color: var(--accent-red); font-weight: 600; text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px; }
+        .read-more:hover { color: #b00320; }
+
+        /* Contact Form */
+        .contact-container { background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 700px; margin: 0 auto; border: 1px solid var(--border); }
+        .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+        .contact-form input, .contact-form select, .contact-form textarea { padding: 1.2rem; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; background: var(--bg-light); transition: var(--transition); }
+        .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { outline: none; border-color: var(--primary-blue); background: white; }
+        .contact-form button { padding: 1.2rem; background: var(--primary-blue); color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: var(--transition); }
+        .contact-form button:hover { background: #071a2d; transform: translateY(-2px); }
+
+        footer { background: #051424; color: white; padding: 4rem 5% 2rem; text-align: center; }
+        .footer-logo { height: 60px; margin-bottom: 1.5rem; filter: brightness(0) invert(1); }
+
+        /* =========================================
+           LOGIN MODAL
+           ========================================= */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 37, 64, 0.8); display: flex; justify-content: center; align-items: center;
+            z-index: 1000; backdrop-filter: blur(8px); opacity: 1; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.hidden { opacity: 0; pointer-events: none; }
+        
+        .login-box {
+            background: white; padding: 3rem; border-radius: 20px; width: 100%; max-width: 420px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); position: relative; transform: translateY(0); transition: transform 0.3s ease;
+        }
+        .modal-overlay.hidden .login-box { transform: translateY(20px); }
+        
+        .close-modal { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.05); border: none; font-size: 1.2rem; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; color: var(--text-main); transition: var(--transition); }
+        .close-modal:hover { background: rgba(0,0,0,0.1); color: var(--accent-red); }
+        
+        .login-box h2 { color: var(--primary-blue); margin-bottom: 0.5rem; text-align: center; font-weight: 700; }
+        .login-box p { text-align: center; color: var(--text-muted); margin-bottom: 2rem; font-size: 0.95rem; }
+        
+        .auth-input { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; background: var(--bg-light); }
+        .auth-input:focus { outline: none; border-color: var(--primary-blue); background: white; }
+        
+        .btn-auth { width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; transition: var(--transition); font-size: 1rem; }
+        .btn-email { background: var(--primary-blue); color: white; box-shadow: 0 4px 10px rgba(10, 37, 64, 0.2); }
+        .btn-email:hover { background: #071a2d; transform: translateY(-1px); }
+        .btn-google { background: white; color: #444; border: 1px solid var(--border); }
+        .btn-google:hover { background: #f1f5f9; }
+        .btn-ms { background: #2F2F2F; color: white; }
+        .btn-ms:hover { background: #1a1a1a; }
+        
+        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border); }
+        .divider:not(:empty)::before { margin-right: .5em; }
+        .divider:not(:empty)::after { margin-left: .5em; }
+
+        #auth-error { color: var(--accent-red); font-size: 0.9rem; text-align: center; margin-bottom: 15px; display: none; background: rgba(217, 4, 41, 0.1); padding: 10px; border-radius: 8px; }
+
+        /* =========================================
+           RESPONSIVE DESIGN
+           ========================================= */
+        @media (max-width: 992px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .about-image { height: 400px; }
+            .hero h1 { font-size: 2.8rem; }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute; top: 100%; left: 0; right: 0; background: white;
+                flex-direction: column; padding: 2rem 5%; gap: 1.5rem;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-top: 1px solid var(--border);
+                display: none; /* toggled via JS */
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .stats { gap: 2rem; }
+            .stat-item { width: 40%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">
+            <img src="https://www.afromed.life/logo/logo.png" alt="Afromed Logo">
+        </div>
+        <button class="mobile-menu-btn" onclick="document.getElementById('nav-links').classList.toggle('active')">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="nav-links" id="nav-links">
+            <a href="#about" onclick="document.getElementById('nav-links').classList.remove('active')">About</a>
+            <a href="#courses" onclick="document.getElementById('nav-links').classList.remove('active')">Courses</a>
+            <a href="#contact" onclick="document.getElementById('nav-links').classList.remove('active')">Contact</a>
+            <button id="nav-portal-btn" class="btn-portal" onclick="openLoginModal()">Student Portal <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hwseta-tag"><i class="fa-solid fa-certificate" style="color: #FFD700;"></i> HWSETA Accredited Institution</div>
+        <h1>Empowering Lifesavers of Tomorrow</h1>
+        <p>Premium hands-on learning with experienced emergency medical trainers. Real-world skills for life-saving careers at our Durban and Manguzi campuses.</p>
+        <button class="btn-portal" style="font-size: 1.1rem; padding: 1rem 2.5rem;" onclick="document.getElementById('courses').scrollIntoView({behavior: 'smooth'})">Explore Our Courses</button>
+    </section>
+
+    <!-- STATS BAR -->
+    <section class="stats">
+        <div class="stat-item"><h3>1,280+</h3><p>Students Trained</p></div>
+        <div class="stat-item"><h3>7</h3><p>Premium Courses</p></div>
+        <div class="stat-item"><h3>12</h3><p>Years of Excellence</p></div>
+        <div class="stat-item"><h3>2</h3><p>Modern Campuses</p></div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section">
+        <div class="about-grid">
+            <div>
+                <h2 class="section-title" style="text-align: left;">About Afromed College</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Afromed College is a premier emergency medical training institution based in South Africa. We combine rigorous theory with intensive hands-on practical training to prepare you for rewarding careers in emergency medical services, forestry safety, and early childhood development.</p>
+                
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-certificate"></i></div>
+                        <div class="feature-text">
+                            <h4>HWSETA Accredited</h4>
+                            <p>All our major courses are rigorously quality assured and recognized nationally.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-user-doctor"></i></div>
+                        <div class="feature-text">
+                            <h4>Expert Trainers</h4>
+                            <p>Learn directly from seasoned professionals with real-world EMS and safety backgrounds.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-building"></i></div>
+                        <div class="feature-text">
+                            <h4>Two Premium Campuses</h4>
+                            <p>Conveniently located facilities equipped for modern training in Durban (Avoca Hills) & Manguzi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <!-- UPDATED ABOUT IMAGE -->
+                <img src="https://www.afromed.life/images/college/1M4A8442.jpg" alt="Medical Training" class="about-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- COURSES SECTION -->
+    <section id="courses" class="section" style="background: var(--bg-light); max-width: 100%;">
+        <div style="max-width: 1300px; margin: 0 auto;">
+            <h2 class="section-title">Our Premium Courses</h2>
+            <p class="section-subtitle">Industry-aligned programmes curated for top-tier emergency & safety careers</p>
+            
+            <div class="grid-cards">
+                <!-- Course 1 -->
+                <div class="card">
+                    <img src="https://www.afromed.life/images/college/1M4A8443.jpg" class="card-img" alt="Advanced First Aid">
+                    <div class="card-content">
+                        <h4>Advanced Emergency First Aid Responder</h4>
+                        <p>Comprehensive training covering advanced life support, trauma management, and emergency clinical care.</p>
+                        <a href="#contact" class="read-more">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Course 2 -->
+                <div class="card">
+                    <img src="https://www.afromed.life/images/college/1M4A8444.jpg" class="card-img" alt="Basic First Aid">
+                    <div class="card-content">
+                        <h4>Basic Emergency First Aid Responder</h4>
+                        <p>Learn the foundational, critical first aid and CPR skills required to stabilize patients in emergency scenarios.</p>
+                        <a href="#contact" class="read-more">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Course 3 -->
+                <div class="card">
+                    <img src="https://www.afromed.life/images/college/1M4A8453.jpg" class="card-img" alt="Forestry">
+                    <div class="card-content">
+                        <h4>Forestry SHE Representative</h4>
+                        <p>Master safety, health, and environmental compliance specific to the demands of the forestry sector.</p>
+                        <a href="#contact" class="read-more">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Course 4 -->
+                <div class="card">
+                    <img src="https://www.afromed.life/images/college/1M4A8456.jpg" class="card-img" alt="Risk Assessment">
+                    <div class="card-content">
+                        <h4>Forestry Hazard and Risk Assessor</h4>
+                        <p>Develop the analytical skills to proactively identify, evaluate, and mitigate complex forestry risks.</p>
+                        <a href="#contact" class="read-more">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Course 5 -->
+                <div class="card">
+                    <img src="https://www.afromed.life/images/college/1M4A8465.jpg" class="card-img" alt="Incident Investigation">
+                    <div class="card-content">
+                        <h4>Incident Investigator</h4>
+                        <p>Learn the precise methodologies for investigating workplace incidents, accidents, and ensuring compliance.</p>
+                        <a href="#contact" class="read-more">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <!-- Course 6 -->
+                <div class="card">
+                    <img src="https://www.afromed.life/images/college/1M4A8590.jpg" class="card-img" alt="Early Childhood">
+                    <div class="card-content">
+                        <h4>Early Childhood Practitioner</h4>
+                        <p>Professional training designed to equip you with the skills to safely nurture and educate young minds.</p>
+                        <a href="#contact" class="read-more">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="section">
+        <h2 class="section-title">Get in Touch</h2>
+        <p class="section-subtitle">Fill in our online enquiry form and an admissions officer will respond within 24 hours.</p>
+        
+        <div class="contact-container">
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Enquiry sent successfully!');">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <input type="tel" placeholder="Phone Number" required>
+                <select required>
+                    <option value="" disabled selected>Select a course of interest</option>
+                    <option>Advanced Emergency First Aid Responder</option>
+                    <option>Basic Emergency First Aid Responder</option>
+                    <option>Forestry SHE Representative</option>
+                    <option>Forestry Hazard and Risk Assessor</option>
+                    <option>Incident Investigator</option>
+                    <option>Early Childhood Practitioner</option>
+                    <option>New Venture Creation</option>
+                    <option>General Enquiry</option>
+                </select>
+                <textarea rows="5" placeholder="How can we help you?" required></textarea>
+                <button type="submit">Send Enquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <img src="https://www.afromed.life/logo/logo.png" alt="Afromed Logo" class="footer-logo">
+        <p>&copy; 2026 Afromed College. All rights reserved.</p>
+        <p style="margin-top: 15px; font-size: 0.95rem; color: #94A3B8;">
+            Avoca Hills, Durban | Manguzi Campus | +27 (0)31 123 4567 | info@afromed.co.za
+        </p>
+    </footer>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="modal-overlay hidden">
+        <div class="login-box">
+            <button class="close-modal" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
+            <img src="https://www.afromed.life/logo/logo.png" alt="Afromed Logo" style="height: 45px; display: block; margin: 0 auto 20px;">
+            <h2>Student Portal Login</h2>
+            <p>Access your personalized dashboard and grades</p>
+
+            <div id="auth-error"></div>
+
+            <input type="email" id="email-input" class="auth-input" placeholder="Student Email">
+            <input type="password" id="password-input" class="auth-input" placeholder="Password">
+            <button id="btn-login-email" class="btn-auth btn-email">Sign in to Portal</button>
+
+            <div class="divider">OR</div>
+
+            <button id="btn-login-google" class="btn-auth btn-google">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width: 20px;"> Sign in with Google
+            </button>
+            <button id="btn-login-ms" class="btn-auth btn-ms">
+                <svg width="20" height="20" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><path d="M10 0H0v10h10V0zM21 0H11v10h10V0zM10 11H0v10h10V11zM21 11H11v10h10V11z" fill="#fff"/></svg> Sign in with Microsoft
+            </button>
+        </div>
+    </div>
+
+    <!-- UI & FIREBASE SCRIPT -->
+    <script>
+        function openLoginModal() { 
+            const modal = document.getElementById('login-modal');
+            modal.classList.remove('hidden'); 
+        }
+        function closeLoginModal() { 
+            document.getElementById('login-modal').classList.add('hidden'); 
+            document.getElementById('auth-error').style.display = 'none';
+        }
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { 
+            getAuth, signInWithEmailAndPassword, signInWithPopup, 
+            GoogleAuthProvider, OAuthProvider, onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBBkouWWkEWAlPtLSmp3eHZVVBcQtYu-xo",
+            authDomain: "afromed-fda57.firebaseapp.com",
+            projectId: "afromed-fda57",
+            storageBucket: "afromed-fda57.firebasestorage.app",
+            messagingSenderId: "633274573777",
+            appId: "1:633274573777:web:6b244c95612bc92ff976f0",
+            measurementId: "G-3ZSVQDNVFX"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const errorDiv = document.getElementById('auth-error');
+
+        function showError(msg) {
+            errorDiv.style.display = 'block';
+            errorDiv.innerText = msg;
+        }
+
+        // Listen to Auth State
+        onAuthStateChanged(auth, (user) => {
+            const portalBtn = document.getElementById('nav-portal-btn');
+            const modal = document.getElementById('login-modal');
+
+            if (user) {
+                // If logged in, change the Navbar button to immediately navigate to the portal
+                portalBtn.innerHTML = 'Go to Portal <i class="fa-solid fa-arrow-right"></i>';
+                portalBtn.onclick = () => window.location.href = 'portal.html';
+                
+                // If they just logged in via the modal, immediately redirect them
+                if (!modal.classList.contains('hidden')) {
+                    window.location.href = 'portal.html';
+                }
+            } else {
+                // Not logged in, clicking the button opens the modal
+                portalBtn.innerHTML = 'Student Portal <i class="fa-solid fa-arrow-right-to-bracket"></i>';
+                portalBtn.onclick = openLoginModal;
+            }
+        });
+
+        // Email Login
+        document.getElementById('btn-login-email').addEventListener('click', () => {
+            const email = document.getElementById('email-input').value;
+            const password = document.getElementById('password-input').value;
+            if(!email || !password) return showError("Please enter email and password.");
+            
+            signInWithEmailAndPassword(auth, email, password)
+                .then(() => window.location.href = 'portal.html')
+                .catch((error) => showError("Login failed: " + error.message));
+        });
+
+        // Google Login
+        document.getElementById('btn-login-google').addEventListener('click', () => {
+            signInWithPopup(auth, new GoogleAuthProvider())
+                .then(() => window.location.href = 'portal.html')
+                .catch((error) => showError("Google login failed: " + error.message));
+        });
+
+        // Microsoft Login
+        document.getElementById('btn-login-ms').addEventListener('click', () => {
+            signInWithPopup(auth, new OAuthProvider('microsoft.com'))
+                .then(() => window.location.href = 'portal.html')
+                .catch((error) => showError("Microsoft login failed: " + error.message));
+        });
+    </script>
+</body>
+</html>

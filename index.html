@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Afromed.life is KwaZulu-Natal’s premier integrated emergency healthcare, professional training and community development group. Afromed EMS (24/7 ALS), HWSETA-accredited Afromed Emergency College, and Afromed Development (NPO 245-061) deliver clinical excellence, youth empowerment and sustainable impact across eThekwini and northern KZN since 2012.">
+    <meta name="keywords" content="Afromed, emergency medical services Durban, HWSETA training KZN, paramedic training, event medical cover, community health KZN, Afromed College, first aid courses Durban, ALS ambulance KZN">
+    <title>Afromed | Integrated Emergency Healthcare, HWSETA Training &amp; Community Development | South Africa</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap');
+
+        :root {
+            --primary-navy: #0F172A;
+            --accent-emerald: #059669;
+            --accent-sky: #0284C7;
+            --accent-red: #DC2626;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+            scroll-behavior: smooth;
+        }
+        
+        .heading-font {
+            font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+        }
+
+        .section-header {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            line-height: 1.05;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+        }
+
+        .modern-card {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .modern-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1);
+        }
+
+        .pillar-card { position: relative; overflow: hidden; }
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent-color));
+            transition: height 0.3s ease;
+        }
+        .pillar-card:hover::before { height: 7px; }
+
+        .nav-link { position: relative; transition: color 0.2s ease; }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -2px; left: 0;
+            background-color: #059669;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after { width: 100%; }
+
+        .modal { animation: modalPopIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        @keyframes modalPopIn {
+            from { opacity: 0; transform: scale(0.92) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .service-item { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .service-item:hover {
+            transform: translateX(4px);
+            background-color: #f8fafc;
+            border-color: #e2e8f0;
+        }
+
+        .professional-shadow { box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.08), 0 4px 6px -4px rgb(15 23 42 / 0.08); }
+        .nav-scrolled {
+            box-shadow: 0 1px 0 0 rgb(15 23 42 / 0.06);
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+        }
+
+        .stat-number { font-variant-numeric: tabular-nums; }
+        
+        .modal-panel { display: none; }
+        .modal-panel.active { display: block; animation: fadeInPanel 0.35s ease forwards; }
+        @keyframes fadeInPanel {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .preloader-logo {
+            width: 92px; height: 92px;
+            background: #0F172A;
+            border: 3px solid #059669;
+            border-radius: 24px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 24px; position: relative;
+            box-shadow: 0 0 0 12px rgba(5, 150, 105, 0.1);
+        }
+        .preloader-logo::after {
+            content: ''; position: absolute; inset: -8px;
+            border: 2px solid rgba(5, 150, 105, 0.3); border-radius: 28px;
+            animation: pulse-ring 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.15); opacity: 0.15; }
+        }
+
+        .reveal {
+            opacity: 0; transform: translateY(24px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .play-store-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        .play-store-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2); }
+
+        .healthcare-card { border: 1px solid #e2e8f0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .healthcare-card:hover { border-color: #059669; box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.1); }
+
+        /* Tabs */
+        .tab-scroll {
+            overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+            display: flex; flex-wrap: nowrap; gap: 0.25rem; padding-bottom: 0.25rem;
+        }
+        .tab-scroll::-webkit-scrollbar { display: none; }
+        .tab-scroll .tab-btn { flex-shrink: 0; white-space: nowrap; font-size: clamp(0.7rem, 1.5vw, 0.875rem); padding: 0.5rem 0.75rem; }
+        @media (min-width: 480px) { .tab-scroll .tab-btn { padding: 0.6rem 1rem; font-size: 0.8rem; } }
+        @media (min-width: 768px) { .tab-scroll { flex-wrap: wrap; overflow-x: visible; } .tab-scroll .tab-btn { flex-shrink: 1; white-space: normal; } }
+
+        .quick-access-grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
+        @media (min-width: 480px) { .quick-access-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 768px) { .quick-access-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        /* Footer Grid Restored */
+        .footer-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        @media (min-width: 480px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 768px) { .footer-grid { grid-template-columns: 1fr 2fr; } }
+        @media (min-width: 1024px) { .footer-grid { grid-template-columns: 1fr 3fr; } }
+
+        .footer-links-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+        @media (min-width: 480px) { .footer-links-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 640px) { .footer-links-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .touch-target { min-height: 44px; min-width: 44px; }
+        .no-scroll-x { overflow-x: hidden; max-width: 100%; }
+
+        /* GSAP HERO SLIDER */
+        .hero-slider-box-container { position: relative; overflow: hidden; background-color: #0b1120; min-height: 580px; }
+        @media (max-width: 768px) { .hero-slider-box-container { min-height: 640px; } }
+        .hero-slider-box-container .slider { display: flex; width: 500%; height: 580px; transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1); transform: translateX(0); }
+        @media (max-width: 768px) { .hero-slider-box-container .slider { height: 640px; } }
+        .hero-slider-box-container .box { height: 100%; width: 100%; display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center; overflow: hidden; position: relative; }
+        @media (max-width: 850px) { .hero-slider-box-container .box { grid-template-columns: 1fr; grid-template-rows: auto 1fr; } }
+        
+        .hero-slider-box-container .box .bg { position: absolute; height: 100%; width: 58%; left: -8%; background-color: rgba(15, 23, 42, 0.45); transform: skewX(8deg); transform-origin: 0 100%; z-index: 1; }
+        @media (max-width: 850px) { .hero-slider-box-container .box .bg { width: 100%; left: 0; bottom: 0; height: 100%; transform: skewX(0deg); } }
+        
+        .hero-slider-box-container .box .details { padding: 3rem 2rem 3rem 5rem; z-index: 10; grid-column: 1 / span 1; }
+        @media (max-width: 850px) { .hero-slider-box-container .box .details { padding: 2.5rem 1.5rem 6rem; text-align: center; } }
+        
+        .hero-slider-box-container .slide-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.9rem; border-radius: 9999px; font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 1.25rem; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .hero-slider-box-container .box .details h1 { font-family: 'Poppins', sans-serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; margin-bottom: 1rem; color: #ffffff; }
+        .hero-slider-box-container .box .details p { font-size: clamp(0.9rem, 1.5vw, 1.05rem); color: #cbd5e1; line-height: 1.6; margin-bottom: 1.75rem; max-width: 580px; }
+        .hero-slider-box-container .box .details button { padding: 0.85rem 2rem; border-radius: 1rem; font-weight: 600; font-size: 0.9rem; border: none; cursor: pointer; transition: all 0.3s ease; color: #ffffff; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        .hero-slider-box-container .box .details button:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .hero-slider-box-container .btn-outline-slide { background: transparent !important; border: 2px solid rgba(255, 255, 255, 0.4) !important; color: #ffffff !important; }
+        
+        .hero-slider-box-container .photo-stack { grid-column: 2 / -1; position: relative; width: 100%; height: 440px; display: flex; align-items: center; justify-content: center; z-index: 10; perspective: 1000px; }
+        @media (max-width: 991px) { .hero-slider-box-container .photo-stack { display: none !important; } }
+        
+        .photo-card { position: absolute; border-radius: 1.5rem; overflow: hidden; background: #0f172a; border: 3px solid rgba(255, 255, 255, 0.35); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6); transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.3s ease; }
+        .photo-card img { width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important; }
+        .photo-card:hover { z-index: 40 !important; transform: scale(1.08) translateY(-6px) !important; border-color: rgba(255, 255, 255, 0.9); box-shadow: 0 35px 60px rgba(0, 0, 0, 0.7); }
+        
+        .photo-card.main-photo { width: 250px; height: 330px; top: 50%; left: 48%; transform: translate(-50%, -50%) rotate(-3deg); z-index: 15; }
+        .photo-card.float-top { width: 140px; height: 140px; top: 35px; right: 30px; transform: rotate(9deg); z-index: 12; }
+        .photo-card.float-bottom { width: 150px; height: 130px; bottom: 35px; left: 15px; transform: rotate(-7deg); z-index: 20; }
+        
+        .photo-tag { position: absolute; bottom: 10px; left: 10px; right: 10px; padding: 6px 12px; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 9999px; font-size: 0.72rem; font-weight: 600; color: white; display: flex; align-items: center; gap: 6px; }
+        
+        .hero-slider-box-container .box1 { background: linear-gradient(135deg, #091e1d 0%, #064e3b 100%); }
+        .hero-slider-box-container .box1 .details button:first-child { background-color: #059669; }
+        .hero-slider-box-container .box2 { background: linear-gradient(135deg, #2b0c0c 0%, #7f1d1d 100%); }
+        .hero-slider-box-container .box2 .details button:first-child { background-color: #dc2626; }
+        .hero-slider-box-container .box3 { background: linear-gradient(135deg, #082f49 0%, #0369a1 100%); }
+        .hero-slider-box-container .box3 .details button:first-child { background-color: #0284c7; }
+        .hero-slider-box-container .box4 { background: linear-gradient(135deg, #052e16 0%, #15803d 100%); }
+        .hero-slider-box-container .box4 .details button:first-child { background-color: #16a34a; }
+        .hero-slider-box-container .box5 { background: linear-gradient(135deg, #2e1065 0%, #581c87 100%); }
+        .hero-slider-box-container .box5 .details button:first-child { background-color: #9333ea; }
+        
+        .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 50; background: transparent; border: none; cursor: pointer; opacity: 0.35; transition: opacity 0.3s ease, transform 0.3s ease; padding: 10px; }
+        .slider-arrow:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
+        .slider-arrow.prev { left: 1rem; } .slider-arrow.next { right: 1rem; }
+        @media (max-width: 650px) { .slider-arrow { display: none; } }
+        
+        .trail { position: absolute; bottom: 1.25rem; left: 50%; transform: translateX(-50%); width: 80%; max-width: 750px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; z-index: 50; }
+        .trail div { padding: 0.75rem 0.5rem; border-top: 3px solid rgba(255, 255, 255, 0.25); cursor: pointer; opacity: 0.45; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+        .trail div:hover { opacity: 0.8; }
+        .trail div.active { opacity: 1 !important; border-top-color: #ffffff; }
+        .trail .trail-num { font-family: monospace; font-size: 0.85rem; font-weight: 700; color: #fff; }
+        .trail .trail-label { font-size: 0.68rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; color: #fff; }
+        @media (max-width: 768px) { .trail { width: 92%; bottom: 0.75rem; } .trail .trail-label { display: none; } .trail div { padding: 0.5rem; } }
+
+        /* Internal Image Grids */
+        .image-grid-2 { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; margin-bottom: 2rem; }
+        @media (min-width: 640px) { .image-grid-2 { grid-template-columns: repeat(2, 1fr); } }
+        .image-grid-item { position: relative; border-radius: 1rem; overflow: hidden; height: 250px; background: #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        @media (min-width: 640px) { .image-grid-item { height: 300px; } }
+        .image-grid-item img { width: 100%; height: 100%; object-fit: contain; display: block; background-color: #f8fafc; }
+        .image-grid-item .img-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 1rem; color: white; }
+        .image-grid-item .img-overlay span { background: rgba(0,0,0,0.5); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+
+        /* HORIZONTAL SLIDING HEXAGON GALLERY */
+        :root {
+            --hex-w: 240px;
+            --hex-h: 276px;
+            --hex-gap: 8px;
+        }
+        @media (max-width: 768px) {
+            :root { --hex-w: 160px; --hex-h: 184px; }
+        }
+        .hex-slider-container { position: relative; width: 100%; max-width: 1400px; margin: 0 auto; display: flex; align-items: center; }
+        .hex-scroll-track { display: flex; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; padding: 30px 20px 60px 20px; -ms-overflow-style: none; scrollbar-width: none; }
+        .hex-scroll-track::-webkit-scrollbar { display: none; }
+        .hex-col { display: flex; flex-direction: column; gap: var(--hex-gap); width: var(--hex-w); flex-shrink: 0; scroll-snap-align: center; }
+        .hex-col + .hex-col { margin-left: calc(var(--hex-w) * -0.25 + (var(--hex-gap) / 2)); }
+        .hex-col:nth-child(even) { margin-top: calc((var(--hex-h) / 2) + (var(--hex-gap) / 2)); }
+        
+        .hexagon-wrapper { filter: drop-shadow(0px 6px 8px rgba(0,0,0,0.25)); transition: transform 0.3s ease, z-index 0.3s; z-index: 1; }
+        .hexagon-wrapper:hover { z-index: 10; }
+        .hexagon { position: relative; width: var(--hex-w); height: var(--hex-h); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: #1e293b; cursor: pointer; overflow: hidden; }
+        .hexagon img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .hexagon-wrapper:hover img { transform: scale(1.1); }
+        
+        .imageText { position: absolute; top: 100%; left: 0; width: 100%; height: 100%; text-align: center; z-index: 2; background: rgba(0, 0, 0, 0.75); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem; transition: transform 350ms ease-out; }
+        .hexagon-wrapper:hover .imageText { transform: translateY(-100%); }
+        .imageTextHeader h2 { color: #34d399; font-size: clamp(0.9rem, 1.5vw, 1.15rem); font-weight: 700; margin-bottom: 0.25rem; line-height: 1.2; }
+        .imageTextContent { color: #f8fafc; font-size: clamp(0.65rem, 1vw, 0.8rem); line-height: 1.3; }
+        
+        .hex-slider-btn { position: absolute; z-index: 20; width: 44px; height: 44px; background: white; color: #059669; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border: 1px solid #e2e8f0; transition: all 0.3s ease; }
+        .hex-slider-btn:hover { background: #059669; color: white; transform: scale(1.1); }
+        .hex-btn-prev { left: 10px; } .hex-btn-next { right: 10px; }
+
+        /* General Premium Enhancements */
+        .hover-lift { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease; }
+        .hover-lift:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12); }
+        .reveal-on-scroll { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .reveal-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        
+        /* Testimonial Cards */
+        .testimonial-card { background: white; border-radius: 24px; padding: 32px; position: relative; border: 1px solid rgba(226, 232, 240, 0.6); transition: all 0.4s ease; }
+        .testimonial-card:hover { border-color: #059669; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08); }
+        .testimonial-card .quote-mark { position: absolute; top: 20px; right: 24px; font-size: 48px; color: #d1fae5; font-family: Georgia, serif; line-height: 1; }
+
+        /* My Afromed Popup */
+        #my-afromed-popup.show { opacity: 1; visibility: visible; }
+        #my-afromed-popup.show #my-afromed-popup-inner { transform: scale(1); }
+        #my-afromed-popup-inner { transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased no-scroll-x">
+
+<!-- PRELOADER -->
+<div id="preloader" class="fixed inset-0 bg-slate-900 z-[9999] flex items-center justify-center px-4" style="background-image: url('images/Afromed-286.webp'); background-size: cover; background-position: center;">
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="text-center relative z-10">
+        <div class="preloader-logo">
+            <div class="text-white text-4xl font-black tracking-tighter">
+                <img src="logo/logo.png" alt="AFROMED Medical Services Logo" width="100" height="100" style="border-radius: 50%; object-fit: cover; border: 3px solid #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+            </div>
+        </div>
+        <div class="text-white text-3xl sm:text-4xl font-semibold tracking-tighter">afromed</div>
+        <div class="text-emerald-400/80 text-[10px] sm:text-sm tracking-[4px] font-medium mt-1">INTEGRATED HEALTHCARE GROUP</div>
+        <div class="w-48 sm:w-64 h-1 bg-white/10 rounded-full mx-auto mt-8 overflow-hidden">
+            <div class="h-full w-0 bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full animate-[preloader-progress_1.2s_cubic-bezier(0.4,0,0.2,1)_forwards]"></div>
+        </div>
+        <div class="text-white/40 text-[10px] tracking-widest mt-3">SOUTH AFRICA • KWAZULU-NATAL • EST. 2012 • BHF MEMBER</div>
+    </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar" class="bg-white sticky top-0 z-50 transition-all duration-300 border-b border-slate-100">
+    <div class="hidden md:block bg-slate-50 border-b border-slate-100/80">
+        <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-9">
+                <div class="flex items-center gap-x-4">
+                    <button class="my-afromed-trigger flex items-center gap-x-1.5 text-xs font-medium text-slate-600 hover:text-emerald-600 transition-colors cursor-pointer">
+                        <i class="fas fa-user-circle text-sm text-emerald-500"></i>
+                        <span>My Afromed</span>
+                        <i class="fas fa-chevron-down text-[8px] text-slate-400"></i>
+                    </button>
+                    <span class="text-slate-300">|</span>
+                    <a href="#" class="text-xs text-slate-500 hover:text-emerald-600 transition-colors">Register</a>
+                </div>
+
+                <div class="flex items-center gap-x-3">
+                    <div class="relative">
+                        <input type="text" placeholder="Search..." class="w-48 xl:w-56 h-7 pl-8 pr-3 text-xs bg-white border border-slate-200 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all placeholder:text-slate-400">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-400"></i>
+                    </div>
+                    <span class="text-slate-300">|</span>
+                    <div class="relative group">
+                        <button class="flex items-center gap-x-1.5 text-xs font-medium text-slate-600 hover:text-emerald-600 transition-colors">
+                            <i class="fas fa-map-marker-alt text-emerald-500 text-xs"></i>
+                            <span>Branches</span>
+                            <i class="fas fa-chevron-down text-[8px] text-slate-400 group-hover:rotate-180 transition-transform duration-300"></i>
+                        </button>
+                        <div class="absolute right-0 top-full mt-1 w-56 bg-white rounded-xl shadow-xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 origin-top-right scale-95 group-hover:scale-100 z-50">
+                            <div class="p-2">
+                                <div class="px-3 py-2 text-[10px] font-semibold text-slate-400 uppercase tracking-wider border-b border-slate-100">Our Locations</div>
+                                <a href="#" class="flex items-center gap-x-3 px-3 py-2.5 rounded-lg hover:bg-emerald-50 transition-colors group/link">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-building text-emerald-600 text-xs"></i></div>
+                                    <div><div class="text-sm font-medium text-slate-700 group-hover/link:text-emerald-600">Avoca Hills</div><div class="text-[10px] text-slate-400">Head Office • Durban</div></div>
+                                </a>
+                                <a href="#" class="flex items-center gap-x-3 px-3 py-2.5 rounded-lg hover:bg-emerald-50 transition-colors group/link">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0"><i class="fas fa-tree text-emerald-600 text-xs"></i></div>
+                                    <div><div class="text-sm font-medium text-slate-700 group-hover/link:text-emerald-600">Manguzi</div><div class="text-[10px] text-slate-400">Northern KZN • uMkhanyakude</div></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-slate-300">|</span>
+                    <div class="flex items-center gap-x-2">
+                        <div class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></div>
+                        <span class="text-[10px] font-medium text-slate-500 uppercase tracking-wider">Emergency</span>
+                        <a href="tel:0733336656" class="font-mono text-sm font-bold text-red-600 hover:text-red-700 transition-colors">073 333 6656</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-screen-2xl mx-auto">
+        <div class="px-3 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-x-2 sm:gap-x-3 cursor-pointer flex-shrink-0 group" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <div class="w-9 h-9 sm:w-11 sm:h-11 lg:w-12 lg:h-12 bg-gradient-to-br from-slate-900 to-slate-700 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg ring-1 ring-slate-800/50 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
+                    <div class="text-white text-xl sm:text-2xl font-black tracking-tighter">
+                        <img src="logo/logo.png" alt="AFROMED Logo" width="100" height="100" style="border-radius: 25%; object-fit: cover; border: 3px solid #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                    </div>
+                </div>
+                <div class="hidden xs:block">
+                    <div class="flex items-baseline"><span class="nav-logo-text font-bold tracking-tighter text-slate-900 text-xl sm:text-2xl">afromed</span><span class="nav-logo-dot font-bold tracking-tighter text-emerald-500">.</span></div>
+                    <div class="nav-logo-badge font-medium text-[10px] text-slate-400 -mt-0.5 tracking-[2px] uppercase">Integrated Healthcare Group</div>
+                </div>
+            </div>
+
+            <div class="hidden lg:flex items-center gap-x-0.5 xl:gap-x-1">
+                <a href="#about" class="nav-link px-3 xl:px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition-all"><span>About</span><span class="absolute inset-x-4 -bottom-0.5 h-0.5 bg-emerald-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span></a>
+                <a href="#companies" class="nav-link px-3 xl:px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition-all"><span>Companies</span><span class="absolute inset-x-4 -bottom-0.5 h-0.5 bg-emerald-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span></a>
+                <a href="#ems-deep" class="nav-link px-3 xl:px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition-all"><span>EMS</span><span class="absolute inset-x-4 -bottom-0.5 h-0.5 bg-emerald-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span></a>
+                <!-- College Redirect Link -->
+                <a href="college.html" class="nav-link px-3 xl:px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition-all"><span>College</span><span class="absolute inset-x-4 -bottom-0.5 h-0.5 bg-emerald-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span></a>
+                <a href="#development-deep" class="nav-link px-3 xl:px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition-all"><span>Development</span><span class="absolute inset-x-4 -bottom-0.5 h-0.5 bg-emerald-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span></a>
+                <a href="#impact" class="nav-link px-3 xl:px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition-all"><span>Impact</span><span class="absolute inset-x-4 -bottom-0.5 h-0.5 bg-emerald-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span></a>
+                <a href="#videos" class="nav-link px-3 xl:px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 rounded-xl hover:bg-slate-50 transition-all"><span>Media</span><span class="absolute inset-x-4 -bottom-0.5 h-0.5 bg-emerald-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span></a>
+            </div>
+
+            <div class="flex items-center gap-x-2 sm:gap-x-3 flex-shrink-0">
+                <a href="tel:0733336656" class="md:hidden w-9 h-9 flex items-center justify-center bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl shadow-lg"><i class="fas fa-phone-alt text-sm"></i></a>
+                <button id="mobile-search-toggle" class="md:hidden w-9 h-9 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl"><i class="fas fa-search text-sm"></i></button>
+                <button id="mobile-menu-btn" class="lg:hidden w-9 h-9 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl touch-target"><i class="fas fa-bars text-lg"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobile-search" class="hidden md:hidden px-4 pb-3">
+        <div class="relative">
+            <input type="text" placeholder="Search Afromed..." class="w-full h-10 pl-10 pr-4 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 transition-all">
+            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-sm text-slate-400"></i>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden lg:hidden border-t bg-white/98 backdrop-blur-lg px-4 sm:px-6 py-4 sm:py-6 max-h-[80vh] overflow-y-auto">
+        <div class="flex flex-col gap-y-2 pb-4 border-b border-slate-100 mb-4">
+            <button class="my-afromed-trigger flex items-center gap-x-1.5 text-xs font-medium text-slate-600 hover:text-emerald-600">
+                <i class="fas fa-user-circle text-sm text-emerald-500"></i><span>My Afromed</span><i class="fas fa-chevron-down text-[8px] text-slate-400"></i>
+            </button>
+            <div class="flex items-center gap-x-2 px-4 py-2 bg-red-50 rounded-xl border border-red-100">
+                <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div><span class="text-[10px] font-medium text-slate-500 uppercase tracking-wider">Emergency</span><a href="tel:0733336656" class="font-mono text-sm font-bold text-red-600 ml-auto">073 333 6656</a>
+            </div>
+        </div>
+        <div class="flex flex-col gap-y-2 text-sm font-medium">
+            <a href="#about" class="py-2.5 px-4 text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl flex items-center gap-x-3"><i class="fas fa-info-circle text-emerald-500 w-5 text-center"></i> About the Group</a>
+            <a href="#companies" class="py-2.5 px-4 text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl flex items-center gap-x-3"><i class="fas fa-building text-emerald-500 w-5 text-center"></i> Our Companies</a>
+            <a href="#ems-deep" class="py-2.5 px-4 text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl flex items-center gap-x-3"><i class="fas fa-ambulance text-emerald-500 w-5 text-center"></i> Afromed EMS</a>
+            <a href="college.html" class="py-2.5 px-4 text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl flex items-center gap-x-3"><i class="fas fa-graduation-cap text-emerald-500 w-5 text-center"></i> Afromed Emergency College</a>
+            <a href="#development-deep" class="py-2.5 px-4 text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl flex items-center gap-x-3"><i class="fas fa-hands-helping text-emerald-500 w-5 text-center"></i> Afromed Development</a>
+            <div class="pt-4 border-t flex flex-col gap-y-3">
+                <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); document.getElementById('mobile-menu').classList.add('hidden')" class="py-3.5 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl font-semibold text-sm shadow-lg">Contact Leadership</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<header class="afromed-hero-wrapper relative bg-slate-950 text-white overflow-hidden py-6 sm:py-10">
+    <div class="max-w-screen-2xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="hero-slider-box-container relative rounded-3xl sm:rounded-[40px] overflow-hidden shadow-2xl border border-white/10">
+            <div class="slider" id="afromedHeroSlider">
+                
+                <div class="box box1">
+                    <div class="bg"></div>
+                    <div class="details">
+                        <div class="slide-badge"><i class="fas fa-shield-alt"></i> BHF MEMBER • EST. 2012</div>
+                        <h1>Every Second Counts. Every Community Matters.</h1>
+                        <p>Afromed is South Africa's premier integrated emergency healthcare group — uniting 24/7 Advanced Life Support, HWSETA-accredited college training, and grassroots community health development across KwaZulu-Natal.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="document.getElementById('companies').scrollIntoView({behavior:'smooth'})">Explore Companies</button>
+                            <button class="btn-outline-slide" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Partner With Us</button>
+                        </div>
+                    </div>
+                    <div class="illustration photo-stack">
+                        <div class="photo-card main-photo"><img src="images/Afromed-66.jpg" alt="Afromed Integrated Operations"><div class="photo-tag"><i class="fas fa-certificate text-emerald-400"></i> Integrated Care</div></div>
+                        <div class="photo-card float-top"><img src="images/slide12.jpg" alt="Afromed In Action"></div>
+                        <div class="photo-card float-bottom"><img src="images/slide13.jpg" alt="Afromed Fleet"><div class="photo-pill">Est. 2012</div></div>
+                    </div>
+                </div>
+
+                <div class="box box2">
+                    <div class="bg"></div>
+                    <div class="details">
+                        <div class="slide-badge"><i class="fas fa-ambulance"></i> 24/7 ALS & CRITICAL CARE</div>
+                        <h1>Rapid Emergency Response & Event Medical</h1>
+                        <p>Operating a 17-vehicle specialised fleet across Durban Metro and northern KZN. Trusted by the PSL, major festivals, and corporate clients with zero clinical failure rates.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="document.getElementById('ems-deep').scrollIntoView({behavior:'smooth'})">Explore EMS Fleet</button>
+                            <a href="tel:0733336656" class="slide-cta-link"><i class="fas fa-phone-alt"></i> 073 333 6656</a>
+                        </div>
+                    </div>
+                    <div class="illustration photo-stack">
+                        <div class="photo-card main-photo"><img src="images/slide20.jpg" alt="Afromed ALS Ambulance Fleet"><div class="photo-tag"><i class="fas fa-ambulance text-red-400"></i> 17 Vehicles</div></div>
+                        <div class="photo-card float-top"><img src="images/slide14.jpg" alt="Emergency Medical Service"></div>
+                        <div class="photo-card float-bottom"><img src="images/slide15.jpg" alt="Critical Care Team"><div class="photo-pill text-red-400">24/7 ALS</div></div>
+                    </div>
+                </div>
+
+                <div class="box box3">
+                    <div class="bg"></div>
+                    <div class="details">
+                        <div class="slide-badge"><i class="fas fa-graduation-cap"></i> HWSETA ACCREDITED</div>
+                        <h1>Excellence in Emergency Care & SHE Training</h1>
+                        <p>Practical, simulation-first qualifications in Emergency First Aid, Forestry Safety, Incident Investigation, and Paediatric Care. Direct recruitment pathways into EMS careers.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="window.location.href='college.html'">View Programmes</button>
+                            <button class="btn-outline-slide" onclick="window.location.href='college.html'">Join College</button>
+                        </div>
+                    </div>
+                    <div class="illustration photo-stack">
+                        <div class="photo-card main-photo"><img src="images/slide21.jpg" alt="Afromed Emergency College Training"><div class="photo-tag"><i class="fas fa-graduation-cap text-sky-400"></i> 7+ Accredited Courses</div></div>
+                        <div class="photo-card float-top"><img src="images/slide16.jpg" alt="Practical Simulation Drill"></div>
+                        <div class="photo-card float-bottom"><img src="images/slide17.jpg" alt="College Students"><div class="photo-pill text-sky-400">HWSETA</div></div>
+                    </div>
+                </div>
+
+                <div class="box box4">
+                    <div class="bg"></div>
+                    <div class="details">
+                        <div class="slide-badge"><i class="fas fa-hands-helping"></i> NPO 245-061</div>
+                        <h1>Sustainable Community Health & Outreach</h1>
+                        <p>Reaching 38+ underserved KZN communities with free quarterly medical screening camps, telemedicine support, chronic patient transport, and school first responder kits.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="document.getElementById('development-deep').scrollIntoView({behavior:'smooth'})">Community Impact</button>
+                            <button class="btn-outline-slide" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Sponsor a Camp</button>
+                        </div>
+                    </div>
+                    <div class="illustration photo-stack">
+                        <div class="photo-card main-photo"><img src="images/Afromed-111.jpg" alt="Community Health Camp"><div class="photo-tag"><i class="fas fa-heart text-emerald-400"></i> 38+ Communities</div></div>
+                        <div class="photo-card float-top"><img src="images/Afromed-113.jpg" alt="Health Screening Day"></div>
+                        <div class="photo-card float-bottom"><img src="images/Afromed-115.jpg" alt="Community Medical Check"><div class="photo-pill text-emerald-400">NPO Outreach</div></div>
+                    </div>
+                </div>
+
+                <div class="box box5">
+                    <div class="bg"></div>
+                    <div class="details">
+                        <div class="slide-badge"><i class="fas fa-users"></i> YOUTH EMPOWERMENT</div>
+                        <h1>Building KZN's Next Generation Responders</h1>
+                        <p>Founded by visionary Black healthcare leaders. Over 1,240 students trained, 42 team members, and a closed-loop training-to-employment model creating generational impact.</p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="document.getElementById('careers').scrollIntoView({behavior:'smooth'})">Join Our Team</button>
+                            <button class="btn-outline-slide" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">Leadership Story</button>
+                        </div>
+                    </div>
+                    <div class="illustration photo-stack">
+                        <div class="photo-card main-photo"><img src="images/slide18.jpg" alt="Afromed Team Members"><div class="photo-tag"><i class="fas fa-users text-purple-400"></i> 1,240+ Trained</div></div>
+                        <div class="photo-card float-top"><img src="images/slide19.jpg" alt="Youth Healthcare Leaders"></div>
+                        <div class="photo-card float-bottom"><img src="images/slide22.jpg" alt="Operational Deployment"><div class="photo-pill text-purple-400">Youth Led</div></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="slider-arrow prev" aria-label="Previous Slide"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="58" viewBox="0 0 56.898 91"><path d="M45.5,0,91,56.9,48.452,24.068,0,56.9Z" transform="translate(0 91) rotate(-90)" fill="#ffffff"/></svg></button>
+            <button class="slider-arrow next" aria-label="Next Slide"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="58" viewBox="0 0 56.898 91"><path d="M45.5,0,91,56.9,48.452,24.068,0,56.9Z" transform="translate(56.898) rotate(90)" fill="#ffffff"/></svg></button>
+
+            <div class="trail">
+                <div class="box1 active" data-slide="0"><span class="trail-num">01</span><span class="trail-label">Group Vision</span></div>
+                <div class="box2" data-slide="1"><span class="trail-num">02</span><span class="trail-label">EMS 24/7</span></div>
+                <div class="box3" data-slide="2"><span class="trail-num">03</span><span class="trail-label">College</span></div>
+                <div class="box4" data-slide="3"><span class="trail-num">04</span><span class="trail-label">Development</span></div>
+                <div class="box5" data-slide="4"><span class="trail-num">05</span><span class="trail-label">Youth Impact</span></div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- QUICK ACCESS -->
+<section class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-8 sm:pb-10 relative" style="background-image: url('images/front8.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <div class="absolute inset-0 bg-white/85"></div>
+    <div class="relative z-10">
+        <div class="max-w-3xl mx-auto text-center mb-6 sm:mb-8">
+            <div class="text-emerald-600 text-[10px] sm:text-xs font-bold tracking-[2px] sm:tracking-[2.5px]">HOW CAN WE HELP YOU TODAY?</div>
+            <h2 class="section-header mt-1.5 sm:mt-2 text-slate-900">Find the right support, fast.</h2>
+        </div>
+
+        <div class="quick-access-grid max-w-7xl mx-auto">
+            <div onclick="document.getElementById('ems-deep').scrollIntoView({ behavior: 'smooth' })" class="group bg-white border border-slate-200 hover:border-red-200 p-4 sm:p-5 rounded-2xl cursor-pointer modern-card flex flex-col healthcare-card">
+                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mb-3"><i class="fas fa-ambulance text-xl"></i></div>
+                <div class="font-semibold text-base sm:text-lg mb-0.5">24/7 Emergency Response</div>
+                <div class="text-xs sm:text-sm text-slate-600 flex-1">ALS, trauma care and rapid response across eThekwini and northern KZN.</div>
+                <div class="text-red-600 text-xs sm:text-sm font-semibold mt-3 flex items-center gap-x-1.5 group-hover:gap-x-2 transition-all">Call or quote <i class="fas fa-arrow-right text-[10px]"></i></div>
+            </div>
+
+            <div onclick="document.getElementById('ems-deep').scrollIntoView({ behavior: 'smooth' })" class="group bg-white border border-slate-200 hover:border-red-200 p-4 sm:p-5 rounded-2xl cursor-pointer modern-card flex flex-col healthcare-card">
+                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-red-100 text-red-600 rounded-xl flex items-center justify-center mb-3"><i class="fas fa-calendar-check text-xl"></i></div>
+                <div class="font-semibold text-base sm:text-lg mb-0.5">Event &amp; Corporate Medical</div>
+                <div class="text-xs sm:text-sm text-slate-600 flex-1">Medical coverage for sports, festivals, corporate events. Tiered packages.</div>
+                <div class="text-red-600 text-xs sm:text-sm font-semibold mt-3 flex items-center gap-x-1.5 group-hover:gap-x-2 transition-all">Request event quote <i class="fas fa-arrow-right text-[10px]"></i></div>
+            </div>
+
+            <div onclick="window.location.href='college.html'" class="group bg-white border border-slate-200 hover:border-sky-200 p-4 sm:p-5 rounded-2xl cursor-pointer modern-card flex flex-col healthcare-card">
+                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-sky-100 text-sky-600 rounded-xl flex items-center justify-center mb-3"><i class="fas fa-graduation-cap text-xl"></i></div>
+                <div class="font-semibold text-base sm:text-lg mb-0.5">Professional Training</div>
+                <div class="text-xs sm:text-sm text-slate-600 flex-1">HWSETA-accredited courses in emergency care, SHE, forestry safety, ECD.</div>
+                <div class="text-sky-600 text-xs sm:text-sm font-semibold mt-3 flex items-center gap-x-1.5 group-hover:gap-x-2 transition-all">Browse programmes <i class="fas fa-arrow-right text-[10px]"></i></div>
+            </div>
+
+            <div onclick="document.getElementById('development-deep').scrollIntoView({ behavior: 'smooth' })" class="group bg-white border border-slate-200 hover:border-emerald-200 p-4 sm:p-5 rounded-2xl cursor-pointer modern-card flex flex-col healthcare-card">
+                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-3"><i class="fas fa-hands-helping text-xl"></i></div>
+                <div class="font-semibold text-base sm:text-lg mb-0.5">Community Health Support</div>
+                <div class="text-xs sm:text-sm text-slate-600 flex-1">Medical camps, health education, telemedicine for 35+ KZN communities.</div>
+                <div class="text-emerald-600 text-xs sm:text-sm font-semibold mt-3 flex items-center gap-x-1.5 group-hover:gap-x-2 transition-all">Partner on a project <i class="fas fa-arrow-right text-[10px]"></i></div>
+            </div>
+
+            <div onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })" class="group bg-white border border-slate-200 hover:border-amber-200 p-4 sm:p-5 rounded-2xl cursor-pointer modern-card flex flex-col healthcare-card">
+                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center mb-3"><i class="fas fa-briefcase text-xl"></i></div>
+                <div class="font-semibold text-base sm:text-lg mb-0.5">Strategic Partnerships</div>
+                <div class="text-xs sm:text-sm text-slate-600 flex-1">CSI, municipal collaboration, investment, large-scale health programmes.</div>
+                <div class="text-amber-600 text-xs sm:text-sm font-semibold mt-3 flex items-center gap-x-1.5 group-hover:gap-x-2 transition-all">Speak to leadership <i class="fas fa-arrow-right text-[10px]"></i></div>
+            </div>
+
+            <div onclick="document.getElementById('careers').scrollIntoView({ behavior: 'smooth' })" class="group bg-white border border-slate-200 hover:border-purple-200 p-4 sm:p-5 rounded-2xl cursor-pointer modern-card flex flex-col healthcare-card">
+                <div class="w-9 h-9 sm:w-11 sm:h-11 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-3"><i class="fas fa-user-md text-xl"></i></div>
+                <div class="font-semibold text-base sm:text-lg mb-0.5">Careers &amp; Opportunities</div>
+                <div class="text-xs sm:text-sm text-slate-600 flex-1">Join our team of paramedics, trainers, community health practitioners.</div>
+                <div class="text-purple-600 text-xs sm:text-sm font-semibold mt-3 flex items-center gap-x-1.5 group-hover:gap-x-2 transition-all">View opportunities <i class="fas fa-arrow-right text-[10px]"></i></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== NEW YOUTUBE VIDEO SHOWCASE SECTION ==================== -->
+<section id="videos" class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 bg-slate-900 text-white border-t border-slate-800">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-10 gap-4">
+        <div>
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-600/20 text-red-500 border border-red-500/30 text-xs font-bold uppercase tracking-wider mb-3">
+                <i class="fab fa-youtube text-red-500 text-sm"></i>
+                <span>Afromed Media</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white flex items-center gap-2.5">
+                <span>Field Highlights & Action</span>
+            </h2>
+            <p class="text-slate-400 mt-1 text-sm sm:text-base">Watch our teams operate on the frontlines across KwaZulu-Natal. Play directly below.</p>
+        </div>
+    </div>
+
+    <!-- YouTube Embed Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+        <!-- Standard Video 1 -->
+        <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-700 bg-black aspect-video relative group transition-transform hover:scale-[1.02] duration-300">
+            <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/ePKaWDlwLU8?rel=0" title="Afromed YouTube Video 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+
+        <!-- Standard Video 2 -->
+        <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-700 bg-black aspect-video relative group transition-transform hover:scale-[1.02] duration-300">
+            <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/gTIEQbFdevY?rel=0" title="Afromed YouTube Video 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+
+        <!-- Shorts Video Embedded 16:9 -->
+        <div class="rounded-2xl overflow-hidden shadow-lg border border-slate-700 bg-black aspect-video relative group transition-transform hover:scale-[1.02] duration-300">
+            <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/Mo-zIAtz6Xc?rel=0" title="Afromed YouTube Short" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 border-t border-slate-100 bg-white content-section">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-8 sm:mb-10">
+            <div class="text-emerald-600 text-[10px] sm:text-xs font-bold tracking-[2px] sm:tracking-[2.5px]">THE HOLDING COMPANY</div>
+            <h2 class="section-header mt-1.5 sm:mt-2">Strategic integration.<br>Measurable community impact.</h2>
+        </div>
+
+        <div class="prose prose-slate max-w-none text-sm sm:text-[15.5px] text-slate-600">
+            <p class="text-base sm:text-lg">Afromed.life is the strategic holding company that unites three specialised operating entities to deliver end-to-end emergency healthcare solutions across KwaZulu-Natal. Established in 2012 and headquartered in Durban's Avoca Hills, we combine 24/7 advanced life support operations, HWSETA-accredited professional training, and targeted community development under one values-driven group.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mt-8 sm:mt-10">
+            <div class="bg-slate-50 border border-slate-100 rounded-2xl sm:rounded-3xl healthcare-card overflow-hidden">
+                <div class="w-full h-48 sm:h-56 overflow-hidden"><img src="images/slideup.jpg" alt="Our Mission" loading="lazy" class="w-full h-full object-cover"></div>
+                <div class="p-5 sm:p-6">
+                    <div class="font-semibold mb-1.5 sm:mb-2 flex items-center gap-x-2 text-base sm:text-lg"><i class="fas fa-bullseye text-emerald-600"></i> Our Mission</div>
+                    <p class="text-xs sm:text-sm text-slate-600">To deliver integrated, high-quality emergency medical care, build professional healthcare capacity through accredited training, and drive sustainable community health development across KwaZulu-Natal — leaving no community behind.</p>
+                </div>
+            </div>
+            
+            <div class="bg-slate-50 border border-slate-100 rounded-2xl sm:rounded-3xl healthcare-card overflow-hidden">
+                <div class="w-full h-48 sm:h-56 overflow-hidden"><img src="images/slideup2.jpg" alt="Our Vision" class="w-full h-full object-cover"></div>
+                <div class="p-5 sm:p-6">
+                    <div class="font-semibold mb-1.5 sm:mb-2 flex items-center gap-x-2 text-base sm:text-lg"><i class="fas fa-eye text-emerald-600"></i> Our Vision</div>
+                    <p class="text-xs sm:text-sm text-slate-600">A KwaZulu-Natal where every community has rapid access to life-saving care, skilled local responders, and proactive health support. A province where young people see healthcare as a viable, dignified career and communities are active partners in their own wellbeing.</p>
+                </div>
+            </div>
+            
+            <div class="bg-slate-50 border border-slate-100 rounded-2xl sm:rounded-3xl healthcare-card sm:col-span-2 lg:col-span-1 overflow-hidden">
+                <div class="w-full h-48 sm:h-56 overflow-hidden"><img src="images/slideup3.jpg" alt="Our Values" class="w-full h-full object-cover"></div>
+                <div class="p-5 sm:p-6">
+                    <div class="font-semibold mb-1.5 sm:mb-2 flex items-center gap-x-2 text-base sm:text-lg"><i class="fas fa-heart text-emerald-600"></i> Our Values</div>
+                    <div class="text-xs sm:text-sm text-slate-600 space-y-1.5">
+                        <div class="flex gap-2"><span class="text-emerald-600">•</span> Clinical Excellence & Patient Safety First</div>
+                        <div class="flex gap-2"><span class="text-emerald-600">•</span> Youth Empowerment & Local Capacity</div>
+                        <div class="flex gap-2"><span class="text-emerald-600">•</span> Integrity, Accountability & Transparency</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 sm:mt-10 bg-slate-900 text-white rounded-2xl sm:rounded-3xl overflow-hidden">
+            <div class="p-6 sm:p-8">
+                <div class="grid md:grid-cols-2 gap-6 sm:gap-8 items-start">
+                    <div>
+                        <div class="uppercase tracking-[1.5px] sm:tracking-[2px] text-emerald-400 text-[10px] sm:text-xs font-bold mb-1.5 sm:mb-2">FOUNDED BY VISIONARIES</div>
+                        <h3 class="text-2xl sm:text-3xl font-semibold tracking-tight">Young Black entrepreneurs building generational impact in KZN healthcare.</h3>
+                        <p class="mt-3 sm:mt-4 text-slate-300 text-sm sm:text-base">Sthembiso Emmanuel Ngubo and Nelisiwe Gloria Ngcobo established Afromed in 2012 with a clear purpose: to combine world-class clinical standards with deep community roots and a commitment to developing the next generation of KZN healthcare professionals.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                            <div class="w-full aspect-square rounded-2xl overflow-hidden bg-slate-700 shadow-lg"><img src="images/director1.jpg" alt="Sthembiso Emmanuel Ngubo" loading="lazy" class="w-full h-full object-cover"></div>
+                            <div class="mt-2 text-sm font-semibold text-white">Sthembiso Emmanuel Ngubo</div>
+                            <div class="text-xs text-emerald-400 -mt-0.5">Co-Founder &amp; Director</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-full aspect-square rounded-2xl overflow-hidden bg-slate-700 shadow-lg"><img src="images/director2.jpg" alt="Nelisiwe Gloria Ngcobo" loading="lazy" class="w-full h-full object-cover"></div>
+                            <div class="mt-2 text-sm font-semibold text-white">Nelisiwe Gloria Ngcobo</div>
+                            <div class="text-xs text-emerald-400 -mt-0.5">Co-Founder &amp; Director</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SYNERGIES -->
+<section class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 bg-white border-t border-slate-100 content-section">
+    <div class="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
+        <div class="text-emerald-600 text-[10px] sm:text-xs font-bold tracking-[2px] sm:tracking-[2.5px]">THE AFROMED ADVANTAGE</div>
+        <h2 class="section-header mt-1.5 sm:mt-2">Integrated value that standalone organisations cannot deliver</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-6xl mx-auto">
+        <div class="bg-white border border-slate-100 rounded-2xl sm:rounded-3xl professional-shadow healthcare-card overflow-hidden">
+            <div class="w-full overflow-hidden bg-slate-100"><img src="images/slideup5.jpg" alt="Trained Responders" class="w-full h-48 sm:h-56 object-contain"></div>
+            <div class="p-5 sm:p-6">
+                <div class="flex gap-4"><div class="mt-1 text-red-500 flex-shrink-0"><i class="fas fa-link text-xl"></i></div><div><div class="font-semibold text-sm">Trained Responders</div><p class="text-xs text-slate-600 mt-1.5">College graduates fast-tracked into EMS roles.</p></div></div>
+            </div>
+        </div>
+        <div class="bg-white border border-slate-100 rounded-2xl sm:rounded-3xl professional-shadow healthcare-card overflow-hidden">
+            <div class="w-full overflow-hidden bg-slate-100"><img src="images/slideup6.jpg" alt="Community Intelligence" class="w-full h-48 sm:h-56 object-contain"></div>
+            <div class="p-5 sm:p-6">
+                <div class="flex gap-4"><div class="mt-1 text-sky-500 flex-shrink-0"><i class="fas fa-link text-xl"></i></div><div><div class="font-semibold text-sm">Community Intelligence</div><p class="text-xs text-slate-600 mt-1.5">Development teams identify needs for proactive response.</p></div></div>
+            </div>
+        </div>
+        <div class="bg-white border border-slate-100 rounded-2xl sm:rounded-3xl professional-shadow healthcare-card overflow-hidden">
+            <div class="w-full overflow-hidden bg-slate-100"><img src="images/slideup7.jpg" alt="Shared Infrastructure" class="w-full h-48 sm:h-56 object-contain"></div>
+            <div class="p-5 sm:p-6">
+                <div class="flex gap-4"><div class="mt-1 text-emerald-500 flex-shrink-0"><i class="fas fa-link text-xl"></i></div><div><div class="font-semibold text-sm">Shared Infrastructure</div><p class="text-xs text-slate-600 mt-1.5">Centralised purchasing ensures uniform high-quality standards.</p></div></div>
+            </div>
+        </div>
+        <div class="bg-white border border-slate-100 rounded-2xl sm:rounded-3xl professional-shadow healthcare-card overflow-hidden">
+            <div class="w-full overflow-hidden bg-slate-100"><img src="images/slideup8.jpg" alt="Youth Employment" class="w-full h-48 sm:h-56 object-contain"></div>
+            <div class="p-5 sm:p-6">
+                <div class="flex gap-4"><div class="mt-1 text-amber-500 flex-shrink-0"><i class="fas fa-link text-xl"></i></div><div><div class="font-semibold text-sm">Youth Employment</div><p class="text-xs text-slate-600 mt-1.5">Direct employment pathways building local capacity.</p></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- OUR COMPANIES OVERVIEW -->
+<section id="companies" class="bg-white py-12 sm:py-16 border-y border-slate-100 content-section">
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-10 gap-y-4">
+            <div>
+                <div class="text-emerald-600 text-[10px] sm:text-xs font-bold tracking-[2px] sm:tracking-[2.5px]">OUR OPERATING COMPANIES</div>
+                <h2 class="section-header mt-1.5 sm:mt-2">Three specialised pillars.<br>One unified purpose.</h2>
+            </div>
+            <p class="max-w-lg text-slate-600 text-sm sm:text-base">Each company operates with deep expertise while benefiting from centralised strategy, shared resources, talent pipelines and brand strength under the Afromed.life holding company.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div onclick="document.getElementById('ems-deep').scrollIntoView({ behavior: 'smooth' })" class="pillar-card group cursor-pointer bg-white border border-slate-200 hover:border-red-200 rounded-2xl p-5 sm:p-8 modern-card flex flex-col h-full healthcare-card" style="--accent-color: #DC2626">
+                <div class="flex items-start justify-between mb-4 sm:mb-6">
+                    <div class="w-11 h-11 bg-red-600 text-white rounded-xl flex items-center justify-center shadow-inner"><i class="fas fa-ambulance text-2xl"></i></div>
+                    <div class="px-3 py-1 text-[10px] font-bold tracking-wider bg-red-100 text-red-700 rounded-2xl">EST. 2012</div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-xl sm:text-2xl tracking-tight mb-0.5">Afromed EMS</h3>
+                    <p class="text-red-600 font-medium text-xs sm:text-sm mb-3">Advanced Life Support &amp; Event Medical</p>
+                    <p class="text-slate-600 leading-relaxed text-xs sm:text-[15px]">KwaZulu-Natal's trusted provider of 24/7 advanced life support, trauma response, patient transportation and professional event medical coverage.</p>
+                </div>
+            </div>
+
+            <div onclick="window.location.href='college.html'" class="pillar-card group cursor-pointer bg-white border border-slate-200 hover:border-sky-200 rounded-2xl p-5 sm:p-8 modern-card flex flex-col h-full healthcare-card" style="--accent-color: #0284C7">
+                <div class="flex items-start justify-between mb-4 sm:mb-6">
+                    <div class="w-11 h-11 bg-sky-600 text-white rounded-xl flex items-center justify-center shadow-inner"><i class="fas fa-graduation-cap text-2xl"></i></div>
+                    <div class="px-3 py-1 text-[10px] font-bold tracking-wider bg-sky-100 text-sky-700 rounded-2xl">HWSETA</div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-xl sm:text-2xl tracking-tight mb-0.5">Afromed Emergency College</h3>
+                    <p class="text-sky-600 font-medium text-xs sm:text-sm mb-3">Professional Health, Safety &amp; Emergency Training</p>
+                    <p class="text-slate-600 leading-relaxed text-xs sm:text-[15px]">Fully HWSETA-accredited training institution delivering practical, simulation-based programmes that produce competent emergency responders.</p>
+                </div>
+            </div>
+
+            <div onclick="document.getElementById('development-deep').scrollIntoView({ behavior: 'smooth' })" class="pillar-card group cursor-pointer bg-white border border-slate-200 hover:border-emerald-200 rounded-2xl p-5 sm:p-8 modern-card flex flex-col h-full healthcare-card" style="--accent-color: #059669">
+                <div class="flex items-start justify-between mb-4 sm:mb-6">
+                    <div class="w-11 h-11 bg-emerald-600 text-white rounded-xl flex items-center justify-center shadow-inner"><i class="fas fa-hands-helping text-2xl"></i></div>
+                    <div class="px-3 py-1 text-[10px] font-bold tracking-wider bg-emerald-100 text-emerald-700 rounded-2xl">NPO 245-061</div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-xl sm:text-2xl tracking-tight mb-0.5">Afromed Development</h3>
+                    <p class="text-emerald-600 font-medium text-xs sm:text-sm mb-3">Community Health &amp; Sustainable Impact</p>
+                    <p class="text-slate-600 leading-relaxed text-xs sm:text-[15px]">Non-profit arm delivering health education, quarterly medical outreach camps, first aid distribution, and telemedicine support for vulnerable communities.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== EMS DEEP SECTION ==================== -->
+<section id="ems-deep" class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 bg-white border-t border-slate-100 content-section">
+    <div class="max-w-5xl mx-auto">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-x-3 mb-3 sm:mb-4">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-600 text-white rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0"><i class="fas fa-ambulance text-xl sm:text-2xl"></i></div>
+            <div>
+                <div class="text-red-600 text-[10px] sm:text-xs font-bold tracking-[1.5px] sm:tracking-[2px]">AFROMED EMS</div>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">24/7 Advanced Life Support &amp; Event Medical Services</h2>
+            </div>
+        </div>
+        
+        <div class="image-grid-2">
+            <div class="image-grid-item"><img src="images/slide20.jpg" alt="Afromed ALS Ambulance"><div class="img-overlay"><span>🚑 Advanced Life Support</span></div></div>
+            <div class="image-grid-item"><img src="images/slide21.jpg" alt="Afromed Community Support"><div class="img-overlay"><span>🤝 Community Reach</span></div></div>
+        </div>
+
+        <p class="text-sm sm:text-base lg:text-lg text-slate-600 max-w-4xl">Headquartered in Durban with a secondary base in Manguzi (northern KZN), Afromed EMS has been a trusted provider of advanced life support and emergency medical services across KwaZulu-Natal since 2012. We operate a modern fleet of 17 specialised vehicles and maintain full membership with the Board of Healthcare Funders (BHF).</p>
+    </div>
+</section>
+
+<!-- DEVELOPMENT DEEP -->
+<section id="development-deep" class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 bg-white border-t border-slate-100 content-section">
+    <div class="max-w-5xl mx-auto">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-x-3 mb-3 sm:mb-4">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-hands-helping text-xl sm:text-2xl"></i></div>
+            <div>
+                <div class="text-emerald-600 text-[10px] sm:text-xs font-bold tracking-[1.5px]">AFROMED DEVELOPMENT (NPO 245-061)</div>
+                <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">Community Health &amp; Sustainable Impact</h2>
+            </div>
+        </div>
+
+        <p class="text-sm sm:text-base lg:text-lg text-slate-600">Afromed Development is the non-profit arm of the group, dedicated to delivering vital community health services, education and sustainable development programmes that address health disparities across KwaZulu-Natal.</p>
+
+        <div class="mt-6 sm:mt-8 grid md:grid-cols-2 gap-6 sm:gap-8">
+            <div>
+                <h3 class="font-semibold text-base sm:text-lg mb-3">Key Community Initiatives</h3>
+                <div class="space-y-2.5 sm:space-y-3 text-xs sm:text-sm">
+                    <div class="p-3 sm:p-4 border-l-4 border-emerald-500 bg-emerald-50 rounded-r-2xl">Community Health Education & CPR / First Aid Training</div>
+                    <div class="p-3 sm:p-4 border-l-4 border-emerald-500 bg-emerald-50 rounded-r-2xl">Quarterly Medical Camps & Health Screenings</div>
+                    <div class="p-3 sm:p-4 border-l-4 border-emerald-500 bg-emerald-50 rounded-r-2xl">Telemedicine Services enabling remote consultations</div>
+                    <div class="p-3 sm:p-4 border-l-4 border-emerald-500 bg-emerald-50 rounded-r-2xl">Medical Transport Support for low-income patients</div>
+                </div>
+            </div>
+            <div>
+                <div class="mt-5 sm:mt-6 p-5 sm:p-6 bg-emerald-900 text-white rounded-2xl text-xs sm:text-sm">
+                    <div class="font-semibold text-sm sm:text-base">Impact at a Glance</div>
+                    <div class="grid grid-cols-2 gap-y-2 mt-3 text-emerald-200">
+                        <div>38+ communities reached</div>
+                        <div>47+ medical & health camps</div>
+                        <div>1,240+ students trained</div>
+                        <div>33+ sustainable jobs created</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-6 sm:mt-8 text-center">
+            <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="px-6 py-3 bg-emerald-600 text-white rounded-2xl font-semibold text-sm hover:bg-emerald-700 touch-target">Partner on a Community Health Project</button>
+        </div>
+    </div>
+</section>
+
+<!-- IMPACT STATS -->
+<section id="impact" class="bg-slate-900 py-12 sm:py-16 text-white content-section">
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-xl mb-8 sm:mb-10">
+            <div class="uppercase tracking-[1.5px] text-emerald-400 text-[10px] font-bold mb-2">MEASURABLE IMPACT SINCE 2012</div>
+            <h2 class="text-white text-3xl sm:text-4xl font-semibold tracking-tighter">Numbers that reflect our commitment to KZN.</h2>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
+            <div class="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-4 text-center hover:border-emerald-400/40 transition-all hover:-translate-y-1">
+                <div class="text-3xl font-bold text-white" id="stat-years">14</div>
+                <div class="text-emerald-400 text-[10px] font-semibold uppercase mt-1">Years of Service</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-4 text-center hover:border-emerald-400/40 transition-all hover:-translate-y-1">
+                <div class="text-3xl font-bold text-white" id="stat-vehicles">17</div>
+                <div class="text-emerald-400 text-[10px] font-semibold uppercase mt-1">Specialised Vehicles</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-4 text-center hover:border-emerald-400/40 transition-all hover:-translate-y-1">
+                <div class="text-3xl font-bold text-white" id="stat-programs">7</div>
+                <div class="text-emerald-400 text-[10px] font-semibold uppercase mt-1">HWSETA Programmes</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-4 text-center hover:border-emerald-400/40 transition-all hover:-translate-y-1">
+                <div class="text-3xl font-bold text-white" id="stat-team">42</div>
+                <div class="text-emerald-400 text-[10px] font-semibold uppercase mt-1">Team Members</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-4 text-center hover:border-emerald-400/40 transition-all hover:-translate-y-1">
+                <div class="text-3xl font-bold text-white" id="stat-communities">38</div>
+                <div class="text-emerald-400 text-[10px] font-semibold uppercase mt-1">Communities Served</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-4 text-center hover:border-emerald-400/40 transition-all hover:-translate-y-1">
+                <div class="text-3xl font-bold text-white" id="stat-students">1240</div>
+                <div class="text-emerald-400 text-[10px] font-semibold uppercase mt-1">Students Trained</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== TESTIMONIALS SECTION (RESTORED FULLY) ==================== -->
+<section class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 bg-slate-50 border-t border-slate-100">
+    <div class="max-w-3xl mx-auto text-center mb-8 sm:mb-10">
+        <div class="text-emerald-600 text-[10px] sm:text-xs font-bold tracking-[2px] sm:tracking-[2.5px]">WHAT OUR PARTNERS SAY</div>
+        <h2 class="section-header mt-1.5 sm:mt-2">Trusted by communities, corporations, and healthcare leaders.</h2>
+    </div>
+
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-4 sm:gap-6">
+        <div class="testimonial-card hover-lift reveal-on-scroll">
+            <div class="quote-mark">"</div>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-lg">PS</div>
+                <div>
+                    <div class="font-semibold text-sm">Premier Soccer League</div>
+                    <div class="text-xs text-slate-400">Event Medical Partner</div>
+                </div>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">"Afromed's professionalism and rapid response at our matches has been exceptional. Their team is always prepared, and their clinical governance gives us complete peace of mind."</p>
+            <div class="mt-3 flex text-emerald-500 text-xs">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+        </div>
+
+        <div class="testimonial-card hover-lift reveal-on-scroll">
+            <div class="quote-mark">"</div>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-lg">DC</div>
+                <div>
+                    <div class="font-semibold text-sm">Durban City Municipality</div>
+                    <div class="text-xs text-slate-400">Community Health Partner</div>
+                </div>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">"The community health camps run by Afromed Development have reached thousands of our residents. Their approach is respectful, professional, and truly impactful."</p>
+            <div class="mt-3 flex text-emerald-500 text-xs">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+        </div>
+
+        <div class="testimonial-card hover-lift reveal-on-scroll">
+            <div class="quote-mark">"</div>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-lg">HC</div>
+                <div>
+                    <div class="font-semibold text-sm">Health &amp; Safety Corp</div>
+                    <div class="text-xs text-slate-400">Training Client</div>
+                </div>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">"We've trained over 200 staff with Afromed College. The practical, scenario-based approach means our teams are genuinely prepared for emergencies. Highly recommended."</p>
+            <div class="mt-3 flex text-emerald-500 text-xs">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== HORIZONTAL HEXAGON SLIDER GALLERY ==================== -->
+<section id="gallery-section" class="max-w-screen-2xl mx-auto py-12 sm:py-16 bg-slate-50 border-t border-slate-200/80 content-section overflow-hidden">
+    <div class="max-w-3xl mx-auto text-center mb-6 sm:mb-8 px-4 sm:px-6 lg:px-8">
+        <div class="text-emerald-600 text-[10px] sm:text-xs font-bold tracking-[2px] sm:tracking-[2.5px]">MOMENTS IN ACTION</div>
+        <h2 class="section-header mt-1.5 sm:mt-2 text-slate-900">Field Dispatch & Community Snapshot</h2>
+        <p class="text-slate-600 mt-2 sm:mt-3 text-sm sm:text-base">Hover to view details. Tap any tile to expand. Slide right to see more.</p>
+    </div>
+
+    <div class="hex-slider-container">
+        <button id="hex-prev" class="hex-slider-btn hex-btn-prev"><i class="fas fa-chevron-left"></i></button>
+        <div class="hex-scroll-track" id="hex-gallery-track">
+            <!-- JS will inject all 89 images grouped into interlocking columns here -->
+        </div>
+        <button id="hex-next" class="hex-slider-btn hex-btn-next"><i class="fas fa-chevron-right"></i></button>
+    </div>
+</section>
+
+<!-- HEXAGON MODAL POPUP -->
+<div id="hex-modal" class="fixed inset-0 z-[10000] flex items-center justify-center opacity-0 invisible transition-all duration-300 ease-in-out p-4">
+    <div class="absolute inset-0 bg-slate-900/95 backdrop-blur-sm" onclick="closeHexModal()"></div>
+    <div id="hex-modal-content" class="relative z-10 flex flex-col items-center transform scale-90 transition-transform duration-300 w-full max-w-2xl">
+        <div class="w-[85vw] max-w-[450px] aspect-[1/1.15] bg-slate-800 shadow-2xl mx-auto" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);">
+            <img id="hex-modal-img" src="" alt="Gallery Image" class="w-full h-full object-cover">
+        </div>
+        <div class="mt-6 text-center text-white px-4 max-w-md mx-auto bg-black/40 p-4 rounded-2xl backdrop-blur-md border border-white/10">
+            <h3 id="hex-modal-title" class="text-xl sm:text-2xl font-bold text-emerald-400 tracking-tight mb-1.5"></h3>
+            <p id="hex-modal-desc" class="text-slate-300 text-xs sm:text-sm leading-relaxed"></p>
+        </div>
+        <button onclick="closeHexModal()" class="mt-6 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full text-white flex items-center justify-center transition-colors border border-white/20">
+            <i class="fas fa-times text-xl"></i>
+        </button>
+    </div>
+</div>
+
+<!-- CAREERS -->
+<section id="careers" class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 bg-white border-t border-slate-100 content-section">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-8">
+            <div class="text-emerald-600 text-[10px] font-bold tracking-[2px]">YOUTH DEVELOPMENT</div>
+            <h2 class="section-header mt-1.5">Building the next generation of KZN healthcare professionals</h2>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div>
+                <p class="text-slate-600 text-sm">Our College is a direct pipeline into meaningful employment within the Afromed Group and the broader healthcare sector.</p>
+                <div class="mt-5 space-y-3 text-xs sm:text-sm">
+                    <div class="flex gap-4"><div class="text-emerald-600 mt-1"><i class="fas fa-check-circle"></i></div><div><span class="font-semibold">Direct employment pathway</span><br><span class="text-slate-600">High-performing graduates are prioritised for roles.</span></div></div>
+                </div>
+            </div>
+            <div class="bg-slate-900 text-white p-6 rounded-2xl">
+                <div class="uppercase text-emerald-400 text-[10px] font-bold mb-4">CURRENT OPPORTUNITIES</div>
+                <div class="space-y-3 text-xs sm:text-sm">
+                    <div class="flex justify-between border-b border-white/10 pb-3"><div>Paramedic / ECP positions</div><span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded">Open</span></div>
+                    <div class="flex justify-between border-b border-white/10 pb-3"><div>Training Facilitators</div><span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded">Open</span></div>
+                </div>
+                <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })" class="mt-5 w-full py-3 bg-white text-slate-900 rounded-2xl font-semibold text-sm hover:bg-emerald-50">Apply</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="bg-slate-900 py-12 sm:py-16 text-white content-section">
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto text-center mb-8 sm:mb-10">
+            <div class="text-emerald-400 tracking-[1.5px] text-[10px] font-bold">LET'S BUILD HEALTHIER COMMUNITIES</div>
+            <h2 class="text-3xl sm:text-4xl font-semibold tracking-tighter mt-2">Ready to partner with Afromed.life?</h2>
+        </div>
+        <div class="max-w-3xl mx-auto">
+            <form id="contact-form" onsubmit="handleContactForm(event)" class="bg-white/5 border border-white/10 backdrop-blur-xl p-6 md:p-10 rounded-3xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] text-white/70 mb-1.5">FULL NAME</label>
+                        <input type="text" required class="w-full bg-white/90 text-slate-900 border-0 rounded-2xl px-4 h-11 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-white/70 mb-1.5">EMAIL ADDRESS</label>
+                        <input type="email" required class="w-full bg-white/90 text-slate-900 border-0 rounded-2xl px-4 h-11 text-sm">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-[10px] text-white/70 mb-1.5">MESSAGE / PROJECT DETAILS</label>
+                        <textarea rows="4" required class="w-full bg-white/90 text-slate-900 border-0 rounded-2xl px-4 py-3 text-sm"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="mt-5 w-full h-12 bg-emerald-600 hover:bg-emerald-500 font-semibold rounded-2xl text-sm">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== FOOTER - PREMIUM VERSION (RESTORED FULLY) ==================== -->
+<footer class="bg-white border-t">
+    <div class="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+        <div class="footer-grid">
+            <div>
+                <div class="flex items-center gap-x-2 sm:gap-x-3 mb-4">
+                    <div class="w-8 h-8 sm:w-9 sm:h-9 bg-slate-900 rounded-xl sm:rounded-2xl flex items-center justify-center">
+                        <span class="text-white font-black text-lg sm:text-xl"><img src="logo/logo.png" alt="AFROMED Medical Services Logo" width="100" height="100" style="border-radius: 50%; object-fit: cover; border: 3px solid #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.2);"></span>
+                    </div>
+                    <span class="font-semibold text-xl sm:text-2xl tracking-tighter">afromed<span class="text-emerald-600">.</span></span>
+                </div>
+                <div class="text-xs sm:text-sm text-slate-500 max-w-xs">Strategic holding company for integrated emergency healthcare, professional training and community development in South Africa.</div>
+
+                <!-- Social Media -->
+                <div class="mt-4 sm:mt-6 flex gap-x-3 sm:gap-x-4">
+                    <a href="#" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100 hover:bg-emerald-100 text-slate-500 hover:text-emerald-600 flex items-center justify-center transition-all hover:scale-110">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100 hover:bg-emerald-100 text-slate-500 hover:text-emerald-600 flex items-center justify-center transition-all hover:scale-110">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100 hover:bg-emerald-100 text-slate-500 hover:text-emerald-600 flex items-center justify-center transition-all hover:scale-110">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100 hover:bg-emerald-100 text-slate-500 hover:text-emerald-600 flex items-center justify-center transition-all hover:scale-110">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100 hover:bg-emerald-100 text-slate-500 hover:text-emerald-600 flex items-center justify-center transition-all hover:scale-110">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-links-grid">
+                <div>
+                    <div class="font-semibold text-[10px] sm:text-xs tracking-widest text-slate-400 mb-2 sm:mb-3">COMPANIES</div>
+                    <div class="space-y-1.5 sm:space-y-[7px] text-xs sm:text-sm text-slate-600">
+                        <a href="#ems-deep" class="block hover:text-emerald-600 transition-colors">Afromed EMS</a>
+                        <a href="college.html" class="block hover:text-emerald-600 transition-colors">Afromed Emergency College</a>
+                        <a href="#development-deep" class="block hover:text-emerald-600 transition-colors">Afromed Development (NPO)</a>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="font-semibold text-[10px] sm:text-xs tracking-widest text-slate-400 mb-2 sm:mb-3">HEAD OFFICE</div>
+                    <div class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        64 Courtown Crescent<br>
+                        Avoca Hills, Newlands East<br>
+                        Durban, KwaZulu-Natal<br><br>
+                        <span class="font-mono text-[10px] sm:text-xs">031 565 1080</span><br>
+                        <a href="mailto:info@afromed.co.za" class="hover:text-emerald-600 transition-colors">info@afromed.co.za</a>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="font-semibold text-[10px] sm:text-xs tracking-widest text-slate-400 mb-2 sm:mb-3">QUICK LINKS</div>
+                    <div class="space-y-1.5 sm:space-y-[7px] text-xs sm:text-sm text-slate-600">
+                        <a href="#about" class="block hover:text-emerald-600 transition-colors">About the Group</a>
+                        <a href="#impact" class="block hover:text-emerald-600 transition-colors">Group Impact</a>
+                        <a href="#careers" class="block hover:text-emerald-600 transition-colors">Careers &amp; Training</a>
+                        <a href="#videos" class="block hover:text-emerald-600 transition-colors">News &amp; Media</a>
+                        <a href="college.html" class="block hover:text-emerald-600 transition-colors">Afromed College</a>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="font-semibold text-[10px] sm:text-xs tracking-widest text-slate-400 mb-2 sm:mb-3">ACCREDITATIONS</div>
+                    <div class="text-[10px] sm:text-xs text-slate-600 space-y-1">
+                        <div class="flex items-center gap-1.5"><i class="fas fa-check-circle text-emerald-500 text-[8px]"></i> BHF SA Member</div>
+                        <div class="flex items-center gap-1.5"><i class="fas fa-check-circle text-emerald-500 text-[8px]"></i> HWSETA Accredited</div>
+                        <div class="flex items-center gap-1.5"><i class="fas fa-check-circle text-emerald-500 text-[8px]"></i> NPO 245-061</div>
+                        <div class="flex items-center gap-1.5"><i class="fas fa-check-circle text-emerald-500 text-[8px]"></i> B-BBEE Level 4</div>
+                        <div class="flex items-center gap-1.5"><i class="fas fa-check-circle text-emerald-500 text-[8px]"></i> Public Benefit Org.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter Signup -->
+        <div class="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <div class="font-semibold text-sm text-slate-700">Stay Connected</div>
+                    <div class="text-xs text-slate-500">Subscribe for news, impact stories, and opportunities.</div>
+                </div>
+                <div class="flex w-full sm:w-auto gap-2">
+                    <input type="email" placeholder="Enter your email" class="flex-1 sm:w-64 px-4 py-2.5 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500 transition-all">
+                    <button class="px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-semibold hover:bg-emerald-700 transition-all hover:-translate-y-0.5 shadow-lg shadow-emerald-500/20">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t text-[10px] sm:text-xs text-slate-400 flex flex-col md:flex-row items-center justify-between gap-y-2">
+            <div>© 2026 Afromed.life Holdings (Pty) Ltd. All rights reserved. Proudly South African. Every community matters.</div>
+            <div class="flex gap-x-4 sm:gap-x-5">
+                <a href="#" class="hover:text-slate-600 transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-slate-600 transition-colors">Terms of Service</a>
+                <a href="#" class="hover:text-slate-600 transition-colors">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- MY AFROMED POPUP (FIXED TO REDIRECT PROPERLY) -->
+<div id="my-afromed-popup" class="fixed inset-0 z-[9999] flex items-center justify-center px-4 opacity-0 invisible transition-all duration-300 ease-in-out">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeMyAfromedPopup()"></div>
+    <div class="relative bg-white rounded-3xl shadow-2xl max-w-md w-full transform scale-95 transition-all duration-300 ease-in-out" id="my-afromed-popup-inner">
+        <button onclick="closeMyAfromedPopup()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100"><i class="fas fa-times text-lg"></i></button>
+        <div class="p-6 border-b border-slate-100">
+            <div class="flex items-center gap-x-3">
+                <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center"><i class="fas fa-user-circle text-2xl text-white"></i></div>
+                <div><h3 class="text-xl font-bold text-slate-900">My Afromed</h3><p class="text-xs text-slate-500">Access your services</p></div>
+            </div>
+        </div>
+        <div class="p-6">
+            <div class="grid grid-cols-2 gap-3">
+                <!-- Option 1: Afromed College (FIXED REDIRECT) -->
+                <a href="college.html" onclick="closeMyAfromedPopup()" class="group flex flex-col items-center text-center p-4 rounded-2xl border-2 border-slate-100 hover:border-sky-400 hover:bg-sky-50 transition-all">
+                    <div class="w-14 h-14 bg-sky-100 rounded-2xl flex items-center justify-center mb-3"><i class="fas fa-graduation-cap text-2xl text-sky-600"></i></div>
+                    <span class="text-sm font-semibold text-slate-700">Afromed College</span>
+                </a>
+                <a href="#development-deep" onclick="closeMyAfromedPopup()" class="group flex flex-col items-center text-center p-4 rounded-2xl border-2 border-slate-100 hover:border-emerald-400 hover:bg-emerald-50 transition-all">
+                    <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center mb-3"><i class="fas fa-hands-helping text-2xl text-emerald-600"></i></div>
+                    <span class="text-sm font-semibold text-slate-700">Development</span>
+                </a>
+                <a href="#ems-deep" onclick="closeMyAfromedPopup()" class="group flex flex-col items-center text-center p-4 rounded-2xl border-2 border-slate-100 hover:border-amber-400 hover:bg-amber-50 transition-all">
+                    <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center mb-3"><i class="fas fa-calendar-check text-2xl text-amber-600"></i></div>
+                    <span class="text-sm font-semibold text-slate-700">Events</span>
+                </a>
+                <a href="#ems-deep" onclick="closeMyAfromedPopup()" class="group flex flex-col items-center text-center p-4 rounded-2xl border-2 border-slate-100 hover:border-red-400 hover:bg-red-50 transition-all">
+                    <div class="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mb-3"><i class="fas fa-ambulance text-2xl text-red-600"></i></div>
+                    <span class="text-sm font-semibold text-slate-700">Emergency</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPTS -->
+<script>
+    // ============================================
+    // PRELOADER & NAVBAR
+    // ============================================
+    function initPreloader() {
+        const preloader = document.getElementById('preloader');
+        setTimeout(() => {
+            preloader.style.transition = 'opacity 0.6s ease, visibility 0.6s ease';
+            preloader.style.opacity = '0';
+            preloader.style.visibility = 'hidden';
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach((el, i) => setTimeout(() => el.classList.add('visible'), i * 80));
+            }, 300);
+        }, 1350);
+    }
+
+    function initNavbar() {
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => window.scrollY > 20 ? navbar.classList.add('nav-scrolled') : navbar.classList.remove('nav-scrolled'));
+        
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                mobileBtn.querySelector('i').className = mobileMenu.classList.contains('hidden') ? 'fas fa-bars text-lg' : 'fas fa-times text-lg';
+            });
+            document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileBtn.querySelector('i').className = 'fas fa-bars text-lg';
+            }));
+        }
+    }
+
+    // ============================================
+    // GSAP HERO SLIDER (WORKING)
+    // ============================================
+    function initAfromedHeroSlider() {
+        const heroSlider = document.getElementById("afromedHeroSlider");
+        const trails = document.querySelectorAll(".trail div");
+        const prevBtn = document.querySelector(".slider-arrow.prev");
+        const nextBtn = document.querySelector(".slider-arrow.next");
+
+        if (!heroSlider || trails.length === 0) return;
+
+        let currentSlide = 0;
+        const totalSlides = 5;
+        const intervalDuration = 5500;
+        let autoPlayTimer;
+
+        const animateSlideElements = (activeBox) => {
+            if (typeof gsap !== "undefined") {
+                const tl = gsap.timeline({ defaults: { duration: 0.55, ease: "power2.out" } });
+                tl.fromTo(activeBox.querySelector(".bg"), { x: "-60%", opacity: 0 }, { x: "0%", opacity: 1 })
+                  .fromTo(activeBox.querySelector("h1"), { y: 25, opacity: 0 }, { y: 0, opacity: 1 }, "-=0.25")
+                  .fromTo(activeBox.querySelector("p"), { y: 15, opacity: 0 }, { y: 0, opacity: 1 }, "-=0.3")
+                  .fromTo(activeBox.querySelectorAll(".details button, .details a"), { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, stagger: 0.08 }, "-=0.3");
+
+                const mainPhoto = activeBox.querySelector(".main-photo");
+                const floatTop = activeBox.querySelector(".float-top");
+                const floatBottom = activeBox.querySelector(".float-bottom");
+
+                if (mainPhoto) tl.fromTo(mainPhoto, { scale: 0.8, opacity: 0, y: 30 }, { scale: 1, opacity: 1, y: 0, duration: 0.6 }, "-=0.4");
+                if (floatTop) tl.fromTo(floatTop, { scale: 0.6, y: -30, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 0.5 }, "-=0.35");
+                if (floatBottom) tl.fromTo(floatBottom, { scale: 0.6, y: 30, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 0.5 }, "-=0.35");
+            }
+        };
+
+        const goToSlide = (index) => {
+            currentSlide = (index + totalSlides) % totalSlides;
+            heroSlider.style.transform = `translateX(-${currentSlide * 20}%)`;
+            trails.forEach((trail, i) => trail.classList.toggle("active", i === currentSlide));
+            const boxes = heroSlider.querySelectorAll(".box");
+            if (boxes[currentSlide]) animateSlideElements(boxes[currentSlide]);
+        };
+
+        const startAutoPlay = () => {
+            clearInterval(autoPlayTimer);
+            autoPlayTimer = setInterval(() => goToSlide(currentSlide + 1), intervalDuration);
+        };
+
+        if (nextBtn) nextBtn.addEventListener("click", () => { goToSlide(currentSlide + 1); startAutoPlay(); });
+        if (prevBtn) prevBtn.addEventListener("click", () => { goToSlide(currentSlide - 1); startAutoPlay(); });
+        trails.forEach((trail, idx) => trail.addEventListener("click", () => { goToSlide(idx); startAutoPlay(); }));
+
+        goToSlide(0);
+        startAutoPlay();
+    }
+
+    // ============================================================
+    // HORIZONTAL HEXAGON SLIDER & MODAL LOGIC
+    // ============================================================
+    const allGalleryImages = [
+        "Afromed-54.jpg", "Afromed-57.jpg", "Afromed-66.jpg", "Afromed-111.jpg", "Afromed-113.jpg", 
+        "Afromed-115.jpg", "Afromed-117.jpg", "Afromed-123.jpg", "Afromed-126.jpg", "Afromed-131.jpg", 
+        "Afromed-132.jpg", "Afromed-134.jpg", "Afromed-146.jpg", "Afromed-160.jpg", "Afromed-169.jpg", 
+        "Afromed-192.jpg", "Afromed-286.webp", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.24%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.24%20(2).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.24.jpeg", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.25%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.25%20(2).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.25.jpeg", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.26%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.26%20(2).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.26.jpeg", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.27%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.27%20(2).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.27.jpeg", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.28%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.28%20(2).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.28.jpeg", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.29%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.29%20(2).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.29.jpeg", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.30%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.30%20(2).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.30.jpeg", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.31%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.31.jpeg", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.32%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.32%20(2).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.32.jpeg", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.33%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.33%20(2).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.33.jpeg", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.34%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.34.jpeg", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.35%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.35.jpeg", 
+        "WhatsApp%20Image%202026-07-04%20at%2010.04.36%20(1).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.36%20(2).jpeg", "WhatsApp%20Image%202026-07-04%20at%2010.04.36.jpeg", 
+        "director1.jpg", "director2.jpg", "front1.jpg", "front2.jpg", "front3.jpg", "front6.jpg", "front8.jpg", "front9.jpg", 
+        "slide10.jpg", "slide11.jpg", "slide12.jpg", "slide13.jpg", "slide14.jpg", "slide15.jpg", "slide16.jpg", "slide17.jpg", 
+        "slide18.jpg", "slide19.jpg", "slide20.jpg", "slide21.jpg", "slide22.jpg", "slide23.jpg", "slide24.jpg", "slide25.jpg", 
+        "slide26.jpg", "slide7.jpg", "slide8.jpg", "slide9.jpg", "slideup.jpg", "slideup2.jpg", "slideup3.jpg", "slideup4.jpg", 
+        "slideup5.jpg", "slideup6.jpg", "slideup7.jpg", "slideup8.jpg"
+    ];
+
+    const hexCategories = [
+        { title: "Field Dispatch", desc: "24/7 ALS response across eThekwini Metro." },
+        { title: "Operational Fleet", desc: "Modern, fully equipped intensive care ambulances." },
+        { title: "Trauma Standby", desc: "Ready for major incidents and highway accidents." },
+        { title: "Clinical Training", desc: "College students undergoing high-stress scenario drills." },
+        { title: "Youth Empowerment", desc: "Creating real employment pathways for KZN youth." },
+        { title: "Event Medical", desc: "Zero critical failures at major PSL and festival deployments." },
+        { title: "Community Outreach", desc: "NPO delivering free medical screenings." },
+        { title: "Preventative Care", desc: "Blood pressure and glucose testing for all ages." },
+        { title: "Rural Access", desc: "Extending healthcare reach to deep rural borders." }
+    ];
+
+    function buildSlidingHexagons() {
+        const track = document.getElementById('hex-gallery-track');
+        if (!track) return;
+        
+        let html = '';
+        for (let i = 0; i < allGalleryImages.length; i += 2) {
+            let img1 = allGalleryImages[i];
+            let img2 = allGalleryImages[i+1];
+            
+            let cat1 = hexCategories[i % hexCategories.length];
+            let cat2 = hexCategories[(i+1) % hexCategories.length];
+            
+            html += `<div class="hex-col">
+                <div class="hexagon-wrapper" onclick="openHexModal('images/${img1}', '${cat1.title}', '${cat1.desc}')">
+                    <div class="hexagon">
+                        <img src="images/${img1}" alt="${cat1.title}" loading="lazy">
+                        <div class="imageText"><div class="imageTextHeader"><h2>${cat1.title}</h2></div><div class="imageTextContent">${cat1.desc}</div></div>
+                    </div>
+                </div>`;
+                
+            if (img2) {
+                html += `
+                <div class="hexagon-wrapper" onclick="openHexModal('images/${img2}', '${cat2.title}', '${cat2.desc}')">
+                    <div class="hexagon">
+                        <img src="images/${img2}" alt="${cat2.title}" loading="lazy">
+                        <div class="imageText"><div class="imageTextHeader"><h2>${cat2.title}</h2></div><div class="imageTextContent">${cat2.desc}</div></div>
+                    </div>
+                </div>`;
+            }
+            html += `</div>`;
+        }
+        track.innerHTML = html;
+    }
+
+    function initHexSlider() {
+        const track = document.getElementById('hex-gallery-track');
+        const prevBtn = document.getElementById('hex-prev');
+        const nextBtn = document.getElementById('hex-next');
+
+        if (!track) return;
+        const scrollAmount = window.innerWidth > 768 ? 400 : 250; 
+        prevBtn.addEventListener('click', () => track.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
+        nextBtn.addEventListener('click', () => track.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
+    }
+
+    function openHexModal(imgSrc, title, desc) {
+        const modal = document.getElementById('hex-modal');
+        const content = document.getElementById('hex-modal-content');
+        document.getElementById('hex-modal-img').src = imgSrc;
+        document.getElementById('hex-modal-title').textContent = title;
+        document.getElementById('hex-modal-desc').textContent = desc;
+        modal.classList.remove('invisible');
+        setTimeout(() => {
+            modal.classList.remove('opacity-0'); modal.classList.add('opacity-100');
+            content.classList.remove('scale-90'); content.classList.add('scale-100');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeHexModal() {
+        const modal = document.getElementById('hex-modal');
+        const content = document.getElementById('hex-modal-content');
+        modal.classList.remove('opacity-100'); modal.classList.add('opacity-0');
+        content.classList.remove('scale-100'); content.classList.add('scale-90');
+        setTimeout(() => {
+            modal.classList.add('invisible');
+            document.body.style.overflow = ''; 
+            document.getElementById('hex-modal-img').src = ''; 
+        }, 300);
+    }
+
+    // ============================================
+    // MY AFROMED POPUP
+    // ============================================
+    function openMyAfromedPopup() {
+        const popup = document.getElementById('my-afromed-popup');
+        if (popup) { popup.classList.add('show'); document.body.style.overflow = 'hidden'; }
+    }
+    function closeMyAfromedPopup() {
+        const popup = document.getElementById('my-afromed-popup');
+        if (popup) { popup.classList.remove('show'); document.body.style.overflow = ''; }
+    }
+    function initMyAfromed() {
+        document.querySelectorAll('.my-afromed-trigger').forEach(el => {
+            el.addEventListener('click', (e) => { e.preventDefault(); openMyAfromedPopup(); });
+        });
+    }
+
+    // ============================================
+    // SMOOTH SCROLL & INITIALIZERS
+    // ============================================
+    function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    window.scrollTo({ top: targetElement.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' });
+                }
+            });
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (document.getElementById('hex-modal').classList.contains('opacity-100')) closeHexModal();
+            closeMyAfromedPopup();
+        }
+    });
+
+    window.onload = function() {
+        initPreloader();
+        initNavbar();
+        initAfromedHeroSlider();
+        buildSlidingHexagons();
+        initHexSlider();
+        initMyAfromed();
+        initSmoothScroll();
+    };
+</script>
+
+</body>
+</html>
