@@ -343,6 +343,7 @@ let activeRequestId=null,activeRequestData=null,activeRequestUnsub=null,vehicleU
 let requestHistory=[],notifications=[];
 let selectedWho='Self',selectedEmergency='',vitals={conscious:'unknown',breathing:'unknown'};
 let driverPhone='',lastRouteAt=0,lastAmbulanceLocation=null,addressSearchTimer=null;
+let incomingChatWatchUnsub=null,incomingChatWatchId=null,incomingChatPrimed=false,incomingChatLastDoc='';
 
 function esc(v=''){return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
 function formatDate(v){try{const d=v?.toDate?v.toDate():new Date(v);if(!d||Number.isNaN(d.getTime()))return'â€”';return new Intl.DateTimeFormat('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(d)}catch{return'â€”'}}
@@ -562,6 +563,7 @@ function attachActiveRequest(id){
   if(activeRequestId===id&&activeRequestUnsub)return;
   if(activeRequestUnsub)activeRequestUnsub();
   activeRequestId=id;
+  watchIncomingCaseChat(id);
   activeRequestUnsub=db.collection('requests').doc(id).onSnapshot(doc=>{
     if(!doc.exists)return clearActiveRequest();
     const d={id:doc.id,...doc.data()},status=String(d.status||'').toLowerCase();
@@ -570,6 +572,8 @@ function attachActiveRequest(id){
   });
 }
 function clearActiveRequest(){
+  if(incomingChatWatchUnsub){incomingChatWatchUnsub();incomingChatWatchUnsub=null}
+  incomingChatWatchId=null;incomingChatPrimed=false;incomingChatLastDoc='';
   activeRequestId=null;activeRequestData=null;if(activeRequestUnsub){activeRequestUnsub();activeRequestUnsub=null}if(vehicleUnsub){vehicleUnsub();vehicleUnsub=null}
   document.getElementById('incident-card').classList.remove('active');driverPhone='';lastAmbulanceLocation=null;
   if(ambulanceMarker){ambulanceMarker.remove();ambulanceMarker=null}
@@ -634,6 +638,25 @@ function renderHistory(){
   box.innerHTML=requestHistory.length?requestHistory.map(r=>`<div class="list-card"><div class="list-card-top"><div><strong>${esc(r.emergencyType||'Emergency')}</strong><span>${formatDate(r.timestamp)} Â· ${esc(r.assignedVehicle?`Unit ${r.assignedVehicle}`:'Afromed')}</span></div><div class="status ${esc(String(r.status||'pending').toLowerCase())}">${esc(r.status||'pending')}</div></div></div>`).join(''):'<div class="list-card"><strong>No emergency history</strong><span>Your Afromed requests will appear here.</span></div>';
 }
 
+function watchIncomingCaseChat(requestId){
+  if(!requestId)return;
+  if(incomingChatWatchId===requestId&&incomingChatWatchUnsub)return;
+  if(incomingChatWatchUnsub)incomingChatWatchUnsub();
+  incomingChatWatchId=requestId;incomingChatPrimed=false;incomingChatLastDoc='';
+  incomingChatWatchUnsub=db.collection('requests').doc(requestId).collection('messages').orderBy('timestamp','desc').limit(1).onSnapshot(snap=>{
+    if(snap.empty){incomingChatPrimed=true;return}
+    const doc=snap.docs[0],m=doc.data();
+    if(!incomingChatPrimed){incomingChatPrimed=true;incomingChatLastDoc=doc.id;return}
+    if(incomingChatLastDoc===doc.id)return;
+    incomingChatLastDoc=doc.id;
+    const me=m.sender===currentUser.uid||m.senderUid===currentUser.uid;
+    const role=String(m.senderRole||'').toLowerCase();
+    if(!me&&(role==='admin'||role==='dispatcher'||role==='control')){
+      showNativeNotification('Afromed Control',m.text||m.message||'New message');
+      openIncidentChat();
+    }
+  },err=>console.warn('Incoming emergency chat',err));
+}
 function openIncidentChat(){
   if(!activeRequestId)return alert('There is no active emergency chat.');
   openSheet('incident-chat-sheet');
@@ -744,5 +767,6 @@ auth.onAuthStateChanged(async user=>{
 </script>
 </body>
 </html>
+
 
 
