@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -138,17 +138,17 @@
 
 <div class="location-pill" onclick="openLocationSheet()">
   <div class="location-icon"><i class="fa-solid fa-location-crosshairs"></i></div>
-  <div class="location-copy"><span>Your emergency location</span><strong id="current-address">Locating you…</strong></div>
+  <div class="location-copy"><span>Your emergency location</span><strong id="current-address">Locating youâ€¦</strong></div>
   <button class="locate-btn" onclick="event.stopPropagation();requestLocation(true)"><i class="fa-solid fa-crosshairs"></i></button>
 </div>
 
-<div class="unit-availability"><i class="fa-solid fa-circle"></i><span id="available-unit-text">Checking units…</span></div>
+<div class="unit-availability"><i class="fa-solid fa-circle"></i><span id="available-unit-text">Checking unitsâ€¦</span></div>
 
 <section id="incident-card" class="incident-card">
   <div class="incident-head">
     <div class="incident-head-row">
       <div id="incident-status" class="incident-status"><i class="fa-solid fa-circle-notch fa-spin"></i> Request received</div>
-      <div id="incident-eta" class="eta-pill">Locating…</div>
+      <div id="incident-eta" class="eta-pill">Locatingâ€¦</div>
     </div>
     <div class="progress">
       <div id="progress-1" class="progress-step active"></div><div id="progress-2" class="progress-step"></div><div id="progress-3" class="progress-step"></div><div id="progress-4" class="progress-step"></div>
@@ -157,7 +157,7 @@
   <div class="incident-body">
     <div class="crew-row">
       <div id="driver-avatar" class="crew-avatar"><i class="fa-solid fa-user-doctor"></i></div>
-      <div class="crew-info"><strong id="driver-name">Dispatch is finding your ambulance</strong><span id="driver-unit">Stand by · Your request is with the control room</span></div>
+      <div class="crew-info"><strong id="driver-name">Dispatch is finding your ambulance</strong><span id="driver-unit">Stand by Â· Your request is with the control room</span></div>
       <div class="crew-actions">
         <button id="driver-call-btn" class="hidden" onclick="callDriver()" aria-label="Call driver"><i class="fa-solid fa-phone"></i></button>
         <button onclick="openIncidentChat()" aria-label="Chat"><i class="fa-solid fa-message"></i></button>
@@ -168,7 +168,7 @@
       <button class="office-action" onclick="openSupportChat()"><i class="fa-solid fa-headset"></i> Message Office</button>
       <button class="cancel-action" onclick="cancelEmergencyRequest()" aria-label="Cancel request"><i class="fa-solid fa-xmark"></i></button>
     </div>
-    <div class="incident-detail"><span>Case <strong id="incident-case">—</strong></span><span>Emergency <strong id="incident-type">—</strong></span></div>
+    <div class="incident-detail"><span>Case <strong id="incident-case">â€”</strong></span><span>Emergency <strong id="incident-type">â€”</strong></span></div>
   </div>
 </section>
 
@@ -226,7 +226,7 @@
     <div class="grabber"></div>
     <div class="sheet-head"><div><h2>Emergency chat</h2><p>Chat with the driver or control room for this case.</p></div><button class="sheet-close" onclick="closeIncidentChat()"><i class="fa-solid fa-xmark"></i></button></div>
     <div id="incident-chat-messages" class="chat-messages"></div>
-    <div class="chat-compose"><textarea id="incident-chat-input" placeholder="Type a message…"></textarea><button class="send-btn" onclick="sendIncidentMessage()"><i class="fa-solid fa-paper-plane"></i></button></div>
+    <div class="chat-compose"><textarea id="incident-chat-input" placeholder="Type a messageâ€¦"></textarea><button class="send-btn" onclick="sendIncidentMessage()"><i class="fa-solid fa-paper-plane"></i></button></div>
   </div>
 </div>
 
@@ -236,7 +236,7 @@
     <div class="grabber"></div>
     <div class="sheet-head"><div><h2>Afromed office</h2><p>Live support for accounts, medical aid and service questions.</p></div><button class="sheet-close" onclick="closeSheet('support-sheet')"><i class="fa-solid fa-xmark"></i></button></div>
     <div id="support-chat-messages" class="chat-messages"></div>
-    <div class="chat-compose"><textarea id="support-chat-input" placeholder="Message the Afromed office…"></textarea><button class="send-btn" onclick="sendSupportMessage()"><i class="fa-solid fa-paper-plane"></i></button></div>
+    <div class="chat-compose"><textarea id="support-chat-input" placeholder="Message the Afromed officeâ€¦"></textarea><button class="send-btn" onclick="sendSupportMessage()"><i class="fa-solid fa-paper-plane"></i></button></div>
     <a class="danger-call" href="tel:+27733336656"><i class="fa-solid fa-phone"></i> Call Afromed Emergency: 073 333 6656</a>
   </div>
 </div>
@@ -262,14 +262,14 @@
     <div class="info-grid">
       <div class="info-card"><span>Blood type</span><strong id="profile-blood">Unknown</strong></div>
       <div class="info-card"><span>Medical Aid</span><strong id="profile-medaid">Not added</strong></div>
-      <div class="info-card"><span>Member / Policy No.</span><strong id="profile-mednum">—</strong></div>
+      <div class="info-card"><span>Member / Policy No.</span><strong id="profile-mednum">â€”</strong></div>
       <div class="info-card"><span>Allergies</span><strong id="profile-allergies">None listed</strong></div>
     </div>
 
     <div class="section-label">Personal information</div>
     <div class="field"><label>FIRST NAME</label><input id="inp-name"></div>
     <div class="field"><label>SURNAME</label><input id="inp-surname"></div>
-    <div class="field"><label>MOBILE NUMBER</label><input id="inp-phone" inputmode="tel" placeholder="+27…"></div>
+    <div class="field"><label>MOBILE NUMBER</label><input id="inp-phone" inputmode="tel" placeholder="+27â€¦"></div>
     <div class="field"><label>EMERGENCY CONTACT</label><input id="inp-emergency" inputmode="tel"></div>
 
     <div class="section-label">Medical ID</div>
@@ -316,7 +316,7 @@
     <p>Afromed needs your name and mobile number so the control room and ambulance crew can contact you during an emergency. Medical information is optional but can help responders.</p>
     <div class="field"><label>FIRST NAME</label><input id="setup-name"></div>
     <div class="field"><label>SURNAME</label><input id="setup-surname"></div>
-    <div class="field"><label>MOBILE NUMBER</label><input id="setup-phone" inputmode="tel" placeholder="+27…"></div>
+    <div class="field"><label>MOBILE NUMBER</label><input id="setup-phone" inputmode="tel" placeholder="+27â€¦"></div>
     <button class="save-btn" onclick="saveFirstRunProfile()">Continue to Afromed</button>
   </div>
 </div>
@@ -345,7 +345,7 @@ let selectedWho='Self',selectedEmergency='',vitals={conscious:'unknown',breathin
 let driverPhone='',lastRouteAt=0,lastAmbulanceLocation=null,addressSearchTimer=null;
 
 function esc(v=''){return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
-function formatDate(v){try{const d=v?.toDate?v.toDate():new Date(v);if(!d||Number.isNaN(d.getTime()))return'—';return new Intl.DateTimeFormat('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(d)}catch{return'—'}}
+function formatDate(v){try{const d=v?.toDate?v.toDate():new Date(v);if(!d||Number.isNaN(d.getTime()))return'â€”';return new Intl.DateTimeFormat('en-ZA',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(d)}catch{return'â€”'}}
 function finishSplash(){const s=document.getElementById('splash');if(!s)return;s.style.opacity='0';s.style.pointerEvents='none';setTimeout(()=>s.remove(),350)}
 function openSheet(id){document.getElementById(id)?.classList.add('active')}
 function closeSheet(id){document.getElementById(id)?.classList.remove('active')}
@@ -415,12 +415,64 @@ async function updateUserLocation(lat,lng,recenter=false){
   }
 }
 async function reverseGeocode(lat,lng){
-  const token=getMapboxToken();if(!token)return document.getElementById('current-address').textContent=`${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  const el=document.getElementById('current-address');
+  const token=getMapboxToken();
+
+  if(!token){
+    el.textContent='Location confirmed by GPS';
+    return;
+  }
+
   try{
-    const r=await fetch(`https://api.mapbox.com/search/geocode/v6/reverse?longitude=${lng}&latitude=${lat}&access_token=${encodeURIComponent(token)}`);
-    const j=await r.json();const f=j.features?.[0];
-    document.getElementById('current-address').textContent=f?.properties?.full_address||f?.properties?.name||`${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-  }catch{document.getElementById('current-address').textContent=`${lat.toFixed(5)}, ${lng.toFixed(5)}`}
+    const url=`https://api.mapbox.com/search/geocode/v6/reverse?longitude=${encodeURIComponent(lng)}&latitude=${encodeURIComponent(lat)}&language=en&access_token=${encodeURIComponent(token)}`;
+
+    const r=await fetch(url);
+    if(!r.ok) throw new Error(`Mapbox reverse geocode failed: ${r.status}`);
+
+    const j=await r.json();
+
+    const addressFeature=(j.features||[]).find(
+      f=>f.properties?.feature_type==='address'
+    );
+
+    const neighborhoodFeature=(j.features||[]).find(
+      f=>f.properties?.feature_type==='neighborhood'
+    );
+
+    const street=
+      addressFeature?.properties?.name ||
+      addressFeature?.properties?.full_address ||
+      '';
+
+    const neighborhood=
+      neighborhoodFeature?.properties?.name ||
+      '';
+
+    let displayAddress='';
+
+    if(street && neighborhood){
+      displayAddress=`${street}, ${neighborhood}`;
+    }else if(addressFeature?.properties?.full_address){
+      displayAddress=addressFeature.properties.full_address;
+    }else if(street){
+      displayAddress=street;
+    }
+
+    if(displayAddress){
+      userLocation.address=
+        addressFeature?.properties?.full_address || displayAddress;
+
+      userLocation.displayAddress=displayAddress;
+
+      el.textContent=displayAddress;
+    }else{
+      el.textContent='Location confirmed by GPS';
+    }
+
+  }catch(err){
+    console.error('Reverse geocoding failed:',err);
+    el.textContent='Location confirmed by GPS';
+  }
 }
 function openLocationSheet(){openSheet('location-sheet')}
 function searchAddress(q){
@@ -460,7 +512,7 @@ async function submitEmergencyRequest(){
   if(!userLocation)return alert('Afromed needs your location before an ambulance can be dispatched.');
   if(!userProfile.phone)return openFirstRunSetup();
 
-  const btn=document.getElementById('dispatch-btn');btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> CONTACTING CONTROL ROOM…';
+  const btn=document.getElementById('dispatch-btn');btn.disabled=true;btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> CONTACTING CONTROL ROOMâ€¦';
   try{
     const medicalSnapshot={
       bloodType:userProfile.bloodType||'Unknown',
@@ -480,6 +532,8 @@ async function submitEmergencyRequest(){
       medicalSnapshot,
       location:new firebase.firestore.GeoPoint(userLocation.lat,userLocation.lng),
       patientLocation:new firebase.firestore.GeoPoint(userLocation.lat,userLocation.lng),
+      locationAddress:userLocation.address||'',
+      locationDisplayAddress:userLocation.displayAddress||'',
       status:'pending',
       source:'Afromed Android App',
       timestamp:firebase.firestore.FieldValue.serverTimestamp(),
@@ -528,7 +582,7 @@ function renderActiveRequest(d){
   const status=String(d.status||'pending').toLowerCase();
   const labels={pending:'Request received',accepted:'Unit accepted',assigned:'Ambulance assigned',dispatched:'Ambulance dispatched',arriving:'Ambulance arriving',active:'Emergency in progress'};
   document.getElementById('incident-status').innerHTML=`<i class="fa-solid ${status==='pending'?'fa-circle-notch fa-spin':'fa-truck-medical'}"></i> ${labels[status]||'Emergency active'}`;
-  document.getElementById('incident-eta').textContent=d.eta||((status==='pending')?'Locating…':'En route');
+  document.getElementById('incident-eta').textContent=d.eta||((status==='pending')?'Locatingâ€¦':'En route');
   document.getElementById('driver-name').textContent=d.driverName||d.assignedDriver||((status==='pending')?'Dispatch is finding your ambulance':'Afromed Response Team');
   document.getElementById('driver-unit').textContent=d.assignedVehicle?`Unit ${d.assignedVehicle}`:(d.vehicleId?`Unit ${d.vehicleId}`:'Control room connected');
 
@@ -577,7 +631,7 @@ async function cancelEmergencyRequest(){
 }
 function renderHistory(){
   const box=document.getElementById('history-list');
-  box.innerHTML=requestHistory.length?requestHistory.map(r=>`<div class="list-card"><div class="list-card-top"><div><strong>${esc(r.emergencyType||'Emergency')}</strong><span>${formatDate(r.timestamp)} · ${esc(r.assignedVehicle?`Unit ${r.assignedVehicle}`:'Afromed')}</span></div><div class="status ${esc(String(r.status||'pending').toLowerCase())}">${esc(r.status||'pending')}</div></div></div>`).join(''):'<div class="list-card"><strong>No emergency history</strong><span>Your Afromed requests will appear here.</span></div>';
+  box.innerHTML=requestHistory.length?requestHistory.map(r=>`<div class="list-card"><div class="list-card-top"><div><strong>${esc(r.emergencyType||'Emergency')}</strong><span>${formatDate(r.timestamp)} Â· ${esc(r.assignedVehicle?`Unit ${r.assignedVehicle}`:'Afromed')}</span></div><div class="status ${esc(String(r.status||'pending').toLowerCase())}">${esc(r.status||'pending')}</div></div></div>`).join(''):'<div class="list-card"><strong>No emergency history</strong><span>Your Afromed requests will appear here.</span></div>';
 }
 
 function openIncidentChat(){
@@ -635,7 +689,7 @@ function loadProfile(){
     document.getElementById('profile-phone').textContent=userProfile.phone||'Add your phone number';
     document.getElementById('profile-blood').textContent=userProfile.bloodType||'Unknown';
     document.getElementById('profile-medaid').textContent=userProfile.medicalAid||'Not added';
-    document.getElementById('profile-mednum').textContent=userProfile.medicalNumber||'—';
+    document.getElementById('profile-mednum').textContent=userProfile.medicalNumber||'â€”';
     document.getElementById('profile-allergies').textContent=userProfile.allergies||'None listed';
     const initials=((userProfile.name||'A').charAt(0)+(userProfile.surname||'').charAt(0)).toUpperCase();
     document.getElementById('profile-avatar').textContent=initials||'A';
@@ -690,3 +744,5 @@ auth.onAuthStateChanged(async user=>{
 </script>
 </body>
 </html>
+
+
