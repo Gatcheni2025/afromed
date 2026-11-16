@@ -1,6 +1,15 @@
-# Afromed Development — Premium NPO website
+# Afromed Development Website — afromeddevelopment.org
 
-**Target domain:** https://www.afromeddevelopment.co.za/  
+The official target for this release is **https://www.afromeddevelopment.org/**. The domain is registered/managed through GoDaddy and hosting will use an isolated domain in x10hosting DirectAdmin. The older **afromed-development.org** (with hyphen) is a separate current website, and its mailbox `Neli@afromed-development.org` must remain functional.
+
+## How to publish
+
+Use [DEPLOY_X10HOSTING_ORG.md](DEPLOY_X10HOSTING_ORG.md), not the older Firebase instructions. The DirectAdmin web root for this addon domain is normally `domains/afromeddevelopment.org/public_html` (check the panel's actual path).
+
+**Use the separate web-root ZIP**, `Afromed_Development_ORG_x10hosting_Webroot.zip`, and upload its **contents** into the new domain's public_html. It includes the website plus photographs, SEO files, and privacy notice. It does not contain Firebase configuration, tests, or operator scripts.
+
+
+**Target domain:** https://www.afromeddevelopment.org/  
 **Registered NPO:** 245-061  
 **Relationship to group site:** This is a separate static website. The repository root `index.html` (Afromed Group / afromed.life) must remain unchanged.
 
@@ -12,7 +21,7 @@
 - SEO: canonical, social metadata, NGO structured data, sitemap, robots.
 - Eight approved-candidate Afromed field photos have been packaged in `development-site/images/` from the existing Afromed repository; their rights and alt captions still require owner review before launch.
 
-## Safe Firebase Hosting deployment
+## Safe Legacy Firebase Hosting deployment
 
 Use a **dedicated Hosting site** for Afromed Development; do not deploy this folder to the existing Afromed Group site's Hosting target.
 
@@ -24,7 +33,7 @@ Use a **dedicated Hosting site** for Afromed Development; do not deploy this fol
 5. Preview first: `firebase hosting:channel:deploy design-review --only hosting:development --project ACTUAL_FIREBASE_PROJECT_ID`.
 6. Once reviewed, publish:
    `firebase deploy --only hosting:development --project ACTUAL_FIREBASE_PROJECT_ID`.
-7. In Firebase Hosting **Add custom domain** for `afromeddevelopment.co.za` and `www.afromeddevelopment.co.za`, then apply the DNS records Firebase supplies at the registrar; wait for SSL validation.
+7. In Firebase Hosting **Add custom domain** for `afromeddevelopment.org` and `www.afromeddevelopment.org`, then apply the DNS records Firebase supplies at the registrar; wait for SSL validation.
 
 Do not invent or reuse existing Firebase project/site IDs. Verify the correct target before deployment.
 
@@ -46,7 +55,7 @@ The form prepares a **mailto:** email addressed to `Neli@afromed-development.org
 
 Automated workflow: `.github/workflows/development-site-qa.yml`. Runs static validation plus Chromium desktop (1440), tablet (820) and mobile (390) smoke tests with screenshots. Inspect the CI result before deployment. 
 
-## Windows operator deployment
+## Legacy Firebase Windows deployment (not used for this release)
 
 From the `development-site` directory, with Firebase CLI installed and logged in:
 
@@ -59,3 +68,4 @@ Inspect the preview URL and configure the custom domain from the Firebase Consol
 ## Privacy
 
 `privacy.html` describes the current mailto-only form, external web fonts and email-handling expectations. Verify legal text, information officer details, photo permissions and the partner-contact mailbox before launch.
+
