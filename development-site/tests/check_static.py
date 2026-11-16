@@ -39,6 +39,6 @@ assert '245-061' in html and 'saemsawards.co.za' in html, 'NPO / awards content 
 assert 'Neli@afromed-development.org' in html, 'Contact destination missing'
 assert 'prefers-reduced-motion' in html,'Reduced motion is required'
 assert '<meta name="viewport"' in html,'Mobile viewport metadata missing'
-assert (root/'sitemap.xml').exists() and (root/'favicon.svg').exists(), 'SEO assets missing'
+assert (root/'sitemap.xml').exists() and (root/'favicon.svg').exists() and (root/'privacy.html').exists(), 'SEO assets missing'
 assert not re.search(r'\b(?:href|src)=["\']https?://raw\.githubusercontent\.com/',html), 'External GitHub image dependency'
 print(f'PASS static: {len(parser.ids)} element IDs, {len(parser.images)} local images, all navigation anchors and required programme content')
