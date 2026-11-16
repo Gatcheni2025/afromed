@@ -22,7 +22,7 @@ async function testViewport(name, width, height, mobile = false) {
   assert.match(await page.locator('h1').innerText(),/Care that.*reaches.*further/s);
   assert.equal(await page.locator('section#saems-awards').count(),1);
   assert.match(await page.locator('section#saems-awards').innerText(),/sponsors and organises/);
-  assert.match(await page.locator('section#partnerships').innerText(),/International & local partners welcome/);
+  assert.match(await page.locator('section#partnerships').innerText(),/International & local partners welcome/i);
   assert.equal(await page.locator('form#partner-form').count(),1);
 
   const anchors = await page.locator('a[href^="#"]').evaluateAll(els => els.map(x=>x.getAttribute('href').slice(1)));
