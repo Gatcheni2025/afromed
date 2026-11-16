@@ -1,0 +1,47 @@
+name: Afromed Development — website QA
+
+on:
+  pull_request:
+    paths:
+      - "development-site/**"
+      - ".github/workflows/development-site-qa.yml"
+  push:
+    branches:
+      - "feat/afromed-development-*"
+    paths:
+      - "development-site/**"
+      - ".github/workflows/development-site-qa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Responsive, accessibility & content smoke tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Static quality checks
+        run: python3 development-site/tests/check_static.py
+      - name: Install Playwright test runner
+        run: npm install --no-save --no-audit --no-fund playwright@1.56.1
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Serve standalone site
+        run: |
+          python3 -m http.server 8787 --bind 127.0.0.1 --directory development-site > /tmp/afromed-http.log 2>&1 &
+          for i in {1..20}; do curl -fsS http://127.0.0.1:8787/ > /dev/null && break || sleep 1; done
+      - name: Run browser smoke tests
+        run: node development-site/tests/smoke.mjs
+      - name: Store viewport screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: afromed-development-browser-screenshots
+          path: /tmp/afromed-*.png
+          if-no-files-found: ignore
