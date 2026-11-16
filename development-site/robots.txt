@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.afromeddevelopment.co.za/sitemap.xml
