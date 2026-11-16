@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#102d29">
+  <meta name="theme-color" content="#102d29">\n  <link rel="icon" type="image/svg+xml" href="./favicon.svg">\n  <script>document.documentElement.classList.add("js");</script>
   <meta name="description" content="Afromed Development is a registered South African non-profit (NPO 245-061) advancing community health, emergency preparedness and access to care. Explore local and international partnerships and our support for the SA EMS Awards.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Afromed Development — Care that reaches further">
@@ -184,7 +184,7 @@
   .footer a.link:hover{color:white}
   .footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid #ffffff1c;margin-top:55px;padding-top:22px;font-size:10px;color:#9fb5a9}
   .footer-bottom a{text-decoration:underline;text-underline-offset:3px}
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity .72s ease,transform .72s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+  .js .reveal{opacity:0;transform:translateY(24px);transition:opacity .72s ease,transform .72s ease}.js .reveal.visible{opacity:1;transform:translateY(0)}
   @keyframes updown{50%{transform:translateY(-10px)}} @keyframes slowspin{to{transform:rotate(360deg)}}
   @keyframes marquee{to{transform:translateX(-50%)}} @keyframes goldshine{50%{filter:drop-shadow(0 0 15px #deb9748c);transform:scale(1.045)}}
   @media(max-width:1020px){.container{width:min(100% - 42px,1170px)}.nav-links{gap:17px}.nav-links a:not(.btn){font-size:10px}.brand{min-width:190px}.hero h1{font-size:58px}.hero-image-main{left:52px}.hero-seal{right:0}.about-grid{gap:45px}.prog-grid{grid-template-columns:repeat(2,1fr)}.prog-content p{min-height:45px}.contact-layout,.approach-grid{gap:45px}}
@@ -391,7 +391,7 @@
       });
       var canvas=document.getElementById('network-orb'),ctx=canvas.getContext&&canvas.getContext('2d');
       if(!ctx)return;
-      var points=[],N=155,phi=Math.PI*(3-Math.sqrt(5)),angle=0,run=!reduce,visible=true;
+      var points=[],N=125,phi=Math.PI*(3-Math.sqrt(5)),angle=0,run=!reduce,visible=false;
       for(var i=0;i<N;i++){var y=1-(i/(N-1))*2;var rr=Math.sqrt(1-y*y),theta=phi*i;points.push([Math.cos(theta)*rr,y,Math.sin(theta)*rr])}
       function render(){
         var w=canvas.width,h=canvas.height;ctx.clearRect(0,0,w,h);
@@ -420,7 +420,7 @@
       if('IntersectionObserver' in window){
         new IntersectionObserver(function(entries){visible=entries[0].isIntersecting;if(visible){if(run)requestAnimationFrame(frame);else render()}},{threshold:.01}).observe(canvas);
       }else{frame()}
-      if(reduce){angle=.3;render()}else{frame()}
+      if(reduce){angle=.3;render()}\n      document.querySelectorAll('img').forEach(function(img){img.addEventListener('error',function(){img.style.opacity='0';img.setAttribute('data-missing-image','true')})})else{frame()}
     })();
   </script>
 </body>
