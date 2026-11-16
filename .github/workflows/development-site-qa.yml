@@ -5,13 +5,11 @@ on:
     paths:
       - "development-site/**"
       - ".github/workflows/development-site-qa.yml"
-  push:
-    branches:
-      - "feat/afromed-development-*"
-    paths:
-      - "development-site/**"
-      - ".github/workflows/development-site-qa.yml"
   workflow_dispatch:
+
+concurrency:
+  group: afromed-development-qa-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -38,6 +36,18 @@ jobs:
           for i in {1..20}; do curl -fsS http://127.0.0.1:8787/ > /dev/null && break || sleep 1; done
       - name: Run browser smoke tests
         run: node development-site/tests/smoke.mjs
+      - name: Package standalone website
+        if: success()
+        run: |
+          cd development-site
+          zip -qr /tmp/afromed-development-deploy.zip index.html privacy.html favicon.svg robots.txt sitemap.xml images firebase.json Deploy-AfromedDevelopment.ps1 README.md
+      - name: Upload deploy-ready site
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: afromed-development-site-package
+          path: /tmp/afromed-development-deploy.zip
+          if-no-files-found: error
       - name: Store viewport screenshots
         if: always()
         uses: actions/upload-artifact@v4
@@ -45,3 +55,4 @@ jobs:
           name: afromed-development-browser-screenshots
           path: /tmp/afromed-*.png
           if-no-files-found: ignore
+
