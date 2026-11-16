@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#102d29">\n  <link rel="icon" type="image/svg+xml" href="./favicon.svg">\n  <script>document.documentElement.classList.add("js");</script>
+  <meta name="theme-color" content="#102d29">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <script>document.documentElement.classList.add("js");</script>
   <meta name="description" content="Afromed Development is a registered South African non-profit (NPO 245-061) advancing community health, emergency preparedness and access to care. Explore local and international partnerships and our support for the SA EMS Awards.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Afromed Development — Care that reaches further">
@@ -418,9 +420,16 @@
       }
       function frame(){if(!visible)return;angle+=.0017;render();if(run)requestAnimationFrame(frame)}
       if('IntersectionObserver' in window){
-        new IntersectionObserver(function(entries){visible=entries[0].isIntersecting;if(visible){if(run)requestAnimationFrame(frame);else render()}},{threshold:.01}).observe(canvas);
-      }else{frame()}
-      if(reduce){angle=.3;render()}\n      document.querySelectorAll('img').forEach(function(img){img.addEventListener('error',function(){img.style.opacity='0';img.setAttribute('data-missing-image','true')})})else{frame()}
+        new IntersectionObserver(function(entries){
+          var currentlyVisible=entries[0].isIntersecting;
+          if(currentlyVisible&&!visible){visible=true;if(run)requestAnimationFrame(frame);else render()}
+          else if(!currentlyVisible){visible=false}
+        },{threshold:.01}).observe(canvas);
+      }else{visible=true;if(run)frame()}
+      if(reduce){angle=.3;render()}
+      document.querySelectorAll('img').forEach(function(img){
+        img.addEventListener('error',function(){img.style.opacity='0';img.setAttribute('data-missing-image','true')})
+      });
     })();
   </script>
 </body>
